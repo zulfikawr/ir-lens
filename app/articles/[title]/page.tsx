@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props): Promise<Metadata> {
-  const { title } = await params;
+  const { title } = params;
   const articles = await getArticles();
   const article = articles.find((article) => article.slug === decodeURIComponent(title));
 
@@ -20,7 +20,7 @@ export async function generateMetadata(
 }
 
 export default async function ArticleDetails({ params }: Props) {
-  const { title } = await params;
+  const { title } = params;
   const articles = await getArticles();
   const article = articles.find((article) => article.slug === decodeURIComponent(title));
 
