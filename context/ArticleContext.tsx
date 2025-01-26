@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getArticles, ArticleType } from "@/app/functions/getArticles";
+import { getArticles } from "@/app/functions/getArticles";
+import { ArticleType } from "@/types/article";
 import { ArticleContext } from "@/hooks/useArticleContext";
 
 type ArticleContextProviderType = {
@@ -11,13 +12,13 @@ type ArticleContextProviderType = {
 export default function ArticleContextProvider({
   children,
 }: ArticleContextProviderType) {
-  const [data, setData] = useState<ArticleType[]>([]);
+  const [data, setData] = useState<ArticleType>({ articles: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const responseData = await getArticles();
-        setData(responseData);
+        setData({ articles: responseData });
       } catch (err) {
         console.log("Error fetching data", err);
       }
@@ -27,7 +28,7 @@ export default function ArticleContextProvider({
   }, []);
 
   return (
-    <ArticleContext.Provider value={{ data }}>
+    <ArticleContext.Provider value={{ data: data.articles }}>
       {children}
     </ArticleContext.Provider>
   );

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArticleType } from "@/types/article"
@@ -11,7 +11,7 @@ interface MasonryArticleProps {
 }
 
 const MasonryArticle = ({ articles }: MasonryArticleProps) => {
-  const allowedTags = ["Diplomacy", "Conflicts", "Economy", "Climate"]
+  const allowedTags = useMemo(() => ["Diplomacy", "Conflicts", "Economy", "Climate"], []);
   const [activeCards, setActiveCards] = useState<Record<string, number>>({})
   const [isHovering, setIsHovering] = useState<Record<string, boolean>>({})
 
@@ -27,7 +27,7 @@ const MasonryArticle = ({ articles }: MasonryArticleProps) => {
       return acc
     }, {} as Record<string, boolean>)
     setIsHovering(initialHovering)
-  }, [])
+  }, [allowedTags])
 
   useEffect(() => {
     const intervals = allowedTags.map((tag) => {
@@ -49,7 +49,7 @@ const MasonryArticle = ({ articles }: MasonryArticleProps) => {
     return () => {
       intervals.forEach(clearInterval)
     }
-  }, [articles, isHovering])
+  }, [articles, allowedTags, isHovering])
 
   const handleCardHover = (tag: string, index: number) => {
     setActiveCards((prev) => ({ ...prev, [tag]: index }))

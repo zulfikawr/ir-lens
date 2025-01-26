@@ -5,12 +5,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 type Props = {
-  params: { title: string };
+  params: Promise<{ title: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props): Promise<Metadata> {
-  const { title } = params;
+  const { title } = await params;
   const articles = await getArticles();
   const article = articles.find((article) => article.slug === decodeURIComponent(title));
 
@@ -20,7 +20,7 @@ export async function generateMetadata(
 }
 
 export default async function ArticleDetails({ params }: Props) {
-  const { title } = params;
+  const { title } = await params;
   const articles = await getArticles();
   const article = articles.find((article) => article.slug === decodeURIComponent(title));
 
