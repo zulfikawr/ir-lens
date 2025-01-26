@@ -78,7 +78,7 @@ export default function SearchPage() {
                 <div className="space-y-4">
                   <div className="flex flex-wrap gap-2">
                     {article.labels.map((label) => (
-                      <Link href={`/tags/${label}`}>
+                      <Link key={label} href={`/tags/${label}`}>
                         <Button>
                           {label}
                         </Button>
