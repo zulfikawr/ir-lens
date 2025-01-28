@@ -222,7 +222,8 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button className='flex items-center gap-2'>
                 <Tag className='w-4 h-4' />
-                {article.labels.find((label) => topics.includes(label)) || 'Select Topic'}
+                {article.labels.find((label) => topics.includes(label)) ||
+                  'Select Topic'}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56 p-2 shadow-lg'>
@@ -244,7 +245,8 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button className='flex items-center gap-2'>
                 <Globe className='w-4 h-4' />
-                {article.labels.find((label) => regions.includes(label)) || 'Select Region'}
+                {article.labels.find((label) => regions.includes(label)) ||
+                  'Select Region'}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56 p-2 shadow-lg'>

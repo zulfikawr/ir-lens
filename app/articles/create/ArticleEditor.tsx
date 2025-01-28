@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Eye, Save } from "lucide-react"
-import { useArticleState } from "@/hooks/useArticleState"
-import { ArticleHeader } from "./components/ArticleHeader"
-import { ContentBlocks } from "./components/ContentBlocks"
-import { createNewBlock } from "@/utils/blockUtils"
-import { useToast } from "@/hooks/useToast"
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Eye, Save } from 'lucide-react';
+import { useArticleState } from '@/hooks/useArticleState';
+import { ArticleHeader } from './components/ArticleHeader';
+import { ContentBlocks } from './components/ContentBlocks';
+import { createNewBlock } from '@/utils/blockUtils';
+import { useToast } from '@/hooks/useToast';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,65 +18,73 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import type { ArticleType } from "@/types/article"
+} from '@/components/ui/alert-dialog';
+import type { ArticleType } from '@/types/article';
 
 interface ArticleEditorProps {
-  article: ArticleType["articles"][0]
+  article: ArticleType['articles'][0];
 }
 
-export default function ArticleEditor({ article: initialArticle }: ArticleEditorProps) {
-  const { article, updateArticle, addBlock, updateBlock, removeBlock } = useArticleState(initialArticle)
-  const { toast } = useToast()
+export default function ArticleEditor({
+  article: initialArticle,
+}: ArticleEditorProps) {
+  const { article, updateArticle, addBlock, updateBlock, removeBlock } =
+    useArticleState(initialArticle);
+  const { toast } = useToast();
 
   const handleSaveConfirm = async () => {
-    const isNew = !article.id
-    const url = isNew ? "/api/article/create" : "/api/article/update"
-    const method = isNew ? "POST" : "PUT"
+    const isNew = !article.id;
+    const url = isNew ? '/api/article/create' : '/api/article/update';
+    const method = isNew ? 'POST' : 'PUT';
 
     try {
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(article),
-      })
+      });
 
       if (response.ok) {
         toast({
-          description: isNew ? "Article created successfully!" : "Article updated successfully!",
+          description: isNew
+            ? 'Article created successfully!'
+            : 'Article updated successfully!',
           duration: 2000,
-        })
+        });
         if (isNew) {
-          localStorage.removeItem("draftArticle")
+          localStorage.removeItem('draftArticle');
         }
       } else {
-        const error = await response.json()
-        throw new Error(error.message || "Failed to save the article.")
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to save the article.');
       }
     } catch (error) {
-      console.error("Error saving article:", error)
+      console.error('Error saving article:', error);
       toast({
-        description: "Error saving article!",
+        description: 'Error saving article!',
         duration: 2000,
-        variant: "destructive",
-      })
+        variant: 'destructive',
+      });
     }
-  }
+  };
 
   const handlePreview = () => {
-    const previewWindow = window.open(`/articles/preview/${article.slug}`, "_blank")
+    const previewWindow = window.open(
+      `/articles/preview/${article.slug}`,
+      '_blank',
+    );
     if (previewWindow) {
-      previewWindow.articleData = article
+      previewWindow.articleData = article;
     }
-  }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="top-0 bg-white py-4 space-x-4 flex justify-end items-center border-b mb-8">
+    <div className='max-w-4xl mx-auto px-4 py-8'>
+      <div className='top-0 bg-white py-4 space-x-4 flex justify-end items-center border-b mb-8'>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="flex items-center gap-2">
-              <Save className="w-4 h-4" />
+            <Button className='flex items-center gap-2'>
+              <Save className='w-4 h-4' />
               Save
             </Button>
           </AlertDialogTrigger>
@@ -84,18 +92,21 @@ export default function ArticleEditor({ article: initialArticle }: ArticleEditor
             <AlertDialogHeader>
               <AlertDialogTitle>Save Article</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to save this article? Make sure you've reviewed all changes.
+                Are you sure you want to save this article? Make sure you have
+                reviewed all changes.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleSaveConfirm}>Save</AlertDialogAction>
+              <AlertDialogAction onClick={handleSaveConfirm}>
+                Save
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
 
-        <Button onClick={handlePreview} className="flex items-center gap-2">
-          <Eye className="w-4 h-4" />
+        <Button onClick={handlePreview} className='flex items-center gap-2'>
+          <Eye className='w-4 h-4' />
           Preview
         </Button>
       </div>
@@ -110,6 +121,5 @@ export default function ArticleEditor({ article: initialArticle }: ArticleEditor
         updateArticle={updateArticle}
       />
     </div>
-  )
+  );
 }
-

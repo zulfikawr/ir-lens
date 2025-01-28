@@ -76,11 +76,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ user }) => {
               <NavigationMenuContent>
                 <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 max-h-[calc(100vh-4rem)] overflow-auto'>
                   {menu.tags.map((tag) => (
-                    <ListItem
-                      key={tag.title}
-                      title={tag.title}
-                      href={tag.href}
-                    >
+                    <ListItem key={tag.title} title={tag.title} href={tag.href}>
                       {tag.description}
                     </ListItem>
                   ))}

@@ -74,10 +74,7 @@ export default function LoginPage() {
             required
           />
         </div>
-        <Button
-          type='submit'
-          className='w-full py-2 px-4'
-        >
+        <Button type='submit' className='w-full py-2 px-4'>
           Login
         </Button>
       </form>
