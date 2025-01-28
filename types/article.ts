@@ -52,16 +52,6 @@ export type ListBlock = ContentBlockBase & {
   items: string[];
 };
 
-export type SubheadingBlock = ContentBlockBase & {
-  type: 'subheading';
-};
-
-export type ButtonBlock = ContentBlockBase & {
-  type: 'button';
-  url: string;
-  label: string;
-};
-
 export type ContentBlock =
   | TextBlock
   | ImageBlock
@@ -72,12 +62,11 @@ export type ContentBlock =
   | CalloutBlock
   | HeadingBlock
   | SeparatorBlock
-  | ListBlock
-  | SubheadingBlock
-  | ButtonBlock
+  | ListBlock;
 
 export type ArticleType = {
   articles: Array<{
+    id: string;
     title: string;
     description: string;
     date: string;

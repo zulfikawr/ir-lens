@@ -1,0 +1,80 @@
+{
+  "tags": [
+    {
+      "title": "Diplomacy",
+      "href": "/tags/Diplomacy",
+      "description": "Diplomacy-related news and discussions"
+    },
+    {
+      "title": "Economy",
+      "href": "/tags/Economy",
+      "description": "Economic policies, trends, and global markets"
+    },
+    {
+      "title": "Conflicts",
+      "href": "/tags/Conflicts",
+      "description": "Global conflicts and geopolitical tensions"
+    },
+    {
+      "title": "Climate",
+      "href": "/tags/Climate",
+      "description": "Climate change and environmental issues"
+    }
+  ],
+  "footerLinks": {
+    "about": [
+      {
+        "title": "Our Mission",
+        "href": "/about"
+      },
+      {
+        "title": "Editorial Team",
+        "href": "/team"
+      },
+      {
+        "title": "Ethics Policy",
+        "href": "/ethics"
+      },
+      {
+        "title": "Become a Contributor",
+        "href": "/join"
+      }
+    ],
+    "sections": [
+      {
+        "title": "Diplomacy",
+        "href": "/tags/diplomacy"
+      },
+      {
+        "title": "Global Economy",
+        "href": "/tags/global-economy"
+      },
+      {
+        "title": "Conflicts",
+        "href": "/tags/conflicts"
+      },
+      {
+        "title": "Climate",
+        "href": "/tags/climate"
+      }
+    ],
+    "connect": [
+      {
+        "title": "Contact Us",
+        "href": "/contact"
+      },
+      {
+        "title": "Twitter",
+        "href": "#"
+      },
+      {
+        "title": "Instagram",
+        "href": "#"
+      },
+      {
+        "title": "LinkedIn",
+        "href": "#"
+      }
+    ]
+  }
+}

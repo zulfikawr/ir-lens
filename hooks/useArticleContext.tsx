@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react";
-import { ArticleType } from "@/types/article";
+import { createContext, useContext } from 'react';
+import { ArticleType } from '@/types/article';
 
 type ArticleContextType = {
-  data: ArticleType["articles"];
+  data: ArticleType['articles'];
 };
 
 export const ArticleContext = createContext<ArticleContextType | null>(null);
@@ -12,7 +12,7 @@ export function useArticleContext() {
 
   if (!articleContext) {
     throw new Error(
-      "useArticleContext must be used within an ArticleContextProvider"
+      'useArticleContext must be used within an ArticleContextProvider',
     );
   }
 

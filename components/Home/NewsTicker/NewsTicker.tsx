@@ -1,18 +1,35 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import Link from "next/link";
-import articles from "@/json/articles.json";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { getArticles } from '@/app/functions/getArticles';
 
 export default function NewsTicker() {
+  const [articles, setArticles] = useState<{ title: string; slug: string }[]>(
+    [],
+  );
   const newsText = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!newsText.current || !containerRef.current) return;
+    const fetchArticles = async () => {
+      const fetchedArticles = await getArticles();
+      setArticles(
+        fetchedArticles.map((article) => ({
+          title: article.title,
+          slug: article.slug,
+        })),
+      );
+    };
+
+    fetchArticles();
+  }, []);
+
+  useEffect(() => {
+    if (!newsText.current || !containerRef.current || articles.length === 0)
+      return;
 
     const ticker = newsText.current;
-
     const clonedContent = ticker.innerHTML;
     ticker.innerHTML += clonedContent;
 
@@ -36,24 +53,24 @@ export default function NewsTicker() {
     requestAnimationFrame(animate);
 
     return () => {
-      ticker.style.transform = "";
+      ticker.style.transform = '';
       ticker.innerHTML = clonedContent;
     };
-  });
+  }, [articles]);
 
   return (
     <div
       ref={containerRef}
-      className="flex bg-black text-white py-5 w-full mx-auto relative overflow-hidden my-8"
+      className='flex bg-black text-white py-5 w-full mx-auto relative overflow-hidden my-8'
     >
       <div
         ref={newsText}
-        className="flex gap-4 sliding-ticker whitespace-nowrap"
+        className='flex gap-4 sliding-ticker whitespace-nowrap'
       >
-        {articles.articles.map((article, index) => (
-          <div key={index} className="hover:underline">
+        {articles.map((article, index) => (
+          <div key={index} className='hover:underline'>
             <Link href={`/articles/${article.slug}`} passHref>
-              <p className="cursor-pointer">{article.title} +++</p>
+              <p className='cursor-pointer'>{article.title} +++</p>
             </Link>
           </div>
         ))}

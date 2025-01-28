@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { database } from "@/lib/firebase";
-import { ref, set, get } from "firebase/database";
-import { subscriberSchema } from "@/lib/types";
+import { NextResponse } from 'next/server';
+import { database } from '@/lib/firebase';
+import { ref, set, get } from 'firebase/database';
+import { subscriberSchema } from '@/lib/types';
 
 export async function POST(request: Request) {
   try {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     if (snapshot.exists()) {
       return NextResponse.json(
         { error: 'Email already subscribed' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       email: result.data.email,
       preferences: result.data.preferences,
       status: 'active',
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     });
 
     return NextResponse.json({ success: true });
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     console.error('Subscription error:', error);
     return NextResponse.json(
       { error: 'Failed to subscribe. Please try again.' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

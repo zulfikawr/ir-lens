@@ -95,7 +95,7 @@
           "content": "The ceasefire agreement also focuses on rebuilding Gaza's shattered infrastructure. International aid organizations, alongside governments in Egypt and the Middle East, are working to ensure that vital resources reach those in need while negotiations for a permanent peace continue."
         }
       ]
-    },    
+    },
     {
       "title": "Israel Launches Military Operation in Jenin Amid Ceasefire with Hamas",
       "description": "Israel's military operation in Jenin results in casualties and raises tensions as the ceasefire with Hamas enters its third day. Meanwhile, humanitarian aid continues to flow into Gaza as conditions remain dire.",
@@ -293,7 +293,167 @@
           "role": "President, European Commission"
         }
       ]
-    },     
+    },
+    {
+      "title": "South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools",
+      "description": "Amid South Korea's deepening political crisis, citizens are repurposing flower wreaths and K-pop light sticks as tools of protest against President Yoon Suk Yeol's short-lived martial law declaration and impeachment proceedings.",
+      "date": "23 January 2025",
+      "location": "Seoul, South Korea",
+      "labels": ["Conflicts", "Asia"],
+      "coverImage": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul.jpg",
+      "coverImageAlt": "Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul. (AP Photo/Juwon Park)",
+      "slug": "South-Koreans-Use-Flower-Wreaths-and-K-pop-Light-Sticks-as-Political-Protest-Tools",
+      "blocks": [
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul.jpg",
+              "imageAlt": "Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul. (AP Photo/Juwon Park)"
+            },
+            {
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Participants gather to celebrate after South Korea's parliament voted to impeach President Yoon Suk Yeol outside the National Assembly in Seoul, South Korea, Dec. 14, 2024.jpg",
+              "imageAlt": "Participants gather to celebrate after South Korea’s parliament voted to impeach President Yoon Suk Yeol outside the National Assembly in Seoul, South Korea, Dec. 14, 2024. (AP Photo/Ahn Young-joon)"
+            },
+            {
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Lee Seo-jin, 19, a student, poses for a photo during a rally to demand South Korean President Yoon Suk Yeol's impeachment outside the National Assembly in Seoul, South Korea, Dec. 11, 2024.jpg",
+              "imageAlt": "Lee Seo jin, 19, a student, poses for a photo during a rally to demand South Korean President Yoon Suk Yeol’s impeachment outside the National Assembly in Seoul, South Korea, Dec. 11, 2024. (AP Photo/Lee Jin-man)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "South Koreans are repurposing flower wreaths and K-pop light sticks as political protest tools amid the nation’s deepest political crisis in decades. The crisis was sparked by President Yoon Suk Yeol’s short-lived martial law declaration in December 2024, which led to his impeachment just 11 days later."
+        },
+        {
+          "type": "text",
+          "content": "Hundreds of wreaths, predominantly directed at Yoon himself, have been sent to his residence and government buildings connected to the impeachment proceedings. Some wreaths also target other officials involved in the martial law controversy. Local media estimate that several thousand wreaths have been delivered to government offices."
+        },
+        {
+          "type": "highlight",
+          "content": "The protest method has gained traction, with media coverage increasing significantly in 2024. A search on Big Kinds, a media analysis platform, shows that wreath protests received four times more coverage in 2024 compared to 2023."
+        },
+        {
+          "type": "text",
+          "content": "While many wreaths carry moderate messages supporting Yoon or opposing impeachment, several contain extreme rhetoric directed at recipients. The wreaths, which cost as much as $75, come in two main types: black-ribboned funeral wreaths with white chrysanthemums and celebratory wreaths with vibrant roses and orchids."
+        },
+        {
+          "type": "text",
+          "content": "Yoon Miyoung, of Seoul-based Dongsung Flower, said she has delivered over 1,000 wreaths since December, exclusively for pro-Yoon supporters. 'We’ve sent out so many wreaths that Seoul is running out of flowers,' she said, adding that over one-third of her customers are in their 20s and 30s, with orders coming from outside South Korea, including Japan, the United States, and the Netherlands."
+        },
+        {
+          "type": "text",
+          "content": "Choi Hang-sub, a sociology professor at Kookmin University, noted that while wreaths avoid physical violence, the messages on funeral wreaths have evolved into a form of offline hate speech. 'It’s similar to malicious online comments but now decorated with flowers,' he said."
+        },
+        {
+          "type": "text",
+          "content": "Experts also raise concerns about the environmental impact of wreath protests. 'Most wreaths use cheap, non-environmentally friendly materials that neither help flower farmers nor the environment,' said Kim Hern Sik, a professor at Jungwon University."
+        },
+        {
+          "type": "text",
+          "content": "In addition to wreaths, K-pop light sticks have become a popular tool for political protest. Last December, outside the National Assembly where lawmakers voted to impeach Yoon, thousands of people wielded light sticks from popular bands like BIGBANG, NCT, and Epik High during pro-impeachment rallies."
+        },
+        {
+          "type": "text",
+          "content": "'Even though these idol lightsticks are expensive, people are bringing their most precious possessions to express their opinions,' said Hong Gayeong, a 29-year-old protester at a Dec. 13 rally calling for Yoon’s impeachment. The phenomenon has sparked a protest coalition, with some offering free shipping and light-stick rentals through popular resale apps."
+        },
+        {
+          "type": "image",
+          "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Funeral wreaths bearing messages critical of officials involved in South Korea's martial law controversy stand outside the Government Complex Seoul on Monday, Jan. 20, 2025, in Seoul.jpg",
+          "imageAlt": "Funeral wreaths bearing messages critical of officials involved in South Korea’s martial law controversy stand outside the Government Complex Seoul on Monday, Jan. 20, 2025, in Seoul. (AP Photo/Juwon Park)"
+        },
+        {
+          "type": "text",
+          "content": "The crisis began when Yoon imposed military rule on Dec. 3, 2024, and dispatched troops to the National Assembly, leading to his impeachment 11 days later. Yoon was apprehended on Jan. 19, 2025, in a massive law enforcement operation at his residential compound."
+        },
+        {
+          "type": "text",
+          "content": "The Constitutional Court now has 180 days to decide whether to formally remove Yoon from office or reinstate him as he faces potential rebellion charges."
+        },
+        {
+          "type": "highlight",
+          "content": "The use of flower wreaths and K-pop light sticks as protest tools reflects the creativity and determination of South Koreans in expressing their political dissent, even as the nation grapples with its most severe political crisis in decades."
+        }
+      ]
+    },
+    {
+      "title": "North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea",
+      "description": "North Korea announced it successfully tested a strategic cruise missile system, its third weapons test this year, as tensions escalate over U.S.-South Korea military drills. Leader Kim Jong Un emphasized the need to strengthen the country's military capabilities.",
+      "date": "22 January 2023",
+      "location": "Pyongyang, North Korea",
+      "labels": ["Conflicts", "Asia"],
+      "coverImage": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+      "coverImageAlt": "North Korean leader Kim Jong Un observes the test launch of a strategic cruise missile system.",
+      "slug": "North-Korea-Conducts-Cruise-Missile-Test-Amid-Rising-Tensions",
+      "blocks": [
+        {
+          "type": "image",
+          "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+          "imageAlt": "Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg (KCNA)"
+        },
+        {
+          "type": "text",
+          "content": "North Korea confirmed on Sunday that it conducted a test of a new strategic cruise missile system, marking its third known weapons demonstration this year. The test, observed by leader Kim Jong Un, comes amid heightened tensions with the United States and South Korea over ongoing military exercises in the region."
+        },
+        {
+          "type": "text",
+          "content": "The Korean Central News Agency (KCNA) reported that the missiles traveled 1,500 kilometers (932 miles) in elliptical and figure-eight-shaped flight patterns before hitting their targets. The term 'strategic' suggests the missiles are capable of carrying nuclear warheads, though this claim has not been independently verified."
+        },
+        {
+          "type": "highlight",
+          "content": "The missile test underscores North Korea's commitment to strengthening its military capabilities, particularly in response to what it perceives as growing threats from U.S.-South Korea military drills."
+        },
+        {
+          "type": "text",
+          "content": "According to KCNA, Kim Jong Un emphasized that North Korea's war deterrence capabilities are 'being perfected more thoroughly' and affirmed the country's commitment to defending stability through 'more powerfully developed military muscle.'"
+        },
+        {
+          "type": "text",
+          "content": "South Korea's Joint Chiefs of Staff confirmed that North Korea launched several cruise missiles toward its western waters on Saturday. The South Korean military stated it remains prepared to 'overwhelmingly' repel any provocations, in coordination with its U.S. ally."
+        },
+        {
+          "type": "text",
+          "content": "North Korea's Foreign Ministry issued a statement on Sunday, condemning the U.S. and South Korea for conducting military drills it described as 'serious military provocations.' The statement warned that North Korea would respond with the 'toughest counteraction from A to Z' to protect its sovereignty and security interests."
+        },
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/This photo provided by the North Korean government shows testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+              "imageAlt": "This photo provided by the North Korean government shows testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg"
+            },
+            {
+              "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/A TV screen shows an image of North Korea's missile launch during a news program at Seoul Railway Station in Seoul, South Korea, Sunday, Jan. 26, 2025.  AP Photo, Ahn Young-joon.jpg",
+              "imageAlt": "A TV screen shows an image of North Korea's missile launch during a news program at Seoul Railway Station in Seoul, South Korea, Sunday, Jan. 26, 2025.  AP Photo, Ahn Young-joon.jpg."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "North Korea has long viewed U.S.-South Korea military exercises as rehearsals for invasion, despite assurances from Washington and Seoul that the drills are defensive in nature. In recent years, the scale and frequency of these exercises have increased in response to North Korea's advancing nuclear and missile programs."
+        },
+        {
+          "type": "text",
+          "content": "The timing of the missile test is significant, as it follows recent comments from U.S. officials about the potential for renewed diplomacy with North Korea. However, experts believe Kim Jong Un may feel emboldened in future negotiations due to North Korea's expanded nuclear arsenal and growing military ties with Russia."
+        },
+        {
+          "type": "callout",
+          "content": "The missile test highlights the fragile state of relations on the Korean Peninsula. While diplomatic efforts remain a possibility, the risk of further escalation looms large as both sides continue to bolster their military postures."
+        },
+        {
+          "type": "text",
+          "content": "The international community has long avoided recognizing North Korea as a nuclear state, as doing so could legitimize its pursuit of nuclear weapons in violation of U.N. Security Council resolutions. However, recent debates about North Korea's nuclear status have sparked discussions about the future of denuclearization efforts."
+        },
+        {
+          "type": "text",
+          "content": "As tensions persist, the region remains on edge, with the potential for further missile tests or military provocations. The coming weeks will be critical in determining whether diplomacy can resume or if the situation will deteriorate further."
+        },
+        {
+          "type": "highlight",
+          "content": "The missile test serves as a stark reminder of the ongoing security challenges in Northeast Asia. While hopes for diplomacy linger, the path to peace remains fraught with uncertainty."
+        }
+      ]
+    },
     {
       "title": "US Military Sends Troops to Mexico Border amid Trump Immigration Crackdown",
       "description": "The deployment is part of Trump’s executive action to declare a ‘national emergency’ at the US’s southern border.",
@@ -478,7 +638,7 @@
           "content": "The Indonesian government emphasizes BRICS as a platform to amplify voices from the Global South, fostering equitable global decision-making processes."
         }
       ]
-    },    
+    },
     {
       "title": "Indonesia Launches Free Meals Program to Fight Stunting",
       "description": "Indonesia rolls out a nationwide program to provide free nutritious meals to children and pregnant women, aiming to combat stunting and malnutrition.",
@@ -537,7 +697,7 @@
             "Distribution will cover schools from early education to high school.",
             "Meals will be free of charge for all recipients."
           ]
-        },        
+        },
         {
           "type": "text",
           "content": "Despite its noble goals, the program has sparked debate. Critics, including economic analysts, have raised concerns about its financial sustainability. They argue that the state budget is already under pressure, and meeting the program’s targets may increase the national debt."
@@ -561,7 +721,7 @@
           "content": "As the program unfolds, its impact on public health, education, and the economy will be closely monitored. The success of this initiative could serve as a model for other nations grappling with similar challenges of child malnutrition and stunting."
         }
       ]
-    },    
+    },
     {
       "title": "Malaysia Joins BRICS as Partner Country to Enhance Regional and Global Influence",
       "description": "Malaysia's inclusion as a BRICS partner country strengthens its role in South-South cooperation and reduces reliance on Western nations.",
@@ -662,7 +822,7 @@
           "type": "gallery",
           "images": [
             {
-              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia.jpg", 
+              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia.jpg",
               "imageAlt": "Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia"
             },
             {
@@ -670,7 +830,7 @@
               "imageAlt": "Relatives of victims of the 2004 Indian Ocean tsunami hold a candlelight vigil as they recognize the 20th anniversary of the natural disaster at Tsunami Memorial Park at Ban Nam Khem Takuapa district of Phang Nga province, southern Thailand"
             },
             {
-              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Indians offer tributes in remembrance of victims of the 2004 tsunami on the 20th anniversary of the tragedy at Marina Beach in Chennai, India.jpg", 
+              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Indians offer tributes in remembrance of victims of the 2004 tsunami on the 20th anniversary of the tragedy at Marina Beach in Chennai, India.jpg",
               "imageAlt": "Indians offer tributes in remembrance of victims of the 2004 tsunami on the 20th anniversary of the tragedy at Marina Beach in Chennai, India"
             }
           ]
@@ -706,6 +866,6 @@
           "content": "The 2004 tsunami’s impact extended far beyond Asia, with waves claiming nearly 300 lives in Somalia, over 100 in the Maldives, and dozens more in Malaysia and Myanmar. The tragedy brought about profound changes, including advancements in early warning systems. Today, a sophisticated network of monitoring stations and international cooperation ensures quicker alerts, significantly reducing risks in coastal communities. Survivors and officials expressed hope that such a disaster will never happen again while emphasizing the importance of learning from the past to protect future generations."
         }
       ]
-    }        
+    }
   ]
 }

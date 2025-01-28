@@ -1,13 +1,35 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ArticleContextProvider from "@/context/ArticleContext";
-import { Toaster } from "@/components/ui/toaster"
+import './globals.css';
+import type { Metadata } from 'next';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer';
+import ArticleContextProvider from '@/context/ArticleContext';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: "IR Lens",
-  description: "International Relations News",
+  title: 'IR Lens',
+  description: 'International Relations News',
+  icons: {
+    icon: [
+      { url: '/logos/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logos/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logos/favicon.ico', type: 'image/x-icon' },
+    ],
+    apple: '/logos/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        url: '/logos/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        rel: 'icon',
+        url: '/logos/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -16,14 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link
-          rel="icon"
-          href="/images/IR.png"
-          type="image/x-icon"
-        />
-      </head>
+    <html lang='en' className='scroll-smooth'>
       <body>
         <ArticleContextProvider>
           <Header />

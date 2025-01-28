@@ -5,12 +5,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendNewArticleEmail(
   subscriber: { email: string },
-  article: { title: string; description: string; slug: string }
+  article: { title: string; description: string; slug: string },
 ) {
   try {
     const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
-    //to: subscriber.email,
+      //to: subscriber.email,
       to: 'zulfikar6556@gmail.com',
       subject: `New Article: ${article.title}`,
       html: `
@@ -23,7 +23,7 @@ export async function sendNewArticleEmail(
             Read More
           </a>
         </div>
-      `
+      `,
     });
 
     if (error) {
