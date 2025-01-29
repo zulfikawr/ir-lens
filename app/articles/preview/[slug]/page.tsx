@@ -2,7 +2,7 @@
 
 import { use } from 'react';
 import { useEffect, useState } from 'react';
-import { ArticlePreview } from '@/app/articles/create/components/ArticlePreview';
+import { ArticlePreview } from '@/components/Articles/preview/ArticlePreview';
 import type { ArticleType } from '@/types/article';
 
 export default function ArticleSlugPreviewPage({

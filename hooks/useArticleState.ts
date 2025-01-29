@@ -3,18 +3,15 @@ import type { ArticleType, ContentBlock } from '@/types/article';
 
 export function useArticleState(initialArticle: ArticleType['articles'][0]) {
   const [article, setArticle] = useState<ArticleType['articles'][0]>(() => {
-    // If it's a new article (no id), check localStorage
-    if (!initialArticle.id) {
+    if (!initialArticle.slug) {
       const savedArticle = localStorage.getItem('draftArticle');
       return savedArticle ? JSON.parse(savedArticle) : initialArticle;
     }
-    // For existing articles, use the initialArticle
     return initialArticle;
   });
 
   useEffect(() => {
-    // Only save to localStorage if it's a new article (no id)
-    if (!article.id) {
+    if (!article.slug) {
       localStorage.setItem('draftArticle', JSON.stringify(article));
     }
   }, [article]);
@@ -26,11 +23,19 @@ export function useArticleState(initialArticle: ArticleType['articles'][0]) {
     [],
   );
 
-  const addBlock = useCallback((newBlock: ContentBlock) => {
-    setArticle((prev) => ({
-      ...prev,
-      blocks: [...prev.blocks, newBlock],
-    }));
+  const addBlock = useCallback((newBlock: ContentBlock, index?: number) => {
+    setArticle((prev) => {
+      const newBlocks = [...prev.blocks];
+      if (index !== undefined) {
+        newBlocks.splice(index, 0, newBlock);
+      } else {
+        newBlocks.push(newBlock);
+      }
+      return {
+        ...prev,
+        blocks: newBlocks,
+      };
+    });
   }, []);
 
   const updateBlock = useCallback(

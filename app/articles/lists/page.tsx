@@ -47,7 +47,7 @@ import {
 } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 10;
-type SortableKeys = 'id' | 'title' | 'date';
+type SortableKeys = 'title' | 'date';
 
 export default function ArticlesListPage() {
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
@@ -174,7 +174,7 @@ export default function ArticlesListPage() {
               <Table className='w-full'>
                 <TableHeader>
                   <TableRow className='bg-gray-50'>
-                    {['ID', 'Title', 'Date', 'Actions'].map((header, index) => (
+                    {['Title', 'Date', 'Actions'].map((header, index) => (
                       <TableHead
                         key={header}
                         className='font-bold text-black text-lg py-4'
@@ -198,12 +198,9 @@ export default function ArticlesListPage() {
                 <TableBody>
                   {paginatedArticles.map((article) => (
                     <TableRow
-                      key={article.id}
+                      key={article.slug}
                       className='hover:bg-gray-50 transition-colors'
                     >
-                      <TableCell className='font-medium text-black'>
-                        {article.id}
-                      </TableCell>
                       <TableCell className='text-black'>
                         {article.title}
                       </TableCell>
@@ -246,7 +243,7 @@ export default function ArticlesListPage() {
                                   <DropdownMenuItem
                                     onSelect={(e) => {
                                       e.preventDefault();
-                                      setArticleToDelete(article.id);
+                                      setArticleToDelete(article.slug);
                                     }}
                                   >
                                     <div className='flex items-center text-red-500'>

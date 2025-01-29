@@ -4,13 +4,13 @@ import { updateArticle } from '@/lib/database';
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { id, ...articleData } = body;
+    const { slug, ...articleData } = body;
 
-    if (!id) {
-      throw new Error('Article ID is required for updates.');
+    if (!slug) {
+      throw new Error('Article slug is required for updates.');
     }
 
-    await updateArticle(id, articleData);
+    await updateArticle(slug, articleData);
 
     return NextResponse.json(
       { message: 'Article updated successfully' },

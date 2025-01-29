@@ -9,7 +9,7 @@ export async function getArticles(): Promise<ArticleType['articles']> {
     if (snapshot.exists()) {
       const data = snapshot.val();
       return Object.keys(data).map((key) => ({
-        id: key,
+        slug: key,
         ...data[key],
       }));
     } else {

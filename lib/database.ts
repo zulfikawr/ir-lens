@@ -12,7 +12,7 @@ export async function addArticle(
   const articlesRef = ref(database, 'articles');
   try {
     const newArticleRef = await push(articlesRef, article);
-    console.log('Article added with ID:', newArticleRef.key);
+    console.log('Article added with slug:', newArticleRef.key);
     return newArticleRef.key!;
   } catch (error) {
     console.error('Error adding article:', error);
@@ -22,17 +22,17 @@ export async function addArticle(
 
 /**
  * Update an existing article in the Firebase Realtime Database.
- * @param id
+ * @param slug
  * @param article
  */
 export async function updateArticle(
-  id: string,
+  slug: string,
   article: Record<string, any>,
 ): Promise<void> {
-  const articleRef = ref(database, `articles/${id}`);
+  const articleRef = ref(database, `articles/${slug}`);
   try {
     await update(articleRef, article);
-    console.log('Article updated with ID:', id);
+    console.log('Article updated:', slug);
   } catch (error) {
     console.error('Error updating article:', error);
     throw error;
@@ -41,13 +41,13 @@ export async function updateArticle(
 
 /**
  * Delete an article from the Firebase Realtime Database.
- * @param id - The ID of the article to delete
+ * @param slug
  */
-export async function deleteArticle(id: string): Promise<void> {
-  const articleRef = ref(database, `articles/${id}`);
+export async function deleteArticle(slug: string): Promise<void> {
+  const articleRef = ref(database, `articles/${slug}`);
   try {
     await remove(articleRef);
-    console.log('Article deleted with ID:', id);
+    console.log('Article deleted:', slug);
   } catch (error) {
     console.error('Error deleting article:', error);
     throw error;

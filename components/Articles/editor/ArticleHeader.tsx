@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useRef } from 'react';
 import Image from 'next/image';
-import { Calendar, MapPin, Tag, Globe, Plus } from 'lucide-react';
+import { Calendar, MapPin, Tag, Globe, Plus, Trash } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import {
   DropdownMenu,
@@ -36,6 +36,10 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleRemoveCoverImage = () => {
+    onUpdate({ coverImage: '', coverImageAlt: '' });
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -110,7 +114,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
           className={`relative w-full h-[400px] mb-4 ${article.coverImage ? 'mb-[5rem]' : ''}`}
         >
           <div
-            className='relative w-full max-w-4xl h-[400px] mx-auto border-2 border-dashed border-gray-300 rounded-lg overflow-hidden'
+            className='relative w-full max-w-4xl h-[400px] mx-auto border-2 border-dashed border-gray-300 overflow-hidden'
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
@@ -128,6 +132,14 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
                   height={300}
                   className='object-cover w-full h-full'
                 />
+                <Button
+                  variant='destructive'
+                  onClick={handleRemoveCoverImage}
+                  className='absolute bottom-4 right-4 p-2 flex items-center'
+                >
+                  <Trash className='w-5 h-5 mr-2' />
+                  Remove
+                </Button>
               </div>
             ) : (
               <label className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors'>
@@ -158,11 +170,60 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
                 type='text'
                 value={article.coverImageAlt}
                 onChange={handleCoverImageAltChange}
-                className='w-full p-2 focus:outline-none text-center border border-gray-300 rounded focus:outline-none'
+                className='w-full p-2 focus:outline-none text-center border border-gray-300 focus:outline-none'
                 placeholder='Enter alt text for the cover image'
               />
             </div>
           )}
+        </div>
+
+        {/* Labels Section */}
+        <div className='flex flex-wrap gap-2 md:gap-4 my-6 ml-auto'>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className='flex items-center gap-2'>
+                <Tag className='w-4 h-4' />
+                {article.labels.find((label) => topics.includes(label)) ||
+                  'Select Topic'}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
+              <DropdownMenuGroup>
+                {topics.map((topic) => (
+                  <DropdownMenuItem
+                    key={topic}
+                    onClick={() => handleTopicSelect(topic)}
+                    className='cursor-pointer flex items-center gap-2'
+                  >
+                    {topic}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className='flex items-center gap-2'>
+                <Globe className='w-4 h-4' />
+                {article.labels.find((label) => regions.includes(label)) ||
+                  'Select Region'}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
+              <DropdownMenuGroup>
+                {regions.map((region) => (
+                  <DropdownMenuItem
+                    key={region}
+                    onClick={() => handleRegionSelect(region)}
+                    className='cursor-pointer flex items-center gap-2'
+                  >
+                    {region}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Title Section */}
@@ -214,55 +275,6 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
               placeholder='Jakarta, Indonesia...'
             />
           </div>
-        </div>
-
-        {/* Labels Section */}
-        <div className='flex flex-wrap gap-2 md:gap-4 my-6 ml-auto'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2'>
-                <Tag className='w-4 h-4' />
-                {article.labels.find((label) => topics.includes(label)) ||
-                  'Select Topic'}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
-              <DropdownMenuGroup>
-                {topics.map((topic) => (
-                  <DropdownMenuItem
-                    key={topic}
-                    onClick={() => handleTopicSelect(topic)}
-                    className='cursor-pointer flex items-center gap-2'
-                  >
-                    {topic}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2'>
-                <Globe className='w-4 h-4' />
-                {article.labels.find((label) => regions.includes(label)) ||
-                  'Select Region'}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
-              <DropdownMenuGroup>
-                {regions.map((region) => (
-                  <DropdownMenuItem
-                    key={region}
-                    onClick={() => handleRegionSelect(region)}
-                    className='cursor-pointer flex items-center gap-2'
-                  >
-                    {region}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </div>
     </div>

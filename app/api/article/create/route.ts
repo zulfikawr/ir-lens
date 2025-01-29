@@ -4,9 +4,9 @@ import { addArticle } from '@/lib/database';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const id = await addArticle(body);
+    const slug = await addArticle(body);
     return NextResponse.json(
-      { message: 'Article added successfully', id },
+      { message: 'Article added successfully', slug },
       { status: 200 },
     );
   } catch (error) {

@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Eye, Save } from 'lucide-react';
+import { Eye, Save, Trash } from 'lucide-react';
 import { useArticleState } from '@/hooks/useArticleState';
-import { ArticleHeader } from './components/ArticleHeader';
-import { ContentBlocks } from './components/ContentBlocks';
+import { ArticleHeader } from './ArticleHeader';
+import { ContentBlocks } from './ContentBlocks';
 import { createNewBlock } from '@/utils/blockUtils';
 import { useToast } from '@/hooks/useToast';
 import {
@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import type { ArticleType } from '@/types/article';
+import type { ArticleType, ContentBlock } from '@/types/article';
 
 interface ArticleEditorProps {
   article: ArticleType['articles'][0];
@@ -33,7 +33,7 @@ export default function ArticleEditor({
   const { toast } = useToast();
 
   const handleSaveConfirm = async () => {
-    const isNew = !article.id;
+    const isNew = !article.slug;
     const url = isNew ? '/api/article/create' : '/api/article/update';
     const method = isNew ? 'POST' : 'PUT';
 
@@ -78,9 +78,68 @@ export default function ArticleEditor({
     }
   };
 
+  const handleDeleteConfirm = () => {
+    localStorage.removeItem('draftArticle');
+    updateArticle({
+      title: '',
+      description: '',
+      date: '',
+      labels: [],
+      coverImage: '',
+      coverImageAlt: '',
+      slug: '',
+      blocks: [],
+    });
+    toast({
+      description: 'Article deleted successfully!',
+      duration: 2000,
+    });
+  };
+
+  const handleMoveBlock = (fromIndex: number, toIndex: number) => {
+    const newBlocks = [...article.blocks];
+    const [movedBlock] = newBlocks.splice(fromIndex, 1);
+    newBlocks.splice(toIndex, 0, movedBlock);
+    updateArticle({ blocks: newBlocks });
+  };
+
+  const handleAddBlock = (type: ContentBlock['type'], index?: number) => {
+    const newBlock = createNewBlock(type);
+    addBlock(newBlock, index);
+  };
+
   return (
     <div className='max-w-4xl mx-auto px-4 py-8'>
       <div className='top-0 bg-white py-4 space-x-4 flex justify-end items-center border-b mb-8'>
+        <Button onClick={handlePreview} className='flex items-center gap-2'>
+          <Eye className='w-4 h-4' />
+          Preview
+        </Button>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant='destructive' className='flex items-center gap-2'>
+              <Trash className='w-4 h-4' />
+              Delete
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Article</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to delete this draft article? This action
+                cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteConfirm}>
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button className='flex items-center gap-2'>
@@ -104,20 +163,16 @@ export default function ArticleEditor({
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-
-        <Button onClick={handlePreview} className='flex items-center gap-2'>
-          <Eye className='w-4 h-4' />
-          Preview
-        </Button>
       </div>
 
       <ArticleHeader article={article} onUpdate={updateArticle} />
 
       <ContentBlocks
         blocks={article.blocks}
-        onAddBlock={(type) => addBlock(createNewBlock(type))}
+        onAddBlock={handleAddBlock}
         onUpdateBlock={updateBlock}
         onRemoveBlock={removeBlock}
+        onMoveBlock={handleMoveBlock}
         updateArticle={updateArticle}
       />
     </div>

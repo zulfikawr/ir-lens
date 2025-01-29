@@ -1,8 +1,7 @@
-import React from 'react';
+import type React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Plus,
-  Trash,
   Heading,
   Text,
   Image,
@@ -26,9 +25,10 @@ import { renderEditableBlock } from './EditableBlock';
 
 interface ContentBlocksProps {
   blocks: ContentBlock[];
-  onAddBlock: (type: ContentBlock['type']) => void;
+  onAddBlock: (type: ContentBlock['type'], index?: number) => void;
   onUpdateBlock: (index: number, updates: Partial<ContentBlock>) => void;
   onRemoveBlock: (index: number) => void;
+  onMoveBlock: (fromIndex: number, toIndex: number) => void;
   updateArticle: (updates: Partial<{ blocks: ContentBlock[] }>) => void;
 }
 
@@ -37,6 +37,7 @@ export function ContentBlocks({
   onAddBlock,
   onUpdateBlock,
   onRemoveBlock,
+  onMoveBlock,
   updateArticle,
 }: ContentBlocksProps) {
   const blockTypes = [
@@ -85,9 +86,12 @@ export function ContentBlocks({
               index,
               onUpdateBlock,
               onRemoveBlock,
+              onAddBlock,
+              onMoveBlock,
               handleDragStart,
               handleDragOver,
               handleDrop,
+              blocks.length,
             )}
           </div>
         ))}

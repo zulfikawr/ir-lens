@@ -1,8 +1,10 @@
 import { getArticles } from '@/app/functions/getArticles';
 import { ArticleContent } from '@/components/Articles/[title]/ArticleContent';
 import { ArticleSidebar } from '@/components/Articles/[title]/ArticleSidebar';
+import ArticleLoading from '@/components/Articles/[title]/ArticleLoading';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 type Props = {
   params: Promise<{ title: string }>;
@@ -14,13 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find(
     (article) => article.slug === decodeURIComponent(title),
   );
-
   return {
     title: article ? `${article.title} | IR Lens` : 'Article Not Found',
   };
 }
 
-export default async function ArticleDetails({ params }: Props) {
+async function ArticleDetailsContent({ params }: Props) {
   const { title } = await params;
   const articles = await getArticles();
   const article = articles.find(
@@ -47,5 +48,13 @@ export default async function ArticleDetails({ params }: Props) {
         <ArticleSidebar articles={articles} currentArticle={article} />
       </div>
     </main>
+  );
+}
+
+export default async function ArticleDetails({ params }: Props) {
+  return (
+    <Suspense fallback={<ArticleLoading />}>
+      <ArticleDetailsContent params={params} />
+    </Suspense>
   );
 }

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
 import { getArticles } from '@/app/functions/getArticles';
-import ArticleEditor from '@/app/articles/create/ArticleEditor';
+import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
 import type { ArticleType } from '@/types/article';
 
 const EditArticlePage = () => {

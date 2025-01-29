@@ -79,4 +79,8 @@
     content: attr(data-placeholder);
     color: white;
   }
+  .list-item {
+    list-style-type: disc;
+    margin-left: 1.5em;
+  }
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { database } from '@/lib/firebase';
 import { ref, get } from 'firebase/database';
+import Loading from '@/components/Home/loading';
 
 export function withAdminAuth(Component: React.ComponentType) {
   return function AdminProtectedComponent() {
@@ -32,7 +33,7 @@ export function withAdminAuth(Component: React.ComponentType) {
     }, [auth, router]);
 
     if (isLoading) {
-      return <div>Loading...</div>;
+      return <div className='px-4 md:px-8'><Loading /></div>
     }
 
     return isAdmin ? <Component /> : null;
