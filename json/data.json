@@ -1,0 +1,876 @@
+{
+  "admins": {
+    "oOMYMpmt9mTgiAHRg9xjrkL0cbA3": {
+      "isAdmin": true
+    }
+  },
+  "articles": {
+    "hamas-and-israel-exchange-prisoners-in-a-ceasefire-agreement": {
+      "blocks": [
+        {
+          "imageAlt": "Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025. (AP Photo/Abed Hajjar)",
+          "imageUrl": "/images/articles/Hamas and Israel Exchange Prisoners in a Ceasefire Agreement/Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025.jpg",
+          "type": "image"
+        },
+        {
+          "content": "On January 25, 2025, Hamas released four Israeli female soldiers to the Red Cross in Gaza City as part of an exchange agreement under a fragile ceasefire deal between Hamas and Israel. In exchange, Israel released 70 Palestinian prisoners, marking a critical moment in the ongoing conflict.",
+          "type": "text"
+        },
+        {
+          "content": "The Israeli soldiers, Karina Ariev, Daniella Gilboa, Naama Levy, and Liri Albag, were captured during Hamas' attack on the Nahal Oz base near the Gaza border in October 2023. After being held in captivity for over a year, the four women were paraded before thousands of people at Gaza City’s Palestine Square, where they waved to the crowd and gave thumbs-up gestures.",
+          "type": "text"
+        },
+        {
+          "content": "The release of these four soldiers is a rare, public moment of relief in a conflict that has seen devastating loss of life and destruction. However, the atmosphere surrounding the release was complicated by the fact that many hostages, including these four soldiers, were reportedly forced into recording propaganda videos during their captivity.",
+          "type": "highlight"
+        },
+        {
+          "content": "\"We have waited so long for this moment\". \"The conditions were harsh, but today we are free, and we thank everyone who worked for this day to come.\"",
+          "role": "Released Israeli Soldier",
+          "spokesperson": "Liri Albag",
+          "type": "quote"
+        },
+        {
+          "content": "Israel's release of 70 Palestinian prisoners was also part of the ceasefire agreement, though the terms are not without controversy. These prisoners, including some notorious militants who were serving long sentences for violent attacks against Israelis, will not be allowed to return to Gaza or the West Bank. They were instead transferred to the Egyptian side of the Rafah border crossing.",
+          "type": "text"
+        },
+        {
+          "images": [
+            {
+              "imageAlt": "Palestinian prisoners being led to buses near the Rafah border crossing after release by Israel.",
+              "imageUrl": "/images/articles/Hamas and Israel Exchange Prisoners in a Ceasefire Agreement/Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025.jpg"
+            },
+            {
+              "imageAlt": "Crowd cheers as freed Israeli soldiers are handed over to the Red Cross in Gaza City.",
+              "imageUrl": "/images/articles/Hamas and Israel Exchange Prisoners in a Ceasefire Agreement/Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025.jpg"
+            }
+          ],
+          "type": "gallery"
+        },
+        {
+          "content": "In Israel, crowds gathered at Tel Aviv’s Hostages Square to watch the live broadcast of the exchange. As the four women were freed, cheers erupted in the square, while many people shared emotional reactions, reflecting a mixture of hope and the deep scars left by the conflict.",
+          "type": "text"
+        },
+        {
+          "content": "\"I’m speechless,\". \"I had goosebumps watching them. I just want the war to end.\"",
+          "role": "Tel Aviv Resident",
+          "spokesperson": "Aviv Bercovich",
+          "type": "quote"
+        },
+        {
+          "content": "The exchange of prisoners is part of an ongoing ceasefire agreement, brokered by Egypt, that aims to de-escalate tensions and foster peace talks. However, the situation remains fragile, and the ceasefire could unravel if the agreed terms are not respected.",
+          "type": "callout"
+        },
+        {
+          "content": "The ceasefire, which began last weekend, also includes a pledge to allow displaced Palestinians to return to northern Gaza. However, that part of the agreement is still in flux, as Israel has raised concerns over the fate of other hostages still held by Hamas, including civilian Arbel Yehoud. A senior Hamas official indicated that Yehoud will be released next week, although Israel is waiting for confirmation before permitting the return of displaced Palestinians.",
+          "type": "text"
+        },
+        {
+          "content": "As the ceasefire enters its second week, the international community remains hopeful that it could lead to a broader, more lasting peace agreement. However, analysts warn that the fragility of the deal and the ongoing concerns about the fate of prisoners could undermine its success.",
+          "type": "text"
+        },
+        {
+          "content": "\"This is a small but significant step toward peace, but it is only a step,\" said Rami Khouri, a Middle East analyst. \"Both sides must show restraint, and the international community must remain vigilant in its support for the ceasefire to hold.\"",
+          "role": "Middle East Analyst",
+          "spokesperson": "Rami Khouri",
+          "type": "quote"
+        },
+        {
+          "content": "With more than 47,000 Palestinians and over 1,200 Israelis killed in the ongoing conflict, both sides have seen devastating losses. The exchange of prisoners offers a brief moment of hope in the midst of an ongoing tragedy.",
+          "type": "highlight"
+        },
+        {
+          "content": "Despite the moment of relief provided by the prisoner exchange, many in Israel and Gaza are still waiting for the release of additional hostages. In Tel Aviv, the public display of the four Israeli soldiers' release left people wondering if the truce will hold long enough for all hostages to be freed and for peace talks to begin in earnest.",
+          "type": "text"
+        },
+        {
+          "content": "Meanwhile, the humanitarian situation in Gaza remains dire, with aid flowing into the region but limited access to basic needs such as food, medicine, and electricity. The focus is now on how to stabilize the ceasefire and pave the way for a longer-term resolution to the conflict.",
+          "type": "text"
+        },
+        {
+          "content": "The ceasefire agreement also focuses on rebuilding Gaza's shattered infrastructure. International aid organizations, alongside governments in Egypt and the Middle East, are working to ensure that vital resources reach those in need while negotiations for a permanent peace continue.",
+          "type": "callout"
+        }
+      ],
+      "coverImage": "/images/articles/Hamas and Israel Exchange Prisoners in a Ceasefire Agreement/Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025.jpg",
+      "coverImageAlt": "Israeli female soldier hostages wave and react at a Palestinian crowd before being handed over to the Red Cross in Gaza City, Saturday, Jan. 25, 2025",
+      "date": "25 January 2025",
+      "description": "Hamas released four Israeli female soldiers, while Israel freed 70 Palestinian prisoners. The exchange is part of a ceasefire aimed at de-escalating one of the deadliest conflicts between the two sides.",
+      "labels": ["Conflicts", "Middle East"],
+      "location": "Tel Aviv, Israel",
+      "slug": "hamas-and-israel-exchange-prisoners-in-a-ceasefire-agreement",
+      "title": "Hamas and Israel Exchange Prisoners in a Ceasefire Agreement"
+    },
+    "israel-launches-military-operation-in-jenin-amid-ceasefire-with-hamas": {
+      "blocks": [
+        {
+          "content": "On Tuesday, Israel launched a major military operation in the occupied West Bank city of Jenin, resulting in at least nine Palestinians killed and over 40 others wounded. This operation marks a significant escalation in the region, taking place just days after a fragile ceasefire agreement between Israel and Hamas entered its third day.",
+          "type": "text"
+        },
+        {
+          "content": "The operation targeted suspected Hamas militants in Jenin, where violent clashes broke out, leaving many civilians caught in the crossfire. This attack exacerbates the already tense situation in the West Bank and raises questions about the sustainability of the ceasefire with Hamas in Gaza, which had previously brought a temporary lull in violence.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Israel Palestinians © Abdel Kareem Hana",
+          "imageUrl": "/images/articles/Israel Launches Military Operation in Jenin Amid Ceasefire with Hamas/Israel Palestinians 2.jpg",
+          "type": "image"
+        },
+        {
+          "content": "The ongoing military actions in Jenin are deeply troubling and could undermine the fragile ceasefire we have seen in Gaza.",
+          "role": "Middle East Analyst",
+          "spokesperson": "Sarah Bennett",
+          "type": "quote"
+        },
+        {
+          "imageAlt": "Israel Palestinians © Mohammad Abu Samra",
+          "imageUrl": "/images/articles/Israel Launches Military Operation in Jenin Amid Ceasefire with Hamas/Israel Palestinians 4.jpg",
+          "type": "image"
+        },
+        {
+          "content": "The toll of the operation has been significant, with numerous casualties, and both sides have been quick to accuse each other of violating ceasefire terms.",
+          "type": "text"
+        },
+        {
+          "content": "In Tel Aviv, four people were injured in a separate stabbing attack, which authorities are treating as a terrorist act. The suspect, a 28-year-old foreign national, was shot and killed by Israeli security forces, raising further tensions in an already volatile environment.",
+          "type": "text"
+        },
+        {
+          "content": "The resignation of Israel's top general, following the failures related to the Hamas attack in October 2023, has added additional pressure on the Israeli government.",
+          "type": "text"
+        },
+        {
+          "content": "This resignation highlights the mounting internal pressure and dissatisfaction with how the Israeli government has handled the ongoing conflict.",
+          "role": "Security Expert",
+          "spokesperson": "Eli Cohen",
+          "type": "quote"
+        },
+        {
+          "content": "Despite over 15 months of intense conflict, Hamas continues to maintain control over Gaza, with many Palestinians left struggling to survive amidst the destruction of their homes and communities.",
+          "type": "text"
+        },
+        {
+          "content": "As the violence continues, the situation for civilians remains dire, and international calls for a more lasting peace are growing louder.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Israel Palestinians © Majdi Mohammed",
+          "imageUrl": "/images/articles/Israel Launches Military Operation in Jenin Amid Ceasefire with Hamas/Israel Palestinians 3.jpg",
+          "type": "image"
+        },
+        {
+          "content": "While tensions rise in the West Bank, humanitarian aid is still flowing into Gaza under the ceasefire. Nearly 900 trucks carrying aid have entered Gaza, surpassing the initial target of 600, providing relief to the war-torn region.",
+          "type": "text"
+        },
+        {
+          "content": "It’s a relief to see aid flowing, but the people of Gaza need more than just food and medicine, they need to rebuild their lives.",
+          "role": "U.N. Humanitarian Coordinator",
+          "spokesperson": "Muhannad Hadi",
+          "type": "quote"
+        },
+        {
+          "content": "In a rare moment of hope, some Palestinians are beginning to return to their homes, starting the long process of rebuilding after the devastation.",
+          "type": "text"
+        },
+        {
+          "content": "Muhannad Hadi, who has been overseeing the aid efforts, expressed that despite the challenging conditions, there is a sense of hope among the people of Gaza. Families are eager to get back to work and resume their daily lives, though the need for continued humanitarian support remains crucial.",
+          "type": "text"
+        },
+        {
+          "content": "Our goal is to help Gaza begin its recovery, but we must ensure the banking system and electricity are operational for people to get back on their feet.",
+          "role": "U.N. Humanitarian Coordinator",
+          "spokesperson": "Muhannad Hadi",
+          "type": "quote"
+        },
+        {
+          "content": "The United Nations is focusing on 'early recovery' programs, aiming to help people get back to work by clearing rubble and restoring basic infrastructure.",
+          "type": "callout"
+        },
+        {
+          "content": "Despite minor incidents of looting and lawlessness, the humanitarian effort continues to deliver much-needed assistance to Gaza. The U.N. remains hopeful that the ceasefire will hold, allowing for the continuation of aid distribution and eventual recovery.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/Israel Launches Military Operation in Jenin Amid Ceasefire with Hamas/Israel Palestinians.jpg",
+      "coverImageAlt": "Israeli military operation in Jenin with smoke rising in the background",
+      "date": "23 January 2025",
+      "description": "Israel's military operation in Jenin results in casualties and raises tensions as the ceasefire with Hamas enters its third day. Meanwhile, humanitarian aid continues to flow into Gaza as conditions remain dire.",
+      "labels": ["Conflicts", "Middle East"],
+      "location": "Jenin, West Bank",
+      "slug": "israel-launches-military-operation-in-jenin-amid-ceasefire-with-hamas",
+      "title": "Israel Launches Military Operation in Jenin amid Ceasefire with Hamas"
+    },
+    "europe-leads-the-way-in-clean-energy-as-us-Moves-toward-fossil-fuels": {
+      "blocks": [
+        {
+          "imageAlt": "Climate EU Clean Energy",
+          "imageUrl": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy.jpg",
+          "type": "image"
+        },
+        {
+          "content": "Europe has made impressive strides in clean energy, with renewables now providing 47% of the European Union’s electricity. This milestone highlights the increasing divergence between the EU's ambitious green energy policies and the United States’ renewed focus on fossil fuels under the leadership of President Trump.",
+          "type": "text"
+        },
+        {
+          "content": "In addition to solar power, nearly three-quarters of the EU's electricity is free of harmful greenhouse gases, with nuclear energy contributing another 24%. This is a sharp contrast to major countries like the U.S. and China, where the majority of electricity still comes from fossil fuels like coal, oil, and gas.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Climate EU Clean Energy",
+          "imageUrl": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy 2.jpg",
+          "type": "image"
+        },
+        {
+          "content": "Fossil fuels are losing their grip on EU energy.",
+          "role": "Energy Expert, Ember",
+          "spokesperson": "Chris Rosslowe",
+          "type": "quote"
+        },
+        {
+          "content": "The shift toward renewables is particularly notable as experts worry the U.S. may increase its emissions, with President Trump pursuing policies that favor cheaper gas, halting wind power projects, and rolling back incentives for electric vehicles.",
+          "type": "text"
+        },
+        {
+          "content": "Solar power now generates 11% of the EU’s electricity, surpassing coal for the first time. Wind power has also outpaced gas generation for the second consecutive year.",
+          "type": "highlight"
+        },
+        {
+          "imageAlt": "Climate EU Clean Energy",
+          "imageUrl": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy 3.jpg",
+          "type": "image"
+        },
+        {
+          "content": "One key factor driving Europe’s clean energy progress is the European Green Deal, introduced in 2019. The deal has paved the way for stricter climate laws and ambitious goals, including reducing emissions by 55% by 2030 and achieving climate neutrality by 2050.",
+          "type": "text"
+        },
+        {
+          "content": "The EU has also passed numerous regulations to incentivize investment in clean energy, helping to make Europe a global leader in renewable technologies. Since the launch of the Green Deal, the share of fossil fuels in Europe’s electricity generation has decreased from 39% to 29%.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Climate EU Clean Energy",
+          "imageUrl": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy 4.jpg",
+          "type": "image"
+        },
+        {
+          "content": "Russia’s invasion of Ukraine has further accelerated the EU’s shift toward clean energy. With gas prices soaring and Russian supplies becoming less reliable, countries have been forced to seek more affordable and sustainable energy sources. Nations like Portugal, the Netherlands, and Estonia have seen the largest increases in clean power generation over the past five years.",
+          "type": "text"
+        },
+        {
+          "content": "The transition to clean energy has allowed Europe to avoid more than $61 billion worth of fossil fuel imports since 2019.",
+          "role": "Energy Analyst, E3G",
+          "spokesperson": "Pieter de Pous",
+          "type": "quote"
+        },
+        {
+          "content": "This shift has significant economic benefits. Europe’s growing reliance on clean energy has helped reduce its dependence on fossil fuel imports, particularly from countries like Russia. According to Pieter de Pous, this is a clear message that Europe’s energy needs can be met through renewables rather than fossil fuels.",
+          "type": "text"
+        },
+        {
+          "content": "The European Green Deal has not only set ambitious climate goals but has also paved the way for cleaner, more secure energy solutions across the continent.",
+          "type": "callout"
+        },
+        {
+          "imageAlt": "Climate EU Clean Energy",
+          "imageUrl": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy 5.jpg",
+          "type": "image"
+        },
+        {
+          "content": "While nuclear energy continues to play a role in Europe’s energy mix, its growth has slowed in recent years. Many nuclear plants have been retired, and new construction has been minimal, with most new energy generation focusing on renewables like solar and wind.",
+          "type": "text"
+        },
+        {
+          "content": "Europe’s leadership in clean energy contrasts sharply with the United States, where the Trump administration has stepped away from international climate commitments and pushed for more fossil fuel exploration. As the U.S. pulls back from global climate leadership, the EU’s role as a leader in clean power is more important than ever.",
+          "type": "text"
+        },
+        {
+          "content": "Europe will stay the course, and keep working with all nations that want to protect nature and stop global warming.",
+          "role": "President, European Commission",
+          "spokesperson": "Ursula von der Leyen",
+          "type": "quote"
+        }
+      ],
+      "coverImage": "/images/articles/Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels/Climate EU Clean Energy.jpg",
+      "coverImageAlt": "Climate EU Clean Energy",
+      "date": "23 January 2025",
+      "description": "Europe sets a new record for clean energy use, with renewables making up nearly half of its electricity, as the US takes a step back in addressing climate change under its new administration.",
+      "labels": ["Climate", "Europe"],
+      "location": "Brussels, Belgium",
+      "slug": "europe-leads-the-way-in-clean-energy-as-us-Moves-toward-fossil-fuels",
+      "title": "Europe Leads the Way in Clean Energy as US Moves Toward Fossil Fuels"
+    },
+    "south-koreans-use-flower-wreaths-and-k-pop-light-sticks-as-political-protest-tools": {
+      "blocks": [
+        {
+          "images": [
+            {
+              "imageAlt": "Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul. (AP Photo/Juwon Park)",
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul.jpg"
+            },
+            {
+              "imageAlt": "Participants gather to celebrate after South Korea’s parliament voted to impeach President Yoon Suk Yeol outside the National Assembly in Seoul, South Korea, Dec. 14, 2024. (AP Photo/Ahn Young-joon)",
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Participants gather to celebrate after South Korea's parliament voted to impeach President Yoon Suk Yeol outside the National Assembly in Seoul, South Korea, Dec. 14, 2024.jpg"
+            },
+            {
+              "imageAlt": "Lee Seo jin, 19, a student, poses for a photo during a rally to demand South Korean President Yoon Suk Yeol’s impeachment outside the National Assembly in Seoul, South Korea, Dec. 11, 2024. (AP Photo/Lee Jin-man)",
+              "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Lee Seo-jin, 19, a student, poses for a photo during a rally to demand South Korean President Yoon Suk Yeol's impeachment outside the National Assembly in Seoul, South Korea, Dec. 11, 2024.jpg"
+            }
+          ],
+          "type": "gallery"
+        },
+        {
+          "content": "South Koreans are repurposing flower wreaths and K-pop light sticks as political protest tools amid the nation’s deepest political crisis in decades. The crisis was sparked by President Yoon Suk Yeol’s short-lived martial law declaration in December 2024, which led to his impeachment just 11 days later.",
+          "type": "text"
+        },
+        {
+          "content": "Hundreds of wreaths, predominantly directed at Yoon himself, have been sent to his residence and government buildings connected to the impeachment proceedings. Some wreaths also target other officials involved in the martial law controversy. Local media estimate that several thousand wreaths have been delivered to government offices.",
+          "type": "text"
+        },
+        {
+          "content": "The protest method has gained traction, with media coverage increasing significantly in 2024. A search on Big Kinds, a media analysis platform, shows that wreath protests received four times more coverage in 2024 compared to 2023.",
+          "type": "highlight"
+        },
+        {
+          "content": "While many wreaths carry moderate messages supporting Yoon or opposing impeachment, several contain extreme rhetoric directed at recipients. The wreaths, which cost as much as $75, come in two main types: black-ribboned funeral wreaths with white chrysanthemums and celebratory wreaths with vibrant roses and orchids.",
+          "type": "text"
+        },
+        {
+          "content": "Yoon Miyoung, of Seoul-based Dongsung Flower, said she has delivered over 1,000 wreaths since December, exclusively for pro-Yoon supporters. 'We’ve sent out so many wreaths that Seoul is running out of flowers,' she said, adding that over one-third of her customers are in their 20s and 30s, with orders coming from outside South Korea, including Japan, the United States, and the Netherlands.",
+          "type": "text"
+        },
+        {
+          "content": "Choi Hang-sub, a sociology professor at Kookmin University, noted that while wreaths avoid physical violence, the messages on funeral wreaths have evolved into a form of offline hate speech. 'It’s similar to malicious online comments but now decorated with flowers,' he said.",
+          "type": "text"
+        },
+        {
+          "content": "Experts also raise concerns about the environmental impact of wreath protests. 'Most wreaths use cheap, non-environmentally friendly materials that neither help flower farmers nor the environment,' said Kim Hern Sik, a professor at Jungwon University.",
+          "type": "text"
+        },
+        {
+          "content": "In addition to wreaths, K-pop light sticks have become a popular tool for political protest. Last December, outside the National Assembly where lawmakers voted to impeach Yoon, thousands of people wielded light sticks from popular bands like BIGBANG, NCT, and Epik High during pro-impeachment rallies.",
+          "type": "text"
+        },
+        {
+          "content": "'Even though these idol lightsticks are expensive, people are bringing their most precious possessions to express their opinions,' said Hong Gayeong, a 29-year-old protester at a Dec. 13 rally calling for Yoon’s impeachment. The phenomenon has sparked a protest coalition, with some offering free shipping and light-stick rentals through popular resale apps.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Funeral wreaths bearing messages critical of officials involved in South Korea’s martial law controversy stand outside the Government Complex Seoul on Monday, Jan. 20, 2025, in Seoul. (AP Photo/Juwon Park)",
+          "imageUrl": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Funeral wreaths bearing messages critical of officials involved in South Korea's martial law controversy stand outside the Government Complex Seoul on Monday, Jan. 20, 2025, in Seoul.jpg",
+          "type": "image"
+        },
+        {
+          "content": "The crisis began when Yoon imposed military rule on Dec. 3, 2024, and dispatched troops to the National Assembly, leading to his impeachment 11 days later. Yoon was apprehended on Jan. 19, 2025, in a massive law enforcement operation at his residential compound.",
+          "type": "text"
+        },
+        {
+          "content": "The Constitutional Court now has 180 days to decide whether to formally remove Yoon from office or reinstate him as he faces potential rebellion charges.",
+          "type": "text"
+        },
+        {
+          "content": "The use of flower wreaths and K-pop light sticks as protest tools reflects the creativity and determination of South Koreans in expressing their political dissent, even as the nation grapples with its most severe political crisis in decades.",
+          "type": "highlight"
+        }
+      ],
+      "coverImage": "/images/articles/South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools/Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul.jpg",
+      "coverImageAlt": "Celebratory wreaths with messages supporting the detained President Yoon Suk Yeol line up along the street leading to his Hannam-dong residence on Thursday, Jan. 23, 2025, in Seoul. (AP Photo/Juwon Park)",
+      "date": "23 January 2025",
+      "description": "Amid South Korea's deepening political crisis, citizens are repurposing flower wreaths and K-pop light sticks as tools of protest against President Yoon Suk Yeol's short-lived martial law declaration and impeachment proceedings.",
+      "labels": ["Conflicts", "Asia"],
+      "location": "Seoul, South Korea",
+      "slug": "south-koreans-use-flower-wreaths-and-k-pop-light-sticks-as-political-protest-tools",
+      "title": "South Koreans Use Flower Wreaths and K-pop Light Sticks as Political Protest Tools"
+    },
+    "north-korea-conducts-cruise-missile-test-amid-rising-tensions": {
+      "blocks": [
+        {
+          "imageAlt": "Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg (KCNA)",
+          "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+          "type": "image"
+        },
+        {
+          "content": "North Korea confirmed on Sunday that it conducted a test of a new strategic cruise missile system, marking its third known weapons demonstration this year. The test, observed by leader Kim Jong Un, comes amid heightened tensions with the United States and South Korea over ongoing military exercises in the region.",
+          "type": "text"
+        },
+        {
+          "content": "The Korean Central News Agency (KCNA) reported that the missiles traveled 1,500 kilometers (932 miles) in elliptical and figure-eight-shaped flight patterns before hitting their targets. The term 'strategic' suggests the missiles are capable of carrying nuclear warheads, though this claim has not been independently verified.",
+          "type": "text"
+        },
+        {
+          "content": "The missile test underscores North Korea's commitment to strengthening its military capabilities, particularly in response to what it perceives as growing threats from U.S.-South Korea military drills.",
+          "type": "highlight"
+        },
+        {
+          "content": "According to KCNA, Kim Jong Un emphasized that North Korea's war deterrence capabilities are 'being perfected more thoroughly' and affirmed the country's commitment to defending stability through 'more powerfully developed military muscle.'",
+          "type": "text"
+        },
+        {
+          "content": "South Korea's Joint Chiefs of Staff confirmed that North Korea launched several cruise missiles toward its western waters on Saturday. The South Korean military stated it remains prepared to 'overwhelmingly' repel any provocations, in coordination with its U.S. ally.",
+          "type": "text"
+        },
+        {
+          "content": "North Korea's Foreign Ministry issued a statement on Sunday, condemning the U.S. and South Korea for conducting military drills it described as 'serious military provocations.' The statement warned that North Korea would respond with the 'toughest counteraction from A to Z' to protect its sovereignty and security interests.",
+          "type": "text"
+        },
+        {
+          "images": [
+            {
+              "imageAlt": "This photo provided by the North Korean government shows testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+              "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/This photo provided by the North Korean government shows testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg"
+            },
+            {
+              "imageAlt": "A TV screen shows an image of North Korea's missile launch during a news program at Seoul Railway Station in Seoul, South Korea, Sunday, Jan. 26, 2025.  AP Photo, Ahn Young-joon.jpg.",
+              "imageUrl": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/A TV screen shows an image of North Korea's missile launch during a news program at Seoul Railway Station in Seoul, South Korea, Sunday, Jan. 26, 2025.  AP Photo, Ahn Young-joon.jpg"
+            }
+          ],
+          "type": "gallery"
+        },
+        {
+          "content": "North Korea has long viewed U.S.-South Korea military exercises as rehearsals for invasion, despite assurances from Washington and Seoul that the drills are defensive in nature. In recent years, the scale and frequency of these exercises have increased in response to North Korea's advancing nuclear and missile programs.",
+          "type": "text"
+        },
+        {
+          "content": "The timing of the missile test is significant, as it follows recent comments from U.S. officials about the potential for renewed diplomacy with North Korea. However, experts believe Kim Jong Un may feel emboldened in future negotiations due to North Korea's expanded nuclear arsenal and growing military ties with Russia.",
+          "type": "text"
+        },
+        {
+          "content": "The missile test highlights the fragile state of relations on the Korean Peninsula. While diplomatic efforts remain a possibility, the risk of further escalation looms large as both sides continue to bolster their military postures.",
+          "type": "callout"
+        },
+        {
+          "content": "The international community has long avoided recognizing North Korea as a nuclear state, as doing so could legitimize its pursuit of nuclear weapons in violation of U.N. Security Council resolutions. However, recent debates about North Korea's nuclear status have sparked discussions about the future of denuclearization efforts.",
+          "type": "text"
+        },
+        {
+          "content": "As tensions persist, the region remains on edge, with the potential for further missile tests or military provocations. The coming weeks will be critical in determining whether diplomacy can resume or if the situation will deteriorate further.",
+          "type": "text"
+        },
+        {
+          "content": "The missile test serves as a stark reminder of the ongoing security challenges in Northeast Asia. While hopes for diplomacy linger, the path to peace remains fraught with uncertainty.",
+          "type": "highlight"
+        }
+      ],
+      "coverImage": "/images/articles/North Korea Conducts Cruise Missile Test Amid Rising Tensions with U.S. and South Korea/Kim Jong Un, right, inspects testing of sea-to-surface strategic cruise guided weapons at an undisclosed location in North Korea, Saturday, Jan. 25, 2025.jpg",
+      "coverImageAlt": "North Korean leader Kim Jong Un observes the test launch of a strategic cruise missile system.",
+      "date": "22 January 2023",
+      "description": "North Korea announced it successfully tested a strategic cruise missile system, its third weapons test this year, as tensions escalate over U.S.-South Korea military drills. Leader Kim Jong Un emphasized the need to strengthen the country's military capabilities.",
+      "labels": ["Conflicts", "Asia"],
+      "location": "Pyongyang, North Korea",
+      "slug": "north-korea-conducts-cruise-missile-test-amid-rising-tensions",
+      "title": "North Korea Conducts Cruise Missile Test amid Rising Tensions with U.S. and South Korea"
+    },
+    "us-military-sends-troops-to-mexico-border-amid-trump-immigration-crackdown": {
+      "blocks": [
+        {
+          "imageAlt": "Members of the Mexican National Guard in Tijuana patrol the border wall separating Mexico from the United States on January 22, 2025",
+          "imageUrl": "/images/articles/US Military Sends Troops to Mexico Border amid Trump Immigration Crackdown/Members of the Mexican National Guard in Tijuana patrol the border wall separating Mexico from the United States on January 22.jpg",
+          "type": "image"
+        },
+        {
+          "content": "The United States has begun deploying 1,500 active-duty troops to its southern border with Mexico. This move is part of President Donald Trump’s intensified efforts to curb immigration, which has been a central theme of his political platform. On Wednesday, the White House confirmed the troop deployment, though specific details of the order remain undisclosed.",
+          "type": "text"
+        },
+        {
+          "content": "Among the troops being sent are 500 marines. These service members are not expected to perform law enforcement activities but will likely provide logistical and operational support. This deployment complements the approximately 2,500 National Guard and reserve troops already stationed at the border. Additionally, the U.S. Customs and Border Protection agency employs over 45,000 individuals, including 19,104 border patrol agents tasked with securing areas between official entry points.",
+          "type": "text"
+        },
+        {
+          "content": "The American people have been waiting for such a time as this, for our Department of Defense to actually implement homeland security seriously.",
+          "role": "White House Press Secretary",
+          "spokesperson": "Karoline Leavitt",
+          "type": "quote"
+        },
+        {
+          "content": "White House Press Secretary Karoline Leavitt emphasized that this action fulfills Trump’s campaign promises. However, immigration advocates have raised concerns about the implications of increased militarization at the border. They fear it may discourage legitimate asylum seekers and lead to the misuse of military strategies against civilians. Despite these concerns, Trump has defended the deployment as necessary due to irregular migration rates and has frequently linked immigration to rising crime. This claim, however, contradicts statistical evidence. Research consistently shows that undocumented immigrants commit crimes, including violent ones, at lower rates than native-born U.S. citizens.",
+          "type": "text"
+        },
+        {
+          "content": "To support his narrative, Trump has highlighted cases like that of Laken Riley, a 22-year-old nursing student murdered in February 2024 while jogging at the University of Georgia. An undocumented Venezuelan man was convicted of the crime. This incident has been cited to justify tougher immigration policies. On Wednesday, the House of Representatives passed the Laken Riley Act, which mandates that Immigration and Customs Enforcement (ICE) detain any undocumented person arrested or charged with specific crimes, such as theft or robbery. Having cleared the Senate, the bill now awaits Trump’s signature and is expected to become the first significant legislation of his administration.",
+          "type": "text"
+        },
+        {
+          "content": "Critics, including human rights organizations, argue that the Laken Riley Act could undermine due process rights. The law requires detention based on accusations rather than convictions, raising concerns about its fairness and potential misuse.",
+          "type": "text"
+        },
+        {
+          "content": "Trump’s administration has also pledged to expand border infrastructure and utilize technology to address the perceived crisis. Meanwhile, the debate over immigration policy and the ethics of militarization at the border remains a contentious issue in the U.S.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/US Military Sends Troops to Mexico Border amid Trump Immigration Crackdown/Members of the Mexican National Guard in Tijuana patrol the border wall separating Mexico from the United States on January 22.jpg",
+      "coverImageAlt": "Image related to: US military sends troops to Mexico border amid Trump immigration crackdown",
+      "date": "22 January 2025",
+      "description": "The deployment is part of Trump’s executive action to declare a ‘national emergency’ at the US’s southern border.",
+      "labels": ["Conflicts", "Americas"],
+      "location": "U.S. Southern Border",
+      "slug": "us-military-sends-troops-to-mexico-border-amid-trump-immigration-crackdown",
+      "title": "US Military Sends Troops to Mexico Border amid Trump Immigration Crackdown"
+    },
+    "explosions-light-up-gaza-night-sky-amid-ceasefire-talks": {
+      "blocks": [
+        {
+          "content": "On the night of January 17, 2025, explosions brightened the Gaza Strip's skyline, creating a stark visual against the dark horizon. These events unfolded as the Israeli cabinet convened to discuss a critical ceasefire deal designed to halt months of conflict and facilitate the release of hostages held by Hamas alongside Palestinian prisoners in Israeli custody.",
+          "type": "text"
+        },
+        {
+          "imageAlt": "Explosions illuminate the night sky over Gaza as seen from southern Israel",
+          "imageUrl": "/images/articles/Explosions Light Up Gaza Night Sky Amid Ceasefire Talks/Explosions Light Up Gaza Night Sky Amid Ceasefire Talks.png",
+          "type": "image"
+        },
+        {
+          "content": "The proposed ceasefire deal, mediated by the United States, Qatar, and Egypt, represents only the second such agreement in 15 months of ongoing hostilities.",
+          "type": "highlight"
+        },
+        {
+          "content": "The agreement outlines the release of dozens of hostages held by Hamas and Palestinian prisoners detained by Israel. If approved, the ceasefire is expected to commence on Sunday, with the first exchange of detainees planned for the same day.",
+          "type": "text"
+        },
+        {
+          "content": "The Israeli offensive has resulted in over 46,000 deaths in Gaza, the majority being women and children, according to Gaza's Health Ministry. Israel asserts that it has neutralized over 17,000 fighters, though evidence for these figures has not been provided.",
+          "type": "callout"
+        },
+        {
+          "content": "The devastating conflict has left countless families displaced and infrastructure in ruins. As explosions lit up the horizon, a symbolic representation of the ongoing violence, hope lingers for a ceasefire that could provide much-needed relief to both sides. The war's impact has been catastrophic, with a high toll on civilians and widespread destruction in Gaza.",
+          "type": "text"
+        },
+        {
+          "content": "While Israel's cabinet weighs the ceasefire terms, the international community closely monitors the situation. The involvement of mediators highlights the complexity of negotiations in protracted conflicts, where mutual distrust and competing interests often hinder progress.\n\nThe planned prisoner exchanges serve as a humanitarian gesture amid the broader context of hostilities. Analysts emphasize that sustained diplomatic efforts and adherence to international law are critical to fostering long-term peace and stability in the region.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/Explosions Light Up Gaza Night Sky Amid Ceasefire Talks/Explosions Light Up Gaza Night Sky Amid Ceasefire Talks.png",
+      "coverImageAlt": "Bright explosions lighting up the night sky over the Gaza Strip with silhouettes of distant buildings",
+      "date": "17 January 2025",
+      "description": "View from southern Israel shows explosions lighting up night sky over Gaza strip.",
+      "labels": ["Conflicts", "Middle East"],
+      "location": "Southern Israel",
+      "slug": "explosions-light-up-gaza-night-sky-amid-ceasefire-talks",
+      "title": "Explosions Light Up Gaza Night Sky Amid Ceasefire Talks"
+    },
+    "displaced-palestinians-in-central-gaza-call-for-peace": {
+      "blocks": [
+        {
+          "content": "Palestinians in Gaza share their hopes for peace",
+          "type": "video",
+          "videoUrl": "https://t25gk-my.sharepoint.com/personal/zulfikar_t25gk_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=6b27cb99-1e42-40c4-a3df-8bc198223b69"
+        },
+        {
+          "content": "Israel has yet to approve a long-anticipated agreement to pause the war in the Gaza Strip, leaving Palestinians, once hopeful about returning home, grappling with uncertainty about their future.",
+          "type": "text"
+        },
+        {
+          "content": "We ask our brothers in Hamas to communicate with mediators to end the war. Enough with the destruction and killing, between one hour and the next hour, hundred martyrs have gone and injured.",
+          "role": "displaced from Gaza city",
+          "spokesperson": "Omar Jendiya",
+          "type": "quote"
+        },
+        {
+          "content": "We were very happy about the announcement on reaching a deal and we slept happily despite the destruction and what happened... suddenly we learn today about that news and it was a shock to us.",
+          "role": "displaced resident",
+          "spokesperson": "Ahmad Al-Helou",
+          "type": "quote"
+        },
+        {
+          "content": "The situation in Gaza remains critical as displaced residents continue to live in makeshift tent settlements, hoping for a breakthrough in peace negotiations.",
+          "type": "highlight"
+        },
+        {
+          "content": "At least 72 Palestinians were killed across the war-torn territory since the deal announcement was made Wednesday, highlighting the urgent need for a ceasefire.",
+          "type": "callout"
+        }
+      ],
+      "coverImage": "/images/articles/Displaced Palestinians in Central Gaza Call for Peace/Displaced Palestinians in Central Gaza Call for Peace, and for Hamas to Clinch Ceasefire Pact.jpg",
+      "coverImageAlt": "Palestinians in Gaza express disappointment as anticipated peace deal faces unexpected hurdles",
+      "date": "16 January 2025",
+      "description": "Palestinians in Gaza express disappointment as anticipated peace deal faces unexpected hurdles.",
+      "labels": ["Conflicts", "Middle East"],
+      "location": "Deir al-Balah, Central Gaza",
+      "slug": "displaced-palestinians-in-central-gaza-call-for-peace",
+      "title": "Displaced Palestinians in Central Gaza Call for Peace"
+    },
+    "indonesia-becomes-full-brics-member": {
+      "blocks": [
+        {
+          "type": "video",
+          "videoUrl": "https://t25gk-my.sharepoint.com/personal/zulfikar_t25gk_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=7b22e3c1-3088-4ff4-ab62-caaba7917664&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+        },
+        {
+          "content": "Indonesia has officially joined BRICS, a significant milestone that places the country alongside Brazil, Russia, India, China, and South Africa in a coalition aiming to reshape global cooperation. This membership underscores Jakarta's commitment to fostering an inclusive and equitable global order while championing issues like climate change, food security, and technological collaboration.",
+          "type": "text"
+        },
+        {
+          "content": "Looking ahead, Indonesia is committed to working alongside all BRICS members and other relevant parties to help build a just, peaceful, and prosperous world.",
+          "role": "Spokesman, Indonesian Ministry of Foreign Affairs",
+          "spokesperson": "Roy Soemirat",
+          "type": "quote"
+        },
+        {
+          "items": [
+            "Indonesia joins as the first Southeast Asian full BRICS member.",
+            "Key focuses include U.N. reforms, climate change, and economic resilience.",
+            "The inclusion builds on the BRICS expansion to include Egypt, Ethiopia, Iran, and the UAE in 2024."
+          ],
+          "type": "list"
+        },
+        {
+          "content": "Indonesia plans to advocate for changes in the United Nations, including limited veto powers and expanded Security Council representation.",
+          "type": "highlight"
+        },
+        {
+          "content": "Jakarta's membership announcement came shortly after the January 6 declaration by Brazil, the group's presiding member. With this move, Indonesia positions itself to collaborate on reforms in multilateral organizations like the U.N., where it seeks to amplify voices from the Global South.",
+          "type": "text"
+        },
+        {
+          "content": "This is a proud moment for Indonesia. By joining the BRICS cooperation mechanism, Indonesia will demonstrate its commitment [to international affairs] on a new platform.",
+          "role": "Executive Chairman, Association of Indonesia-China Economic, Social and Culture Cooperation",
+          "spokesperson": "Richard Tan L. Ch.",
+          "type": "quote"
+        },
+        {
+          "content": "Despite excitement, analysts warn that Indonesia's BRICS membership may draw closer ties to Russia and China, raising concerns about potential impacts on relations with Western powers. BRICS represents 45% of the global population and 28% of the global economy, making it a significant player on the world stage.",
+          "type": "text"
+        },
+        {
+          "content": "The Indonesian government emphasizes BRICS as a platform to amplify voices from the Global South, fostering equitable global decision-making processes.",
+          "type": "highlight"
+        }
+      ],
+      "coverImage": "/images/articles/Indonesia Becomes Full BRICS Member/Indonesia Becomes Full BRICS Member, Pledges Active Contribution.jpg",
+      "coverImageAlt": "Indonesia's flag alongside BRICS summit banners",
+      "date": "8 January 2025",
+      "description": "Indonesia officially joins BRICS and commits to promoting global cooperation and sustainable development.",
+      "labels": ["Diplomacy", "Asia"],
+      "location": "Jakarta, Indonesia",
+      "slug": "indonesia-becomes-full-brics-member",
+      "title": "Indonesia Becomes Full BRICS Member"
+    },
+    "indonesia-launches-free-meals-program-to-fight-stunting": {
+      "blocks": [
+        {
+          "content": "Footage of Indonesia's Free Nutritious Meal program",
+          "type": "video",
+          "videoUrl": "https://t25gk-my.sharepoint.com/personal/zulfikar_t25gk_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=8f1306f3-0187-4853-bfb1-1e4774a93adf"
+        },
+        {
+          "content": "On January 6, 2025, Indonesia officially launched the Free Nutritious Meal program, marking a significant step in its efforts to combat malnutrition and stunting. This ambitious initiative, spearheaded by President Prabowo Subianto, aims to address the alarming prevalence of child malnutrition, which affects 21.5% of children under five.",
+          "type": "text"
+        },
+        {
+          "content": "The program promises to deliver daily nutritious meals to 90 million children, pregnant women, and breastfeeding mothers nationwide.",
+          "type": "highlight"
+        },
+        {
+          "content": "Today the launch of the program in Indonesia has started at 190 points, and I see that everything is running smoothly, from the cooking process to the distribution of food to schools.",
+          "role": "Indonesian Minister of Information and Digital Affairs",
+          "spokesperson": "Meutya Hafid",
+          "type": "quote"
+        },
+        {
+          "content": "The program is not just about feeding millions; it’s part of a larger vision to build a healthier and more competitive generation by 2045. Dubbed the 'Golden Indonesia' strategy, it aims to develop human resources capable of driving economic growth.",
+          "type": "text"
+        },
+        {
+          "content": "Breaking Down the Program",
+          "type": "separator"
+        },
+        {
+          "content": "The Free Nutritious Meal program is expected to cost $28 billion over the next five years and will involve the setup of over 5,000 kitchens across the country.",
+          "type": "callout"
+        },
+        {
+          "content": "The meals include locally sourced rice, vegetables, chicken, fish, and fruits, ensuring both nutritional value and support for Indonesian farmers. The government estimates purchasing 6.7 million tons of rice, 1.2 million tons of chicken, and 4 million kiloliters of milk annually.",
+          "type": "text"
+        },
+        {
+          "content": "This program represents the president's commitment to the health and future of Indonesia’s children. It is unprecedented in scale and ambition.",
+          "role": "Indonesian Presidential Spokesperson",
+          "spokesperson": "Ujang Komarudin",
+          "type": "quote"
+        },
+        {
+          "items": [
+            "Daily meals will meet one-third of children’s caloric needs.",
+            "Distribution will cover schools from early education to high school.",
+            "Meals will be free of charge for all recipients."
+          ],
+          "type": "list"
+        },
+        {
+          "content": "Despite its noble goals, the program has sparked debate. Critics, including economic analysts, have raised concerns about its financial sustainability. They argue that the state budget is already under pressure, and meeting the program’s targets may increase the national debt.",
+          "type": "text"
+        },
+        {
+          "content": "The burden on our state budget is too heavy if this program aims to reach 100% of its target. It could also make achieving the government’s 8% GDP growth target difficult.",
+          "role": "Economic Researcher at the Center for Economic and Law Studies",
+          "spokesperson": "Nailul Huda",
+          "type": "quote"
+        },
+        {
+          "content": "Nonetheless, supporters believe the program is a crucial investment in the nation's future. The stunting rate has shown a slight decrease, but experts argue that more drastic measures like this are needed to meet the government's target of reducing stunting to 14% by 2024.",
+          "type": "text"
+        },
+        {
+          "content": "Looking Ahead",
+          "type": "heading"
+        },
+        {
+          "content": "As the program unfolds, its impact on public health, education, and the economy will be closely monitored. The success of this initiative could serve as a model for other nations grappling with similar challenges of child malnutrition and stunting.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/Indonesia Launches Free Meals Program to Feed Children and Pregnant Women to Fight Stunting/Students eat meals from the free nutritious meals program at a school in Jakarta, Indonesia, January 6, 2025.jpg",
+      "coverImageAlt": "Indonesian students receiving free nutritious meals at school",
+      "date": "6 January 2025",
+      "description": "Indonesia rolls out a nationwide program to provide free nutritious meals to children and pregnant women, aiming to combat stunting and malnutrition.",
+      "labels": ["Economy", "Asia"],
+      "location": "Depok, Indonesia",
+      "slug": "indonesia-launches-free-meals-program-to-fight-stunting",
+      "title": "Indonesia Launches Free Meals Program to Fight Stunting"
+    },
+    "malaysia-joins-brics-as-partner-country-to-enhance-regional-and-global-influence": {
+      "blocks": [
+        {
+          "content": "On January 1, 2025, Malaysia officially became a BRICS partner country, joining eight other nations. The decision, approved at the October 2024 BRICS summit in Kazan, Russia, marks a major milestone in Malaysia's efforts to expand its influence on the global stage.",
+          "type": "text"
+        },
+        {
+          "content": "Malaysia's BRICS partnership announcement ceremony",
+          "type": "video",
+          "videoUrl": "https://t25gk-my.sharepoint.com/personal/zulfikar_t25gk_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=cba3c8eb-2513-4694-a7d5-21b1f0da2117"
+        },
+        {
+          "content": "Malaysia joining BRICS as a partner country can reduce its reliance on Western, European and American countries. Second, it will increase the voice of Malaysia and other Asia countries in South-South cooperation and on the global stage.",
+          "role": "president of the Center for New Inclusive Asia",
+          "spokesperson": "Koh King Kee",
+          "type": "quote"
+        },
+        {
+          "content": "Malaysia's exports to RCEP countries accounted for 29 percent of its total exports in 2024, underlining the pact's role as a stabilizer for the nation's economy.",
+          "type": "highlight"
+        },
+        {
+          "content": "The partnership is expected to strengthen Malaysia's position in international trade and diplomatic relations, particularly within the Asia-Pacific region.",
+          "type": "callout"
+        }
+      ],
+      "coverImage": "/images/articles/Malaysia Joins BRICS as Partner Country to Enhance Regional and Global Influence/Malaysia Joins BRICS as Partner Country to Enhance Regional and Global Influence.jpg",
+      "coverImageAlt": "National flag of Malaysia at Putrajaya Square",
+      "date": "5 January 2025",
+      "description": "Malaysia's inclusion as a BRICS partner country strengthens its role in South-South cooperation and reduces reliance on Western nations.",
+      "labels": ["Diplomacy", "Asia"],
+      "location": "Kuala Lumpur, Malaysia",
+      "slug": "malaysia-joins-brics-as-partner-country-to-enhance-regional-and-global-influence",
+      "title": "Malaysia Joins BRICS as Partner Country to Enhance Regional and Global Influence"
+    },
+    "hanoi-declared-worlds-most-polluted-city-as-thick-smog-persists": {
+      "blocks": [
+        {
+          "images": [
+            {
+              "imageAlt": "A view shows the city amid air pollution in Hanoi, Vietnam, January 3, 2025. © Thinh Nguyen",
+              "imageUrl": "/images/articles/Hanoi Declared World's Most Polluted City as Thick Smog Persists/A view shows the city amid air pollution in Hanoi, Vietnam, January 3, 2025.jpg"
+            },
+            {
+              "imageAlt": "The smog is so dense that it looks like fog, Hanoi, Vietnam, January 3, 2025. © Trong Nguyen",
+              "imageUrl": "/images/articles/Hanoi Declared World's Most Polluted City as Thick Smog Persists/The smog is so dense that it looks like fog.jpg"
+            }
+          ],
+          "type": "gallery"
+        },
+        {
+          "content": "Hanoi, the capital of Vietnam, has been declared the world's most polluted city, with PM2.5 levels recorded at 266 micrograms per cubic metre on Friday, January 3, 2025. This hazardous level is over four times higher than the World Health Organization's recommended safe limit of 60 μg/m³.",
+          "type": "text"
+        },
+        {
+          "content": "The persistent smog in the city is attributed to heavy traffic, industrial emissions, and trash burning. Residents have reported severe respiratory problems and decreased visibility. \"At first, I thought it was foggy ... but later I found out that it is actually fine dust that makes it hard to breathe,\" said Nguyen Ninh Huong, a 21-year-old student.",
+          "type": "text"
+        },
+        {
+          "content": "\"We the elderly can feel it very clearly when we suffer from respiratory problems that lead to breathing difficulties. The situation seems to get worse recently.\"",
+          "role": "64-year-old Hanoi resident",
+          "spokesperson": "Luu Minh Duc",
+          "type": "quote"
+        },
+        {
+          "content": "In response, Vietnam's Deputy Prime Minister, Tran Hong Ha, has called for accelerated adoption of electric vehicles (EVs). The city plans for at least 50% of buses and 100% of taxis to transition to EVs by 2030, as part of broader efforts to combat pollution.",
+          "type": "text"
+        },
+        {
+          "content": "PM2.5 levels in Hanoi reached 266 μg/m³ on January 3, 2025, the highest among major global cities.",
+          "type": "callout"
+        },
+        {
+          "content": "Hanoi joins other highly polluted cities in Asia, including Delhi, Dhaka, Lahore, and Karachi. Authorities emphasize the need for immediate action to protect public health and improve living conditions.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/Hanoi Declared World's Most Polluted City as Thick Smog Persists/A view shows the city amid air pollution in Hanoi, Vietnam, January 3, 2025.jpg",
+      "coverImageAlt": "A view of Hanoi covered in thick smog",
+      "date": "3 January 2025",
+      "description": "Vietnam's capital grapples with hazardous air quality as smog engulfs the city. Authorities aim for a shift to electric vehicles to improve conditions.",
+      "labels": ["Climate", "Asia"],
+      "location": "Hanoi, Vietnam",
+      "slug": "hanoi-declared-worlds-most-polluted-city-as-thick-smog-persists",
+      "title": "Hanoi Declared World's Most Polluted City as Thick Smog Persists"
+    },
+    "asia-holds-memorials-on-20th-anniversary-of-devastating-2004-tsunami": {
+      "blocks": [
+        {
+          "images": [
+            {
+              "imageAlt": "Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia",
+              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia.jpg"
+            },
+            {
+              "imageAlt": "Relatives of victims of the 2004 Indian Ocean tsunami hold a candlelight vigil as they recognize the 20th anniversary of the natural disaster at Tsunami Memorial Park at Ban Nam Khem Takuapa district of Phang Nga province, southern Thailand",
+              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Relatives of victims of the 2004 Indian Ocean tsunami hold a candlelight vigil as they recognize the 20th anniversary of the natural disaster at Tsunami Memorial Park at Ban Nam Khem Takuapa district of Phang Nga province, southern Thailand.jpg"
+            },
+            {
+              "imageAlt": "Indians offer tributes in remembrance of victims of the 2004 tsunami on the 20th anniversary of the tragedy at Marina Beach in Chennai, India",
+              "imageUrl": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Indians offer tributes in remembrance of victims of the 2004 tsunami on the 20th anniversary of the tragedy at Marina Beach in Chennai, India.jpg"
+            }
+          ],
+          "type": "gallery"
+        },
+        {
+          "content": "Emotional ceremonies and prayers are being held across Asia to commemorate the 20th anniversary of the devastating 2004 Indian Ocean tsunami, which claimed over 220,000 lives in one of modern history’s worst natural disasters. A magnitude 9.1 earthquake struck off Indonesia’s western coast on December 26, 2004, unleashing a series of colossal waves that reached as high as 30 meters. These waves ravaged the shorelines of 14 countries, from Indonesia to Somalia, leaving devastation in their wake.",
+          "type": "text"
+        },
+        {
+          "content": "\"I thought it was doomsday. On a Sunday morning, when our family was laughing together, disaster struck, and everything was gone. I can’t describe it with words.\"",
+          "role": "Teacher and tsunami survivor in Aceh, Indonesia",
+          "spokesperson": "Hasnawati",
+          "type": "quote"
+        },
+        {
+          "content": "In Aceh, Indonesia, the region that suffered the highest death toll of over 160,000, a siren rang out for three minutes at the iconic Baiturrahman Grand Mosque to mark the start of memorial events. Thousands gathered for a communal prayer, mourning the immense loss of life. Later in the day, residents of Banda Aceh, the provincial capital, were set to visit mass graves and attend a larger prayer service to honor those who perished. Around 14,000 tsunami victims are buried at the Ulee Lheue mass grave, where mourners reflected on the tragedy that shattered families and entire communities.",
+          "type": "text"
+        },
+        {
+          "content": "In Sri Lanka, where more than 35,000 people died, survivors and families of victims commemorated the tragedy in Peraliya, where a passenger train carrying 1,000 people was derailed and swept away by the tsunami. Mourners traveled on the restored Ocean Queen Express to the site of the disaster, where a brief religious service was held. Across the nation, Buddhist, Hindu, Christian, and Muslim ceremonies were conducted to remember the lives lost in this monumental tragedy.",
+          "type": "text"
+        },
+        {
+          "content": "The tragedy brought about profound changes, including advancements in early warning systems.",
+          "type": "callout"
+        },
+        {
+          "content": "Thailand also marked the somber anniversary with official ceremonies and private vigils, especially in Phang Nga Province, which was severely affected. Nearly half of Thailand’s 5,000 fatalities were foreign tourists who were vacationing on the region’s beaches during the Christmas holiday. A special tsunami exhibition, documentary screenings, and presentations on disaster preparedness were organized, reflecting on the past while preparing for the future.",
+          "type": "text"
+        },
+        {
+          "content": "The 2004 tsunami’s impact extended far beyond Asia, with waves claiming nearly 300 lives in Somalia, over 100 in the Maldives, and dozens more in Malaysia and Myanmar. The tragedy brought about profound changes, including advancements in early warning systems. Today, a sophisticated network of monitoring stations and international cooperation ensures quicker alerts, significantly reducing risks in coastal communities. Survivors and officials expressed hope that such a disaster will never happen again while emphasizing the importance of learning from the past to protect future generations.",
+          "type": "text"
+        }
+      ],
+      "coverImage": "/images/articles/Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami/Women prayed for relatives who lost their lives in the 2004 Indian Ocean tsunami at a mass grave in Indonesia.jpg",
+      "coverImageAlt": "Mourners at a Thailand",
+      "date": "26 December 2024",
+      "description": "Ceremonies and prayers across Asia honor over 220,000 lives lost in the catastrophic 2004 Indian Ocean tsunami.",
+      "labels": ["Climate", "Asia"],
+      "location": "Aceh, Indonesia",
+      "slug": "asia-holds-memorials-on-20th-anniversary-of-devastating-2004-tsunami",
+      "title": "Asia Holds Memorials on 20th Anniversary of Devastating 2004 Tsunami"
+    }
+  }
+}

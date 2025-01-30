@@ -6,14 +6,15 @@ import { database } from '@/lib/firebase';
  * @param article
  * @returns
  */
-export async function addArticle(
-  article: Record<string, any>,
-): Promise<string> {
-  const articlesRef = ref(database, 'articles');
+export async function addArticle(article: Record<string, any>): Promise<void> {
+  const articleRef = ref(database, `articles/${article.slug}`);
+
   try {
-    const newArticleRef = await push(articlesRef, article);
-    console.log('Article added with slug:', newArticleRef.key);
-    return newArticleRef.key!;
+    await push(articleRef, {
+      ...article,
+      slug: article.slug,
+    });
+    console.log('Article added with slug:', article.slug);
   } catch (error) {
     console.error('Error adding article:', error);
     throw error;
@@ -31,7 +32,10 @@ export async function updateArticle(
 ): Promise<void> {
   const articleRef = ref(database, `articles/${slug}`);
   try {
-    await update(articleRef, article);
+    await update(articleRef, {
+      ...article,
+      slug,
+    });
     console.log('Article updated:', slug);
   } catch (error) {
     console.error('Error updating article:', error);

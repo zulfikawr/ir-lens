@@ -72,6 +72,8 @@ export default function ArticlesListPage() {
   const handleDeleteConfirm = async () => {
     if (!articleToDelete) return;
 
+    console.log('Attempting to delete article with slug:', articleToDelete); // Debugging
+
     try {
       await deleteArticle(articleToDelete);
       await fetchArticles();
@@ -177,17 +179,17 @@ export default function ArticlesListPage() {
                     {['Title', 'Date', 'Actions'].map((header, index) => (
                       <TableHead
                         key={header}
-                        className='font-bold text-black text-lg py-4'
+                        className='font-bold bg-black text-lg py-2'
                       >
                         <Button
                           variant='ghost'
                           onClick={() =>
                             handleSort(header.toLowerCase() as SortableKeys)
                           }
-                          className='font-bold text-black hover:bg-gray-100'
+                          className='font-bold text-white hover:bg-white'
                         >
                           {header}{' '}
-                          {index < 3 && (
+                          {index < 2 && (
                             <ArrowUpDown className='ml-2 h-4 w-4' />
                           )}
                         </Button>
@@ -201,13 +203,13 @@ export default function ArticlesListPage() {
                       key={article.slug}
                       className='hover:bg-gray-50 transition-colors'
                     >
-                      <TableCell className='text-black'>
+                      <TableCell className='text-black py-2'>
                         {article.title}
                       </TableCell>
-                      <TableCell className='text-black'>
+                      <TableCell className='text-black py-2'>
                         {formatDate(article.date)}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className='py-2'>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant='ghost' className='h-8 w-8 p-0'>

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import { Button } from '@/components/ui/button';
+import { LogIn } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -45,16 +47,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen'>
+    <div className='min-h-screen mx-auto px-4 md:px-8 py-16'>
+      <div className='mb-16 text-center'>
+        <div className='flex items-center justify-center mb-6'>
+          <div className='w-16 h-px bg-black'></div>
+          <LogIn className='mx-4 w-8 h-8' />
+          <div className='w-16 h-px bg-black'></div>
+        </div>
+        <h1 className='text-4xl font-bold'>Login</h1>
+      </div>
       <form
         onSubmit={handleLogin}
-        className='bg-white text-black p-8 border border-black shadow-lg max-w-sm w-full'
+        className='bg-white text-black p-8 border border-black shadow-lg max-w-sm w-full mx-auto'
       >
-        <h2 className='text-3xl font-bold mb-6 text-center'>Login</h2>
-        {error && <p className='text-red-600 text-sm mb-2'>{error}</p>}
         <div className='mb-4'>
           <label className='block text-sm font-medium mb-1'>Email</label>
-          <input
+          <Input
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +73,7 @@ export default function LoginPage() {
         </div>
         <div className='mb-6'>
           <label className='block text-sm font-medium mb-1'>Password</label>
-          <input
+          <Input
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -77,6 +85,7 @@ export default function LoginPage() {
         <Button type='submit' className='w-full py-2 px-4'>
           Login
         </Button>
+        {error && <p className='text-red-600 text-sm'>{error}</p>}
       </form>
     </div>
   );

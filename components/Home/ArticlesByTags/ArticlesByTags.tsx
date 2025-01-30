@@ -7,6 +7,7 @@ import { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import ArticlesByTagsLoading from './loading';
+import { Calendar, MapPin } from 'lucide-react';
 
 const ArticlesByTags = () => {
   const { data } = useArticleContext();
@@ -16,7 +17,6 @@ const ArticlesByTags = () => {
     [],
   );
   const [activeCards, setActiveCards] = useState<Record<string, number>>({});
-  const [isHovering, setIsHovering] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (data.length) {
@@ -38,47 +38,27 @@ const ArticlesByTags = () => {
       {} as Record<string, number>,
     );
     setActiveCards(initialActiveCards);
-
-    const initialHovering = allowedTags.reduce(
-      (acc, tag) => {
-        acc[tag] = false;
-        return acc;
-      },
-      {} as Record<string, boolean>,
-    );
-    setIsHovering(initialHovering);
   }, [allowedTags]);
 
   useEffect(() => {
     const intervals = allowedTags.map((tag) => {
       return setInterval(() => {
-        if (!isHovering[tag]) {
-          setActiveCards((prev) => {
-            const tagArticles = articles.filter((article) =>
-              article.labels.includes(tag),
-            );
-            return {
-              ...prev,
-              [tag]: (prev[tag] + 1) % Math.min(tagArticles.length, 3),
-            };
-          });
-        }
+        setActiveCards((prev) => {
+          const tagArticles = articles.filter((article) =>
+            article.labels.includes(tag),
+          );
+          return {
+            ...prev,
+            [tag]: (prev[tag] + 1) % Math.min(tagArticles.length, 3),
+          };
+        });
       }, 5000);
     });
 
     return () => {
       intervals.forEach(clearInterval);
     };
-  }, [articles, allowedTags, isHovering]);
-
-  const handleCardHover = (tag: string, index: number) => {
-    setActiveCards((prev) => ({ ...prev, [tag]: index }));
-    setIsHovering((prev) => ({ ...prev, [tag]: true }));
-  };
-
-  const handleCardLeave = (tag: string) => {
-    setIsHovering((prev) => ({ ...prev, [tag]: false }));
-  };
+  }, [articles, allowedTags]);
 
   const renderArticleCard = (
     article: ArticleType['articles'][0],
@@ -92,11 +72,6 @@ const ArticlesByTags = () => {
         ${index === activeCards[tag] ? 'z-30 opacity-100 -translate-x-2 -translate-y-2' : ''}
         ${index === (activeCards[tag] + 1) % 3 ? 'translate-x-0 translate-y-0' : 'z-10'}
         ${index === (activeCards[tag] + 2) % 3 ? 'translate-x-2 translate-y-2' : 'z-20'}`}
-      style={{
-        transitionDelay: `${index * 50}ms`,
-      }}
-      onMouseEnter={() => handleCardHover(tag, index)}
-      onMouseLeave={() => handleCardLeave(tag)}
     >
       <div className='grid grid-cols-3 h-full'>
         <div className='col-span-1 h-full'>
@@ -141,10 +116,14 @@ const ArticlesByTags = () => {
 
           <div className='mt-auto'>
             <div className='flex items-center justify-between text-xs text-gray-500'>
-              <time dateTime={article.date} className='italic'>
-                {article.date}
-              </time>
-              <p>{article.location}</p>
+              <div className='flex items-center gap-1'>
+                <Calendar className='w-3 h-3' />
+                <time dateTime={article.date}>{article.date}</time>
+              </div>
+              <div className='flex items-center gap-1'>
+                <MapPin className='w-3 h-3' />
+                <span>{article.location}</span>
+              </div>
             </div>
           </div>
         </div>

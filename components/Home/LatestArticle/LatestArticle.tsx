@@ -7,10 +7,10 @@ import type { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import LatestArticleLoading from './loading';
+import { Calendar, MapPin } from 'lucide-react';
 
 const LatestArticle = () => {
   const [activeCard, setActiveCard] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
   const { data } = useArticleContext();
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
 
@@ -26,7 +26,7 @@ const LatestArticle = () => {
   }, [data]);
 
   useEffect(() => {
-    if (!isHovering && articles.length > 0) {
+    if (articles.length > 0) {
       const interval = setInterval(() => {
         setActiveCard(
           (prevActiveCard) => (prevActiveCard + 1) % articles.length,
@@ -34,16 +34,7 @@ const LatestArticle = () => {
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [isHovering, articles.length]);
-
-  const handleCardHover = (index: number) => {
-    setActiveCard(index);
-    setIsHovering(true);
-  };
-
-  const handleCardLeave = () => {
-    setIsHovering(false);
-  };
+  }, [articles.length]);
 
   if (!articles.length) {
     return (
@@ -63,11 +54,6 @@ const LatestArticle = () => {
             ${index === activeCard ? 'z-30 opacity-100 -translate-x-4 -translate-y-4' : ''} 
             ${index === (activeCard + 1) % articles.length ? 'translate-x-0 translate-y-0' : 'z-10'} 
             ${index === (activeCard + 2) % articles.length ? 'translate-x-4 translate-y-4' : 'z-20'}`}
-          style={{
-            transitionDelay: `${index * 50}ms`,
-          }}
-          onMouseEnter={() => handleCardHover(index)}
-          onMouseLeave={handleCardLeave}
         >
           <div className='grid grid-cols-1 lg:grid-cols-10 h-full'>
             <div className='col-span-5 h-[250px] lg:h-full'>
@@ -116,11 +102,17 @@ const LatestArticle = () => {
 
                 <div className='mt-auto'>
                   <div className='flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-4'>
-                    <time dateTime={article.date} className='italic'>
-                      {article.date}
-                    </time>
+                    <div className='flex items-center gap-2'>
+                      <Calendar className='w-3 h-3' />
+                      <time dateTime={article.date} className='italic'>
+                        {article.date}
+                      </time>
+                    </div>
                     <span>|</span>
-                    <p>{article.location}</p>
+                    <div className='flex items-center gap-2'>
+                      <MapPin className='w-3 h-3' />
+                      <p>{article.location}</p>
+                    </div>
                   </div>
 
                   <Link href={`/articles/${article.slug}`}>
