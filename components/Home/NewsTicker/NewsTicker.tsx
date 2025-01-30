@@ -5,7 +5,9 @@ import { getArticles } from '@/functions/getArticles';
 import Loading from '../loading';
 
 export default function NewsTicker() {
-  const [articles, setArticles] = useState<{ title: string; slug: string }[]>([]);
+  const [articles, setArticles] = useState<{ title: string; slug: string }[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState<string>('');
   const newsText = useRef<HTMLDivElement | null>(null);
@@ -28,7 +30,8 @@ export default function NewsTicker() {
 
   // Animate news ticker
   useEffect(() => {
-    if (!newsText.current || !containerRef.current || articles.length === 0) return;
+    if (!newsText.current || !containerRef.current || articles.length === 0)
+      return;
 
     const ticker = newsText.current;
     const clonedContent = ticker.innerHTML;

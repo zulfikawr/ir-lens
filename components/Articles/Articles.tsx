@@ -81,7 +81,7 @@ export default function ExperimentalNewspaper() {
   }
 
   return (
-    <div className='relative min-h-screen p-4 md:p-8 lg:p-12'>
+    <div className='relative min-h-screen p-4 md:p-8'>
       <div className='relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-8'>
         <div className='space-y-8'>
           <header className='relative pb-4 border-b border-neutral-300'>
@@ -103,7 +103,7 @@ export default function ExperimentalNewspaper() {
             </div>
           </header>
 
-          <div className='relative h-[560px] w-full'>
+          <div className='relative h-[600px] md:h-[560px] w-full pr-4 mx-auto mt-6 scale-95'>
             {featuredArticles.map((article, index) => (
               <article
                 key={article.title}
@@ -167,7 +167,7 @@ export default function ExperimentalNewspaper() {
           </div>
         </div>
 
-        <div className='hidden lg:block space-y-8'>
+        <div className='block space-y-8'>
           <div className='bg-white border border-neutral-200 p-6 shadow-md'>
             <h2 className='text-xl font-light border-b border-neutral-300 pb-2 mb-4'>
               Trending
@@ -201,7 +201,7 @@ export default function ExperimentalNewspaper() {
         </div>
       </div>
 
-      <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-8 lg:p-12'>
+      <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
         {currentArticles.slice(3).map((article) => (
           <article
             key={article.title}

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Articles  | IR Lens',
-  description: 'Articles from our team of writers, editors and artists',
+  description: 'List of Articles',
 };
 
 export default function ArticlesPage() {
