@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import { getArticles } from '@/app/functions/getArticles';
+import { getArticles } from '@/functions/getArticles';
 import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
 import type { ArticleType } from '@/types/article';
 

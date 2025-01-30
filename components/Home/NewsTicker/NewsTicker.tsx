@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/app/functions/getArticles';
+import { getArticles } from '@/functions/getArticles';
 import Loading from '../loading';
 
 export default function NewsTicker() {

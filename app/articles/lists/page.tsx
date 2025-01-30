@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/app/functions/getArticles';
+import { getArticles } from '@/functions/getArticles';
 import { deleteArticle } from '@/lib/database';
 import type { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';

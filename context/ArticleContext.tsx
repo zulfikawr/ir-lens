@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getArticles } from '@/app/functions/getArticles';
+import { getArticles } from '@/functions/getArticles';
 import { ArticleType } from '@/types/article';
 import { ArticleContext } from '@/hooks/useArticleContext';
 

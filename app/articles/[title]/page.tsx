@@ -1,4 +1,4 @@
-import { getArticles } from '@/app/functions/getArticles';
+import { getArticles } from '@/functions/getArticles';
 import { ArticlePage } from '@/components/Articles/[title]/ArticlePage';
 import { ArticleSidebar } from '@/components/Articles/[title]/ArticleSidebar';
 import ArticleLoading from '@/components/Articles/[title]/ArticleLoading';
