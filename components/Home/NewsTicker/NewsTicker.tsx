@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { getArticles } from '@/app/functions/getArticles';
+import Loading from '../loading';
 
 export default function NewsTicker() {
   const [articles, setArticles] = useState<{ title: string; slug: string }[]>(
     [],
   );
+  const [loading, setLoading] = useState(true);
   const newsText = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -20,6 +22,7 @@ export default function NewsTicker() {
           slug: article.slug,
         })),
       );
+      setLoading(false);
     };
 
     fetchArticles();
@@ -58,10 +61,12 @@ export default function NewsTicker() {
     };
   }, [articles]);
 
+  if (loading) return <Loading />;
+
   return (
     <div
       ref={containerRef}
-      className='flex bg-black text-white py-5 w-full mx-auto relative overflow-hidden my-8'
+      className='flex bg-black text-white py-5 w-full mx-auto relative overflow-hidden'
     >
       <div
         ref={newsText}

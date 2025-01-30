@@ -1,5 +1,5 @@
 import { getArticles } from '@/app/functions/getArticles';
-import { ArticleContent } from '@/components/Articles/[title]/ArticleContent';
+import { ArticlePage } from '@/components/Articles/[title]/ArticlePage';
 import { ArticleSidebar } from '@/components/Articles/[title]/ArticleSidebar';
 import ArticleLoading from '@/components/Articles/[title]/ArticleLoading';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ async function ArticleDetailsContent({ params }: Props) {
   return (
     <main className='max-w-6xl mx-auto px-4'>
       <div className={`py-16 md:grid md:grid-cols-[1fr_auto] md:gap-16`}>
-        <ArticleContent article={article} />
+        <ArticlePage article={article} />
         <ArticleSidebar articles={articles} currentArticle={article} />
       </div>
     </main>

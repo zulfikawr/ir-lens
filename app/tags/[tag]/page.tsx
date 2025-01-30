@@ -73,7 +73,7 @@ export default function TagPage() {
 
       {/* Articles List */}
       <div className='space-y-12'>
-        {currentArticles.map((article, index) => (
+        {currentArticles.map((article, _index) => (
           <article key={article.title} className='group'>
             <div className='grid md:grid-cols-[0.4fr_1fr] gap-8'>
               <Link

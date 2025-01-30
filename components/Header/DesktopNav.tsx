@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { User } from 'firebase/auth';
 import { AdminMenu } from './AdminMenu';
-import Search from './Search';
+import { Search } from './Search';
 import menu from '@/json/menu.json';
 import {
   NavigationMenu,
@@ -23,7 +23,6 @@ const ListItem = React.forwardRef<
   React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, href, ...props }, ref) => {
   if (!href) {
-    console.error('href is required for ListItem');
     return null;
   }
 

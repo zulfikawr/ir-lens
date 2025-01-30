@@ -1,7 +1,7 @@
 'use client';
 
 import type { ArticleType } from '@/types/article';
-import { RichContentBlock } from '@/components/Articles/[title]/RichContentBlock';
+import { ArticleContent } from '@/components/Articles/[title]/ArticleContent';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -44,7 +44,7 @@ export function ArticlePreview({
 
       <div className='prose prose-lg mt-8'>
         {article.blocks.map((block, index) => (
-          <RichContentBlock key={index} block={block} />
+          <ArticleContent key={index} block={block} />
         ))}
       </div>
 

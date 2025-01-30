@@ -33,7 +33,11 @@ export function withAdminAuth(Component: React.ComponentType) {
     }, [auth, router]);
 
     if (isLoading) {
-      return <div className='px-4 md:px-8'><Loading /></div>
+      return (
+        <div className='px-4 md:px-8'>
+          <Loading />
+        </div>
+      );
     }
 
     return isAdmin ? <Component /> : null;

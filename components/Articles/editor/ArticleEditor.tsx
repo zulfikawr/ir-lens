@@ -19,7 +19,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import type { ArticleType, ContentBlock } from '@/types/article';
+import type { ArticleType } from '@/types/article';
+import type { ContentBlock } from '@/types/contentBlocks';
 
 interface ArticleEditorProps {
   article: ArticleType['articles'][0];

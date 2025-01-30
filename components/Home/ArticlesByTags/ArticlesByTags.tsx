@@ -105,7 +105,7 @@ const ArticlesByTags = () => {
               <Image
                 src={article.coverImage || '/images/default-fallback-image.png'}
                 alt={article.coverImageAlt || 'Article cover image'}
-                sizes='(max-width: 768px) 33vw, 25vw'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 fill
                 className='object-cover'
                 priority

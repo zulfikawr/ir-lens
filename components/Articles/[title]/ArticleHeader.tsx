@@ -16,20 +16,17 @@ export function ArticleHeader({
   const { user } = useAuth();
 
   return (
-    <div className='mb-12'>
-      {/* Full-Width Image */}
-      <div className='relative w-full h-[30vh] md:h-[60vh] overflow-hidden border border-black shadow-md mb-8'>
+    <div>
+      <div className='relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] overflow-hidden border border-black shadow-md mb-8'>
         <Image
           src={article.coverImage}
           alt={article.coverImageAlt}
-          layout='fill'
-          objectFit='cover'
+          fill
+          className='absolute inset-0 w-full h-full object-cover grayscale-[20%] contrast-125 brightness-[90%]'
           priority
-          className='absolute inset-0 w-full h-full grayscale-[20%] contrast-125 brightness-[90%]'
         />
       </div>
 
-      {/* Labels */}
       <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>
         {article.labels.map((label, idx) => (
           <Link key={idx} href={`/tags/${label}`}>
@@ -38,18 +35,16 @@ export function ArticleHeader({
         ))}
       </div>
 
-      {/* Title and Description */}
       <div className='flex flex-col items-start'>
-        <h1 className='text-5xl md:text-6xl font-extrabold text-gray-900'>
+        <h1 className='text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900'>
           {article.title}
         </h1>
-        <p className='text-lg text-gray-600 mt-4 max-w-3xl'>
+        <p className='text-md md:text-lg text-gray-600 mt-4 max-w-3xl'>
           {article.description}
         </p>
       </div>
 
-      {/* Metadata & Actions */}
-      <div className='flex flex-col md:flex-row items-start justify-between md:items-center gap-6 mt-6 pb-6 border-b border-gray-200'>
+      <div className='flex flex-col md:flex-row items-start justify-between md:items-center gap-6 mt-6 pb-6 border-b border-black'>
         <div className='flex flex-col sm:flex-row gap-4 sm:gap-6'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />

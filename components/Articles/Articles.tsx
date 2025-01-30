@@ -109,7 +109,7 @@ export default function ExperimentalNewspaper() {
                 key={article.title}
                 className={`absolute w-full transition-all duration-500 ease-in-out 
                   bg-white shadow-xl border border-neutral-200 p-6 overflow-hidden
-                  cursor-pointer rounded-lg
+                  cursor-pointer
                   ${index === activeCard ? 'z-30 opacity-100 -translate-x-4 -translate-y-4' : ''}
                   ${index === (activeCard + 1) % 3 ? 'translate-x-4 translate-y-4' : 'z-20'}
                   ${index === (activeCard + 2) % 3 ? 'translate-x-0 translate-y-0' : 'z-10'}`}
@@ -128,7 +128,7 @@ export default function ExperimentalNewspaper() {
                         {article.labels.slice(0, 3).map((label, idx) => (
                           <span
                             key={idx}
-                            className='text-xs px-2 py-1 border border-neutral-400 text-neutral-700 rounded-full'
+                            className='text-xs px-2 py-1 border border-neutral-400 text-neutral-700'
                           >
                             {label}
                           </span>
@@ -152,7 +152,7 @@ export default function ExperimentalNewspaper() {
                     </div>
                   </div>
                   <Link href={`/articles/${article.slug}`}>
-                    <div className='aspect-[3/4] relative group overflow-hidden rounded-lg'>
+                    <div className='aspect-[3/4] relative group overflow-hidden'>
                       <Image
                         src={article.coverImage || '/placeholder.svg'}
                         alt={article.coverImageAlt}
@@ -168,7 +168,7 @@ export default function ExperimentalNewspaper() {
         </div>
 
         <div className='hidden lg:block space-y-8'>
-          <div className='bg-white border border-neutral-200 p-6 shadow-md rounded-lg'>
+          <div className='bg-white border border-neutral-200 p-6 shadow-md'>
             <h2 className='text-xl font-light border-b border-neutral-300 pb-2 mb-4'>
               Trending
             </h2>
@@ -205,10 +205,10 @@ export default function ExperimentalNewspaper() {
         {currentArticles.slice(3).map((article) => (
           <article
             key={article.title}
-            className='bg-white border border-neutral-200 p-4 shadow-md transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg group rounded-lg'
+            className='bg-white border border-neutral-200 p-4 shadow-md transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg group'
           >
             <Link href={`/articles/${article.slug}`}>
-              <div className='aspect-video relative mb-4 overflow-hidden rounded-lg'>
+              <div className='aspect-video relative mb-4 overflow-hidden'>
                 <Image
                   src={article.coverImage || '/placeholder.svg'}
                   alt={article.coverImageAlt}
@@ -220,7 +220,7 @@ export default function ExperimentalNewspaper() {
                 {article.labels.slice(0, 3).map((label, idx) => (
                   <span
                     key={idx}
-                    className='text-xs px-2 py-1 border border-neutral-400 text-neutral-700 rounded-full'
+                    className='text-xs px-2 py-1 border border-neutral-400 text-neutral-700'
                   >
                     {label}
                   </span>

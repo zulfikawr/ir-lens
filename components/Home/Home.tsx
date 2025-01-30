@@ -18,9 +18,8 @@ const HomeSection = () => {
   }
 
   return (
-    <div className='py-8'>
+    <div>
       <NewsTicker />
-
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-8'>
         <div className='lg:col-span-8 space-y-12 md:space-y-2'>
           <LatestArticle />

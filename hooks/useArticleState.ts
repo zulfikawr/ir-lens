@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { ArticleType, ContentBlock } from '@/types/article';
+import type { ArticleType } from '@/types/article';
+import type { ContentBlock } from '@/types/contentBlocks';
 
 export function useArticleState(initialArticle: ArticleType['articles'][0]) {
   const [article, setArticle] = useState<ArticleType['articles'][0]>(() => {

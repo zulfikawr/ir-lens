@@ -2,19 +2,16 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function RegionalFocusLoading() {
   return (
-    <section className='my-16'>
+    <section className='my-8 sm:my-12 md:my-16'>
       {/* Section Header */}
-      <div className='border-t border-black py-6 mt-8'>
-        <div className='flex items-center justify-between flex-wrap gap-4'>
-          <div className='flex items-center gap-3'>
-            <Skeleton className='w-8 h-8 bg-gray-300' />
-            <Skeleton className='h-8 w-48 bg-gray-300' />
-          </div>
-          <div className='flex flex-wrap gap-2'>
+      <div className='border-t border-black py-8'>
+        <div className='flex flex-col sm:flex-row items-center justify-between flex-wrap gap-4'>
+          <Skeleton className='h-12 w-48 bg-[#a1a1a1]' />
+          <div className='flex flex-wrap gap-1 sm:gap-2'>
             {Array.from({ length: 5 }).map((_, index) => (
               <Skeleton
                 key={index}
-                className='h-10 w-28 px-4 py-2 bg-gray-300'
+                className='h-10 w-20 sm:w-24 bg-[#a1a1a1]'
               />
             ))}
           </div>
@@ -22,43 +19,48 @@ export default function RegionalFocusLoading() {
       </div>
 
       {/* Articles Grid */}
-      <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6'>
-        {Array.from({ length: 12 }).map((_, index) => (
-          <div
-            key={index}
-            className='bg-white border border-black shadow-md transform transition-all duration-300 group'
-          >
-            <div className='aspect-video relative overflow-hidden'>
-              <Skeleton className='absolute inset-0 w-full h-full bg-gray-300' />
-            </div>
-            <div className='p-2 md:p-4'>
-              <div className='flex flex-wrap gap-2 mb-2'>
-                {Array.from({ length: 3 }).map((_, labelIndex) => (
-                  <Skeleton
-                    key={labelIndex}
-                    className='text-xs px-2 py-1 bg-gray-300 w-16'
-                  />
-                ))}
+      <div className='space-y-6 sm:space-y-8 md:space-y-12'>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <article key={index} className='group'>
+            <div className='grid md:grid-cols-[0.4fr_1fr] gap-4 sm:gap-6 md:gap-8'>
+              <div className='block overflow-hidden'>
+                <Skeleton className='w-full h-56 md:h-64 bg-[#a1a1a1]' />
               </div>
-              <Skeleton className='h-6 w-full mb-2 bg-gray-300' />
-              <Skeleton className='h-4 w-5/6 bg-gray-300' />
+              <div className='flex flex-col justify-between'>
+                <div className='space-y-2 sm:space-y-3'>
+                  <div className='flex flex-wrap gap-1 sm:gap-2'>
+                    {Array.from({ length: 2 }).map((_, idx) => (
+                      <Skeleton key={idx} className='h-6 w-16 bg-[#a1a1a1]' />
+                    ))}
+                  </div>
+                  <Skeleton className='h-8 w-full bg-[#a1a1a1]' />
+                  <Skeleton className='h-4 w-5/6 bg-[#a1a1a1]' />
+                </div>
+                <div className='flex flex-wrap gap-2 sm:gap-4 md:gap-6 mt-4 sm:mt-6'>
+                  <Skeleton className='h-4 w-24 bg-[#a1a1a1]' />
+                  <Skeleton className='h-4 w-24 bg-[#a1a1a1]' />
+                </div>
+              </div>
             </div>
-          </div>
+            <div className='border-b border-gray-200 mt-6 sm:mt-8 md:mt-12' />
+          </article>
         ))}
       </div>
 
       {/* Pagination */}
-      <div className='flex justify-center items-center mt-8 gap-2'>
-        <Skeleton className='h-10 w-24 bg-gray-300' />
-        {Array.from({ length: 3 }).map((_, index) => (
-          <Skeleton key={index} className='h-10 w-10 bg-gray-300' />
-        ))}
-        <Skeleton className='h-10 w-24 bg-gray-300' />
+      <div className='mt-6 sm:mt-8'>
+        <div className='flex justify-center gap-2'>
+          <Skeleton className='h-10 w-24 bg-[#a1a1a1]' />
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} className='h-10 w-10 bg-[#a1a1a1]' />
+          ))}
+          <Skeleton className='h-10 w-24 bg-[#a1a1a1]' />
+        </div>
       </div>
 
       {/* See All Button */}
-      <div className='flex justify-center mt-8'>
-        <Skeleton className='h-10 w-48 bg-gray-300' />
+      <div className='flex justify-center mt-6 sm:mt-8'>
+        <Skeleton className='h-10 w-48 bg-[#a1a1a1]' />
       </div>
     </section>
   );

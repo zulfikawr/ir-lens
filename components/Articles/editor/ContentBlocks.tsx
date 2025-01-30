@@ -20,7 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { ContentBlock } from '@/types/article';
+import type { ContentBlock } from '@/types/contentBlocks';
 import { renderEditableBlock } from './EditableBlock';
 
 interface ContentBlocksProps {

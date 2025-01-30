@@ -150,21 +150,21 @@ export default function ArticlesListPage() {
           </p>
         </div>
 
-        <div className='bg-white shadow-lg rounded-lg overflow-hidden'>
+        <div className='bg-white shadow-lg overflow-hidden'>
           <div className='p-6'>
             <div className='flex flex-col sm:flex-row justify-between items-center mb-6'>
               <Input
                 placeholder='Search articles...'
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className='w-full sm:max-w-md border border-gray-300 px-4 py-2 h-10 text-black placeholder-gray-500 rounded-lg'
+                className='w-full sm:max-w-md border border-gray-300 px-4 py-2 h-10 text-black placeholder-gray-500'
               />
               <Link
                 href='/articles/create'
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Button className='px-6 h-10 text-sm rounded-lg'>
+                <Button className='px-6 h-10 text-sm'>
                   <Plus className='mr-2 h-5 w-5' /> New Article
                 </Button>
               </Link>
@@ -302,7 +302,7 @@ export default function ArticlesListPage() {
                     setCurrentPage((prev) => Math.max(prev - 1, 1))
                   }
                   disabled={currentPage === 1}
-                  className='border-gray-300 text-black hover:bg-black hover:text-white transition duration-300 px-4 py-2 rounded-lg'
+                  className='border-gray-300 text-black hover:bg-black hover:text-white transition duration-300 px-4 py-2'
                 >
                   <ChevronLeft className='h-4 w-4' />
                 </Button>
@@ -312,7 +312,7 @@ export default function ArticlesListPage() {
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                   }
                   disabled={currentPage === totalPages}
-                  className='border-gray-300 text-black hover:bg-black hover:text-white transition duration-300 px-4 py-2 rounded-lg'
+                  className='border-gray-300 text-black hover:bg-black hover:text-white transition duration-300 px-4 py-2'
                 >
                   <ChevronRight className='h-4 w-4' />
                 </Button>

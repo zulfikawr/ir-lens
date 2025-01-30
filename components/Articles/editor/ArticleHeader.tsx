@@ -252,7 +252,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       </div>
 
       {/* Date and Location Section */}
-      <div className='flex flex-col md:flex-row items-start md:items-center gap-6 mt-6 pb-6 border-b border-gray-200'>
+      <div className='flex flex-col md:flex-row items-start md:items-center gap-6 mt-6 pb-6 border-b border-black'>
         <div className='flex flex-col sm:flex-row gap-4 sm:gap-6'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />
