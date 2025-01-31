@@ -88,7 +88,11 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ user }) => {
               <NavigationMenuContent>
                 <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 max-h-[calc(100vh-4rem)] overflow-auto'>
                   {menu.regions.map((region) => (
-                    <ListItem key={region.title} title={region.title} href={region.href}>
+                    <ListItem
+                      key={region.title}
+                      title={region.title}
+                      href={region.href}
+                    >
                       {region.description}
                     </ListItem>
                   ))}

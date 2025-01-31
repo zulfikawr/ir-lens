@@ -1,7 +1,6 @@
 import type { ContentBlock } from '@/types/contentBlocks';
 
 export function createNewBlock(type: ContentBlock['type']): ContentBlock {
-
   switch (type) {
     case 'text':
       return { type: 'text', text: 'string' };

@@ -130,9 +130,7 @@ export const GalleryComponent = ({
       <div className='relative w-full h-[300px] md:h-[500px]'>
         <Image
           src={currentImage.imgUrl}
-          alt={
-            currentImage.imgAlt || `Gallery image ${currentImageIndex + 1}`
-          }
+          alt={currentImage.imgAlt || `Gallery image ${currentImageIndex + 1}`}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           className='object-cover shadow-none border border-black'
           fill

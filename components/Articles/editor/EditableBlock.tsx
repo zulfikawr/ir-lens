@@ -60,7 +60,6 @@ export function EditableBlock({
   onDrop,
   totalBlocks,
 }: EditableBlockProps) {
-
   const blockWrapperClasses =
     'border border-gray-200 p-4 relative group flex flex-col justify-between hover:shadow-lg transition-shadow duration-200';
   const contentWrapperClasses = 'flex-grow';
