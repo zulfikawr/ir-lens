@@ -13,6 +13,8 @@ export default function ArticleContextProvider({
   children,
 }: ArticleContextProviderType) {
   const [data, setData] = useState<ArticleType>({ articles: [] });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +22,9 @@ export default function ArticleContextProvider({
         const responseData = await getArticles();
         setData({ articles: responseData });
       } catch (err) {
-        console.log('Error fetching data', err);
+        setError(err as Error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,7 +32,7 @@ export default function ArticleContextProvider({
   }, []);
 
   return (
-    <ArticleContext.Provider value={{ data: data.articles }}>
+    <ArticleContext.Provider value={{ data: data.articles, loading, error }}>
       {children}
     </ArticleContext.Provider>
   );
