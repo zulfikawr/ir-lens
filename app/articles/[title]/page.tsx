@@ -42,7 +42,7 @@ async function ArticleDetailsContent({ params }: Props) {
   }
 
   return (
-    <main className='max-w-6xl mx-auto px-4'>
+    <main className='md:container mx-auto px-4'>
       <div className={`py-16 md:grid md:grid-cols-[1fr_auto] md:gap-16`}>
         <ArticlePage article={article} />
         <ArticleSidebar articles={articles} currentArticle={article} />

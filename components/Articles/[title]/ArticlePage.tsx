@@ -12,7 +12,7 @@ export function ArticlePage({
 }) {
   return (
     <div className='mb-16'>
-      <div className='max-w-4xl mx-auto'>
+      <div className='md:max-w-3xl mx-auto'>
         <ArticleHeader article={article} />
 
         {article.blocks.map((block, index) => (

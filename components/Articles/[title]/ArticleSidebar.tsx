@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
+import { Button } from '@/components/ui/button';
 
 export function RelatedArticlesSection({
   articles,
@@ -27,91 +28,75 @@ export function RelatedArticlesSection({
 
   return (
     <div>
-      <h3 className='text-xl font-bold mb-6 border-b border-black pb-2'>
+      <h3 className='text-xl text-center font-bold mb-6 border-b border-black pb-2 bg-black text-white px-2 py-1'>
         Related Articles
       </h3>
-      <div className='max-h-72 overflow-y-auto pr-2'>
+      <div className='grid gap-6'>
         {relatedArticles.map((article) => (
-          <Link
+          <div
+            className='bg-white border border-black shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden'
             key={article.slug}
-            href={`/articles/${article.slug}`}
-            className='block mb-6 group'
           >
-            <div className='flex items-center gap-4'>
-              <div className='w-16 h-16 flex-shrink-0'>
-                <div className='relative w-full h-full'>
-                  <Image
-                    src={article.coverImg}
-                    alt={article.coverImgAlt}
-                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    className='object-cover object-center group-hover:brightness-90'
-                    fill
-                  />
+            <div className='flex'>
+              {/* Image */}
+              <Link
+                href={`/articles/${article.slug}`}
+                className='w-24 flex-shrink-0 relative block'
+              >
+                <Image
+                  src={article.coverImg}
+                  alt={article.coverImgAlt}
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  className='object-cover object-center transition-all duration-500 grayscale hover:grayscale-0'
+                  fill
+                />
+              </Link>
+
+              {/* Content */}
+              <div className='p-2 flex-1'>
+                {/* Tags and Regions */}
+                <div className='flex items-center gap-2 mb-1'>
+                  <Link
+                    href={`/tags/${article.tag}`}
+                    className='hover:underline'
+                  >
+                    <Button size='sm' className='text-[10px] h-6'>
+                      {article.tag}
+                    </Button>
+                  </Link>
+                  <Link
+                    href={`/tags/${article.region}`}
+                    className='hover:underline'
+                  >
+                    <Button size='sm' className='text-[10px] h-6'>
+                      {article.region}
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Title */}
+                <Link href={`/articles/${article.slug}`} className='group'>
+                  <h4 className='text-sm font-semibold mb-2 text-gray-800 hover:underline md:line-clamp-3'>
+                    {article.title}
+                  </h4>
+                </Link>
+
+                {/* Date and Location */}
+                <div className='flex flex-row md:flex-col gap-4 md:gap-0'>
+                  <div className='flex items-center gap-1 mb-1 text-gray-500'>
+                    <Calendar className='w-3 h-3' />
+                    <time className='text-[10px] block'>{article.date}</time>
+                  </div>
+                  <div className='flex items-center gap-1 text-gray-500'>
+                    <MapPin className='w-3 h-3' />
+                    <span className='text-[10px] block'>
+                      {article.location}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div>
-                <time className='text-xs text-gray-600 mb-1 block'>
-                  {article.date}
-                </time>
-                <h4 className='text-sm font-semibold group-hover:underline'>
-                  {article.title}
-                </h4>
-              </div>
             </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function LatestArticlesSection({
-  articles,
-  isExpanded,
-}: {
-  articles: ArticleType['articles'];
-  isExpanded: boolean;
-}) {
-  const latestArticles = articles
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10);
-
-  if (!isExpanded) return null;
-
-  return (
-    <div>
-      <h3 className='text-xl font-bold mb-6 border-b border-black pb-2'>
-        Latest Articles
-      </h3>
-      <div className='max-h-72 overflow-y-auto pr-2'>
-        {latestArticles.map((article) => (
-          <Link
-            key={article.slug}
-            href={`/articles/${article.slug}`}
-            className='block mb-6 group'
-          >
-            <div className='flex items-center gap-4'>
-              <div className='w-16 h-16 flex-shrink-0'>
-                <div className='relative w-full h-full'>
-                  <Image
-                    src={article.coverImg}
-                    alt={article.coverImgAlt}
-                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    className='object-cover object-center group-hover:brightness-90'
-                    fill
-                  />
-                </div>
-              </div>
-              <div>
-                <time className='text-xs text-gray-600 mb-1 block'>
-                  {article.date}
-                </time>
-                <h4 className='text-sm font-semibold group-hover:underline'>
-                  {article.title}
-                </h4>
-              </div>
-            </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
@@ -130,8 +115,8 @@ export function ArticleSidebar({
   return (
     <aside
       className={`
-        mt-16 md:mt-0 block md:border-l md:border-black md:sticky md:top-10 md:self-start 
-        ${isExpanded ? 'md:w-[300px] md:pl-8' : 'md:w-0'}
+        mt-16 md:mt-0 block md:border-l md:border-black
+        ${isExpanded ? 'md:w-[300px] md:pl-6' : 'md:w-0'}
         relative transition-all duration-300 ease-in-out
       `}
     >
@@ -153,7 +138,7 @@ export function ArticleSidebar({
             currentArticle={currentArticle}
             isExpanded={isExpanded}
           />
-          <LatestArticlesSection articles={articles} isExpanded={isExpanded} />
+          {/* <LatestArticlesSection articles={articles} isExpanded={isExpanded} /> */}
         </div>
       )}
     </aside>

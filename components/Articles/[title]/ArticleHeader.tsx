@@ -17,14 +17,17 @@ export function ArticleHeader({
 
   return (
     <div>
-      <div className='relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] overflow-hidden border border-black shadow-md mb-8'>
-        <Image
-          src={article.coverImg}
-          alt={article.coverImgAlt}
-          fill
-          className='absolute inset-0 w-full h-full object-cover grayscale-[20%] contrast-125 brightness-[90%]'
-          priority
-        />
+      <div className='mb-8 relative w-full max-w-4xl mx-auto'>
+        <div className='relative w-full aspect-[16/9] shadow-md mb-8'>
+          <Image
+            src={article.coverImg}
+            alt={article.coverImgAlt}
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            className='object-cover shadow-none border border-black'
+            fill
+            priority
+          />
+        </div>
       </div>
 
       <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>
@@ -34,7 +37,7 @@ export function ArticleHeader({
       </div>
 
       <div className='flex flex-col items-start'>
-        <h1 className='text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900'>
+        <h1 className='text-4xl sm:text-4xl md:text-5xl font-extrabold text-gray-900'>
           {article.title}
         </h1>
         <p className='text-md md:text-lg text-gray-600 mt-4 max-w-3xl'>

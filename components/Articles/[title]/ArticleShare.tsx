@@ -27,7 +27,7 @@ export const ArticleShareDialog = ({
   article: ArticleType['articles'][0];
 }) => {
   const [copied, setCopied] = useState(false);
-  const articleUrl = `https://yourwebsite.com/articles/${article.slug}`;
+  const articleUrl = `https://ir-lens.vercel.app/articles/${article.slug}`;
 
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(articleUrl)}`,
@@ -57,7 +57,7 @@ export const ArticleShareDialog = ({
       <DialogTrigger asChild>
         <Button className='md:ml-auto'>
           <div className='flex items-center gap-2'>
-            <Share2 className='w-5 h-5' />
+            <Share2 className='w-4 h-4' />
             Share
           </div>
         </Button>

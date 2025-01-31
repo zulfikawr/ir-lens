@@ -9,8 +9,8 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
   switch (block.type) {
     case 'image':
       return (
-        <figure className='my-8'>
-          <div className='relative w-full max-w-4xl h-[300px] md:h-[500px] mx-auto'>
+        <div className='my-8 relative w-full max-w-4xl mx-auto'>
+          <div className='relative w-full aspect-[16/9]'>
             <Image
               src={block.imgUrl || '/images/default-fallback-image.png'}
               alt={block.imgAlt || 'Image related to the article'}
@@ -24,7 +24,7 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
               {block.imgAlt}
             </figcaption>
           )}
-        </figure>
+        </div>
       );
 
     case 'gallery':
@@ -127,7 +127,7 @@ export const GalleryComponent = ({
 
   return (
     <div className='my-8 relative w-full max-w-4xl mx-auto'>
-      <div className='relative w-full h-[300px] md:h-[500px]'>
+      <div className='relative w-full aspect-[16/9]'>
         <Image
           src={currentImage.imgUrl}
           alt={currentImage.imgAlt || `Gallery image ${currentImageIndex + 1}`}
@@ -135,26 +135,24 @@ export const GalleryComponent = ({
           className='object-cover shadow-none border border-black'
           fill
         />
-      </div>
 
-      {images.length > 1 && (
-        <div className='absolute inset-0 flex justify-between items-center p-2'>
-          <button
-            onClick={handlePrevImage}
-            className='bg-white text-black hover:bg-black hover:text-white hover:border-white border border-black p-2 transition duration-300'
-            style={{ transform: 'translateY(-50%)', top: '50%' }}
-          >
-            <ChevronLeft className='w-6 h-6' />
-          </button>
-          <button
-            onClick={handleNextImage}
-            className='bg-white text-black hover:bg-black hover:text-white hover:border-white border border-black p-2 transition duration-300'
-            style={{ transform: 'translateY(-50%)', top: '50%' }}
-          >
-            <ChevronRight className='w-6 h-6' />
-          </button>
-        </div>
-      )}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className='absolute left-2 top-1/2 -translate-y-1/2 bg-white text-black hover:bg-black hover:text-white hover:border-white border border-black p-2 transition duration-300'
+            >
+              <ChevronLeft className='w-6 h-6' />
+            </button>
+            <button
+              onClick={handleNextImage}
+              className='absolute right-2 top-1/2 -translate-y-1/2 bg-white text-black hover:bg-black hover:text-white hover:border-white border border-black p-2 transition duration-300'
+            >
+              <ChevronRight className='w-6 h-6' />
+            </button>
+          </>
+        )}
+      </div>
 
       {currentImage.imgAlt && (
         <figcaption className='text-sm text-gray-800 mt-2 text-center'>
