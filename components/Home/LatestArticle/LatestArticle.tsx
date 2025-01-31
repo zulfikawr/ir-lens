@@ -1,59 +1,49 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import LatestArticleLoading from './loading';
 import { Calendar, MapPin } from 'lucide-react';
 
 const LatestArticle = () => {
+  const { data, loading, error } = useArticleContext();
   const [activeCard, setActiveCard] = useState(0);
-  const { data } = useArticleContext();
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
 
-  useEffect(() => {
-    if (data.length) {
-      const sortedArticles = data.sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-      });
-      setArticles(sortedArticles.slice(0, 3));
-    }
+  const sortedArticles = useMemo(() => {
+    return [...data].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    }).slice(0, 3);
   }, [data]);
 
   useEffect(() => {
-    if (articles.length > 0) {
+    if (sortedArticles.length > 0) {
       const interval = setInterval(() => {
         setActiveCard(
-          (prevActiveCard) => (prevActiveCard + 1) % articles.length,
+          (prevActiveCard) => (prevActiveCard + 1) % sortedArticles.length,
         );
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [articles.length]);
+  }, [sortedArticles.length]);
 
-  if (!articles.length) {
-    return (
-      <div>
-        <LatestArticleLoading />
-      </div>
-    );
-  }
+  if (loading) return <LatestArticleLoading />;
+  if (error) return <div>Error loading articles: {error.message}</div>;
 
   return (
     <div className='relative h-[600px] md:h-[560px] w-full pr-4 mx-auto mt-6 scale-95'>
-      {articles.map((article, index) => (
+      {sortedArticles.map((article, index) => (
         <article
           key={article.slug}
           className={`absolute w-full transition-all duration-500 ease-in-out 
             bg-white shadow-xl border border-black overflow-hidden h-[600px] md:h-[500px]
             ${index === activeCard ? 'z-30 opacity-100 -translate-x-4 -translate-y-4' : ''} 
-            ${index === (activeCard + 1) % articles.length ? 'translate-x-0 translate-y-0' : 'z-10'} 
-            ${index === (activeCard + 2) % articles.length ? 'translate-x-4 translate-y-4' : 'z-20'}`}
+            ${index === (activeCard + 1) % sortedArticles.length ? 'translate-x-0 translate-y-0' : 'z-10'} 
+            ${index === (activeCard + 2) % sortedArticles.length ? 'translate-x-4 translate-y-4' : 'z-20'}`}
         >
           <div className='grid grid-cols-1 lg:grid-cols-10 h-full'>
             <div className='col-span-5 h-[250px] lg:h-full'>
@@ -61,9 +51,9 @@ const LatestArticle = () => {
                 <div className='relative w-full h-full transition-all duration-500 grayscale hover:grayscale-0 position-relative'>
                   <Image
                     src={
-                      article.coverImage || '/images/default-fallback-image.png'
+                      article.coverImg || '/images/default-fallback-image.png'
                     }
-                    alt={article.coverImageAlt || 'Article cover image'}
+                    alt={article.coverImgAlt || 'Article cover image'}
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     fill
                     className='object-cover'
@@ -76,18 +66,19 @@ const LatestArticle = () => {
             <div className='col-span-5 h-[350px] lg:h-full flex flex-col px-4 py-4 lg:p-6'>
               <div className='h-full flex flex-col justify-between'>
                 <div>
-                  {Array.isArray(article.labels) &&
-                    article.labels.length > 0 && (
-                      <div className='flex flex-wrap gap-2 mb-2 md:mb-4'>
-                        {article.labels.map((label, idx) => (
-                          <Link key={idx} href={`/tags/${label}`}>
-                            <Button size='sm' className='text-xs md:text-sm'>
-                              {label}
-                            </Button>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                  <div className='flex flex-wrap gap-2 mb-2 md:mb-4'>
+                    <Link href={`/tags/${article.tag}`}>
+                      <Button size='sm' className='text-xs md:text-sm'>
+                        {article.tag}
+                      </Button>
+                    </Link>
+
+                    <Link href={`/tags/${article.region}`}>
+                      <Button size='sm' className='text-xs md:text-sm'>
+                        {article.region}
+                      </Button>
+                    </Link>
+                  </div>
 
                   <Link href={`/articles/${article.slug}`}>
                     <h2 className='text-2xl lg:text-4xl font-bold leading-tight text-black hover:underline mb-2 md:mb-4'>

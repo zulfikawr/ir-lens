@@ -20,7 +20,7 @@ export const HeadingBlockComponent: React.FC<HeadingBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLHeadingElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ content: e.currentTarget.textContent || '' });
+      onUpdateBlock({ heading: e.currentTarget.textContent || '' });
     },
   };
 
@@ -30,9 +30,9 @@ export const HeadingBlockComponent: React.FC<HeadingBlockProps> = ({
         {...commonProps}
         className='w-full text-2xl font-bold text-black focus:outline-none min-h-[1.5em]'
       >
-        {block.content}
+        {block.heading}
       </h2>
-      {renderPlaceholder(isFocused, block.content) && (
+      {renderPlaceholder(isFocused, block.heading) && (
         <span className='absolute top-0 left-0 pt-1 text-gray-400 pointer-events-none focus:outline-none'>
           Heading...
         </span>

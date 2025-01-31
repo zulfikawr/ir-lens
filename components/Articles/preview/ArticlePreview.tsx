@@ -14,9 +14,7 @@ export function ArticlePreview({
   return (
     <div className='mb-16 max-w-4xl mx-auto px-4'>
       <div className='flex flex-wrap gap-2 md:gap-4 mb-6'>
-        {article.labels.map((label, idx) => (
-          <Button key={idx}>{label}</Button>
-        ))}
+        <Button>{article.tag}</Button>
       </div>
       <div className='space-y-6'>
         <h1 className='text-4xl md:text-5xl font-bold leading-tight'>

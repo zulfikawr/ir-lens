@@ -59,8 +59,8 @@ export default function ExperimentalNewspaper() {
               >
                 <Image
                   className='w-full h-64 md:h-full object-cover transition-all duration-300 group-hover:brightness-90'
-                  src={article.coverImage}
-                  alt={article.coverImageAlt}
+                  src={article.coverImg}
+                  alt={article.coverImgAlt}
                   width={1488}
                   height={992}
                 />
@@ -68,11 +68,9 @@ export default function ExperimentalNewspaper() {
               <div className='flex flex-col justify-between'>
                 <div className='space-y-4'>
                   <div className='flex flex-wrap gap-2'>
-                    {article.labels.map((label, idx) => (
-                      <Link key={idx} href={`/tags/${label}`}>
-                        <Button>{label}</Button>
-                      </Link>
-                    ))}
+                    <Link href={`/tags/${article.tag}`}>
+                      <Button>{article.tag}</Button>
+                    </Link>
                   </div>
                   <h2 className='text-2xl font-bold hover:underline transition duration-200'>
                     <Link href={`/articles/${article.slug}`}>

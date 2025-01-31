@@ -19,8 +19,8 @@ export function ArticleHeader({
     <div>
       <div className='relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] overflow-hidden border border-black shadow-md mb-8'>
         <Image
-          src={article.coverImage}
-          alt={article.coverImageAlt}
+          src={article.coverImg}
+          alt={article.coverImgAlt}
           fill
           className='absolute inset-0 w-full h-full object-cover grayscale-[20%] contrast-125 brightness-[90%]'
           priority
@@ -28,11 +28,9 @@ export function ArticleHeader({
       </div>
 
       <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>
-        {article.labels.map((label, idx) => (
-          <Link key={idx} href={`/tags/${label}`}>
-            <Button>{label}</Button>
-          </Link>
-        ))}
+        <Link href={`/tags/${article.tag}`}>
+          <Button>{article.tag}</Button>
+        </Link>
       </div>
 
       <div className='flex flex-col items-start'>

@@ -18,28 +18,28 @@ interface ArticleHeaderProps {
 }
 
 export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
-  const coverImageInputRef = useRef<HTMLInputElement>(null);
-  const coverImageAltRef = useRef<HTMLInputElement>(null);
+  const coverImgInputRef = useRef<HTMLInputElement>(null);
+  const coverImgAltRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
 
-  const topics = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
+  const tags = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
   const regions = ['Asia', 'Europe', 'Middle East', 'Africa', 'Americas'];
 
-  const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlecoverImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        onUpdate({ coverImage: e.target?.result as string });
+        onUpdate({ coverImg: e.target?.result as string });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleRemoveCoverImage = () => {
-    onUpdate({ coverImage: '', coverImageAlt: '' });
+  const handleRemovecoverImg = () => {
+    onUpdate({ coverImg: '', coverImgAlt: '' });
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -48,7 +48,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        onUpdate({ coverImage: e.target?.result as string });
+        onUpdate({ coverImg: e.target?.result as string });
       };
       reader.readAsDataURL(file);
     }
@@ -58,10 +58,8 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     e.preventDefault();
   };
 
-  const handleCoverImageAltChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    onUpdate({ coverImageAlt: e.target.value });
+  const handlecoverImgAltChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onUpdate({ coverImgAlt: e.target.value });
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -92,18 +90,12 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     onUpdate({ location: e.target.value });
   };
 
-  const handleTopicSelect = (topic: string) => {
-    const currentLabels = article.labels.filter((label) =>
-      regions.includes(label),
-    );
-    onUpdate({ labels: [topic, ...currentLabels] });
+  const handleTagSelect = (tag: string) => {
+    onUpdate({ tag: tag });
   };
 
   const handleRegionSelect = (region: string) => {
-    const currentLabels = article.labels.filter((label) =>
-      topics.includes(label),
-    );
-    onUpdate({ labels: [...currentLabels, region] });
+    onUpdate({ region: region });
   };
 
   return (
@@ -111,30 +103,28 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       <div className='space-y-6'>
         {/* Cover Image Section */}
         <div
-          className={`relative w-full h-[400px] mb-4 ${article.coverImage ? 'mb-[5rem]' : ''}`}
+          className={`relative w-full h-[400px] mb-4 ${article.coverImg ? 'mb-[5rem]' : ''}`}
         >
           <div
             className='relative w-full max-w-4xl h-[400px] mx-auto border-2 border-dashed border-gray-300 overflow-hidden'
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
-            {article.coverImage ? (
+            {article.coverImg ? (
               <div
-                onClick={() => coverImageInputRef.current?.click()}
+                onClick={() => coverImgInputRef.current?.click()}
                 className='cursor-pointer w-full h-full'
               >
                 <Image
-                  src={
-                    article.coverImage || '/images/default-fallback-image.png'
-                  }
-                  alt={article.coverImageAlt || 'Cover Image'}
+                  src={article.coverImg || '/images/default-fallback-image.png'}
+                  alt={article.coverImgAlt || 'Cover Image'}
                   width={1200}
                   height={300}
                   className='object-cover w-full h-full'
                 />
                 <Button
                   variant='destructive'
-                  onClick={handleRemoveCoverImage}
+                  onClick={handleRemovecoverImg}
                   className='absolute bottom-4 right-4 p-2 flex items-center'
                 >
                   <Trash className='w-5 h-5 mr-2' />
@@ -144,11 +134,11 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             ) : (
               <label className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors'>
                 <input
-                  ref={coverImageInputRef}
+                  ref={coverImgInputRef}
                   type='file'
                   className='hidden'
                   accept='image/*'
-                  onChange={handleCoverImageChange}
+                  onChange={handlecoverImgChange}
                 />
                 <div className='text-center p-4'>
                   <Plus className='w-8 h-8 mx-auto mb-2 text-gray-400' />
@@ -163,13 +153,13 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             )}
           </div>
 
-          {article.coverImage && (
+          {article.coverImg && (
             <div className='text-center mt-2'>
               <input
-                ref={coverImageAltRef}
+                ref={coverImgAltRef}
                 type='text'
-                value={article.coverImageAlt}
-                onChange={handleCoverImageAltChange}
+                value={article.coverImgAlt}
+                onChange={handlecoverImgAltChange}
                 className='w-full p-2 focus:outline-none text-center border border-gray-300 focus:outline-none'
                 placeholder='Enter alt text for the cover image'
               />
@@ -183,19 +173,18 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button className='flex items-center gap-2'>
                 <Tag className='w-4 h-4' />
-                {article.labels.find((label) => topics.includes(label)) ||
-                  'Select Topic'}
+                {tags.includes(article.tag) ? article.tag : 'Select Tags'}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56 p-2 shadow-lg'>
               <DropdownMenuGroup>
-                {topics.map((topic) => (
+                {tags.map((tag) => (
                   <DropdownMenuItem
-                    key={topic}
-                    onClick={() => handleTopicSelect(topic)}
+                    key={tag}
+                    onClick={() => handleTagSelect(tag)}
                     className='cursor-pointer flex items-center gap-2'
                   >
-                    {topic}
+                    {tag}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
@@ -206,8 +195,9 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button className='flex items-center gap-2'>
                 <Globe className='w-4 h-4' />
-                {article.labels.find((label) => regions.includes(label)) ||
-                  'Select Region'}
+                {regions.includes(article.region)
+                  ? article.region
+                  : 'Select Region'}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56 p-2 shadow-lg'>

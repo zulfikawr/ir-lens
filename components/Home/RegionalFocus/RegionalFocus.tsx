@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
@@ -8,62 +8,32 @@ import { Button } from '@/components/ui/button';
 import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import RegionalFocusLoading from './loading';
+import useRotatingIndex from '@/hooks/useRotatingIndex';
 
 const RegionalFocus = () => {
-  const { data } = useArticleContext();
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
+  const { data, loading, error } = useArticleContext();
   const regions = useMemo(
     () => ['Asia', 'Europe', 'Middle East', 'Africa', 'Americas'],
-    [],
+    []
   );
-  const [activeCards, setActiveCards] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    if (data.length) {
-      const sortedArticles = data.sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-      });
-      setArticles(sortedArticles);
-    }
+  const sortedArticles = useMemo(() => {
+    return [...data].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [data]);
 
-  useEffect(() => {
-    const initialActiveCards = regions.reduce(
-      (acc, region) => {
-        acc[region] = 0;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
-    setActiveCards(initialActiveCards);
-  }, [regions]);
+  const getRegionArticles = useCallback((region: string) => {
+    return sortedArticles.filter(article => article.region === region).slice(0, 3);
+  }, [sortedArticles]);
 
-  useEffect(() => {
-    const intervals = regions.map((region) => {
-      return setInterval(() => {
-        setActiveCards((prev) => {
-          const regionArticles = articles.filter((article) =>
-            article.labels.includes(region),
-          );
-          return {
-            ...prev,
-            [region]: (prev[region] + 1) % Math.min(regionArticles.length, 3),
-          };
-        });
-      }, 5000);
-    });
+  const activeCards = useRotatingIndex(regions, 5000);
 
-    return () => {
-      intervals.forEach(clearInterval);
-    };
-  }, [articles, regions]);
+  if (loading) return <RegionalFocusLoading />;
+  if (error) return <div>Error loading articles: {error.message}</div>;
 
-  const renderArticleCard = (
+  const renderArticleCard = useCallback((
     article: ArticleType['articles'][0],
     region: string,
-    index: number,
+    index: number
   ) => (
     <article
       key={article.slug}
@@ -78,8 +48,8 @@ const RegionalFocus = () => {
           <Link href={`/articles/${article.slug}`} className='block h-full'>
             <div className='relative w-full h-full transition-all duration-500 grayscale hover:grayscale-0'>
               <Image
-                src={article.coverImage || '/images/default-fallback-image.png'}
-                alt={article.coverImageAlt || 'Article cover image'}
+                src={article.coverImg || '/images/default-fallback-image.png'}
+                alt={article.coverImgAlt || 'Article cover image'}
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 fill
                 className='object-cover'
@@ -91,17 +61,13 @@ const RegionalFocus = () => {
 
         <div className='col-span-2 flex flex-col h-full p-4'>
           <div className='flex flex-col h-full space-y-2'>
-            {Array.isArray(article.labels) && article.labels.length > 0 && (
-              <div className='flex flex-wrap gap-1 md:gap-2'>
-                {article.labels.map((label, idx) => (
-                  <Link key={idx} href={`/tags/${label}`}>
-                    <Button size='sm' className='text-xs'>
-                      {label}
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className='flex flex-wrap gap-1 md:gap-2'>
+              <Link href={`/tags/${article.tag}`}>
+                <Button size='sm' className='text-xs'>
+                  {article.tag}
+                </Button>
+              </Link>
+            </div>
 
             <Link href={`/articles/${article.slug}`}>
               <h3 className='text-xl font-bold leading-tight text-black hover:underline transition-all line-clamp-2'>
@@ -129,16 +95,7 @@ const RegionalFocus = () => {
         </div>
       </div>
     </article>
-  );
-
-  if (!articles.length) {
-    return (
-      <div>
-        {' '}
-        <RegionalFocusLoading />{' '}
-      </div>
-    );
-  }
+  ), [activeCards]);
 
   return (
     <section className='my-8 sm:my-12 md:my-16'>
@@ -150,9 +107,7 @@ const RegionalFocus = () => {
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12'>
         {regions.map((region) => {
-          const regionArticles = articles
-            .filter((article) => article.labels.includes(region))
-            .slice(0, 3);
+          const regionArticles = getRegionArticles(region);
 
           return (
             <div key={region} className='space-y-4'>

@@ -20,7 +20,7 @@ export const HighlightBlockComponent: React.FC<HighlightBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLParagraphElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ content: e.currentTarget.textContent || '' });
+      onUpdateBlock({ highlight: e.currentTarget.textContent || '' });
     },
   };
 
@@ -30,9 +30,9 @@ export const HighlightBlockComponent: React.FC<HighlightBlockProps> = ({
         {...commonProps}
         className='text-md md:text-lg text-white min-h-[1.5em] focus:outline-none'
       >
-        {block.content}
+        {block.highlight}
       </p>
-      {renderPlaceholder(isFocused, block.content) && (
+      {renderPlaceholder(isFocused, block.highlight) && (
         <span className='absolute top-0 left-0 p-4 text-gray-400 pointer-events-none focus:outline-none'>
           Highlight...
         </span>

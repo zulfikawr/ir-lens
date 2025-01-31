@@ -20,7 +20,7 @@ export const TextBlockComponent: React.FC<TextBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ content: e.currentTarget.textContent || '' });
+      onUpdateBlock({ text: e.currentTarget.textContent || '' });
     },
   };
 
@@ -30,9 +30,9 @@ export const TextBlockComponent: React.FC<TextBlockProps> = ({
         {...commonProps}
         className='w-full text-gray-800 text-md md:text-lg focus:outline-none min-h-[1.5em]'
       >
-        {block.content}
+        {block.text}
       </p>
-      {renderPlaceholder(isFocused, block.content) && (
+      {renderPlaceholder(isFocused, block.text) && (
         <span className='absolute top-0 left-0 pt-1 text-gray-400 pointer-events-none focus:outline-none'>
           Text...
         </span>

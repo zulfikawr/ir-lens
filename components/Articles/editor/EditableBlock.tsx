@@ -1,5 +1,4 @@
 import type React from 'react';
-import { useState } from 'react';
 import type { ContentBlock } from '@/types/contentBlocks';
 import { TextBlockComponent } from './blocks/TextBlock';
 import { ImageBlockComponent } from './blocks/ImageBlock';
@@ -61,7 +60,6 @@ export function EditableBlock({
   onDrop,
   totalBlocks,
 }: EditableBlockProps) {
-  const [isFocused, setIsFocused] = useState(false);
 
   const blockWrapperClasses =
     'border border-gray-200 p-4 relative group flex flex-col justify-between hover:shadow-lg transition-shadow duration-200';

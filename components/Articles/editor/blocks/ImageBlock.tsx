@@ -15,40 +15,40 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
   block,
   onUpdateBlock,
 }) => {
-  const [imageUrlInput, setImageUrlInput] = useState('');
+  const [imgUrlInput, setimgUrlInput] = useState('');
 
-  const handleImageUrlSubmit = () => {
-    onUpdateBlock({ imageUrl: imageUrlInput });
-    setImageUrlInput('');
+  const handleimgUrlSubmit = () => {
+    onUpdateBlock({ imgUrl: imgUrlInput });
+    setimgUrlInput('');
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      handleImageUpload(file, (imageUrl) => onUpdateBlock({ imageUrl }));
+      handleImageUpload(file, (imgUrl) => onUpdateBlock({ imgUrl }));
     }
   };
 
-  const handleImageAltChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onUpdateBlock({ imageAlt: e.target.value });
+  const handleimgAltChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onUpdateBlock({ imgAlt: e.target.value });
   };
 
   return (
     <div className='relative'>
-      {!block.imageUrl ? (
+      {!block.imgUrl ? (
         <div className='space-y-4 mt-2'>
           <div className='flex flex-col space-y-2'>
             <input
               type='text'
-              value={imageUrlInput}
-              onChange={(e) => setImageUrlInput(e.target.value)}
+              value={imgUrlInput}
+              onChange={(e) => setimgUrlInput(e.target.value)}
               placeholder='Paste image URL here'
               className='w-full p-2 border border-gray-300 focus:outline-none'
             />
             <Button
-              onClick={handleImageUrlSubmit}
+              onClick={handleimgUrlSubmit}
               className='w-fit'
-              disabled={!imageUrlInput}
+              disabled={!imgUrlInput}
             >
               Add Image from URL
             </Button>
@@ -75,8 +75,8 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
         <>
           <div className='relative w-full max-w-4xl h-[300px] mx-auto border border-gray-300 overflow-hidden'>
             <Image
-              src={block.imageUrl || '/placeholder.svg'}
-              alt={block.imageAlt || 'Image related to the article'}
+              src={block.imgUrl || '/placeholder.svg'}
+              alt={block.imgAlt || 'Image related to the article'}
               className='object-cover'
               fill
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
@@ -84,8 +84,8 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
           </div>
           <input
             type='text'
-            value={block.imageAlt || ''}
-            onChange={handleImageAltChange}
+            value={block.imgAlt || ''}
+            onChange={handleimgAltChange}
             className='w-full mt-2 p-2 border border-gray-300 focus:outline-none'
             placeholder='Enter alt text for the image'
           />

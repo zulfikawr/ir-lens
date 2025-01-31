@@ -66,7 +66,7 @@ export const ArticleShareDialog = ({
         <div className='flex flex-col md:flex-row'>
           <div className='w-full md:w-1/2 block'>
             <Image
-              src={article.coverImage}
+              src={article.coverImg}
               alt={article.title}
               width={400}
               height={300}

@@ -21,6 +21,33 @@
       "description": "Climate change and environmental issues"
     }
   ],
+  "regions": [
+    {
+      "title": "Asia",
+      "href": "/regions/Asia",
+      "description": "East Asia, Southeast Asia, and South Asia, including China, India, Japan, and others"
+    },
+    {
+      "title": "Europe",
+      "href": "/regions/Europe",
+      "description": "Europe, including the European Union, Russia, and other European nations"
+    },
+    {
+      "title": "Middle East",
+      "href": "/regions/Middle-East",
+      "description": "The Middle East, with a focus on the Israel-Palestine conflict and the broader geopolitical dynamics in the region"
+    },
+    {
+      "title": "Africa",
+      "href": "/regions/Africa",
+      "description": "Africa, including North Africa, Sub-Saharan Africa, and the African Union"
+    },
+    {
+      "title": "Americas",
+      "href": "/regions/Americas",
+      "description": "North America, Central America, South America, and the Caribbean"
+    }
+  ],
   "footerLinks": {
     "about": [
       {

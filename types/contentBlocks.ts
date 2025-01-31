@@ -1,53 +1,55 @@
-export type ContentBlockBase = {
-  content: string;
-};
-
-export type TextBlock = ContentBlockBase & {
+export type TextBlock = {
   type: 'text';
+  text: string;
 };
 
-export type ImageBlock = ContentBlockBase & {
+export type ImageBlock = {
   type: 'image';
-  imageUrl: string;
-  imageAlt?: string;
+  imgUrl: string;
+  imgAlt?: string;
 };
 
-export type GalleryBlock = ContentBlockBase & {
+export type GalleryBlock = {
   type: 'gallery';
   images: Array<{
-    imageUrl: string;
-    imageAlt?: string;
+    imgUrl: string;
+    imgAlt?: string;
   }>;
 };
 
-export type VideoBlock = ContentBlockBase & {
+export type VideoBlock = {
   type: 'video';
   videoUrl: string;
+  videoAlt?: string;
 };
 
-export type QuoteBlock = ContentBlockBase & {
+export type QuoteBlock = {
   type: 'quote';
+  quote: string;
   spokesperson: string;
   role: string;
 };
 
-export type HighlightBlock = ContentBlockBase & {
+export type HighlightBlock = {
   type: 'highlight';
+  highlight: string;
 };
 
-export type CalloutBlock = ContentBlockBase & {
+export type CalloutBlock = {
   type: 'callout';
+  callout: string;
 };
 
-export type HeadingBlock = ContentBlockBase & {
+export type HeadingBlock = {
   type: 'heading';
+  heading: string;
 };
 
-export type SeparatorBlock = ContentBlockBase & {
+export type SeparatorBlock = {
   type: 'separator';
 };
 
-export type ListBlock = ContentBlockBase & {
+export type ListBlock = {
   type: 'list';
   items: string[];
 };

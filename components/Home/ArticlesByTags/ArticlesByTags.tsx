@@ -1,69 +1,39 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArticleType } from '@/types/article';
-import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
-import ArticlesByTagsLoading from './loading';
+import { Button } from '@/components/ui/button';
 import { Calendar, MapPin } from 'lucide-react';
+import { ArticleType } from '@/types/article';
+import ArticlesByTagsLoading from './loading';
+import useRotatingIndex from '@/hooks/useRotatingIndex';
 
 const ArticlesByTags = () => {
-  const { data } = useArticleContext();
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
-  const allowedTags = useMemo(
+  const { data, loading, error } = useArticleContext();
+  const tags = useMemo(
     () => ['Diplomacy', 'Conflicts', 'Economy', 'Climate'],
     [],
   );
-  const [activeCards, setActiveCards] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    if (data.length) {
-      const sortedArticles = data.sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-      });
-      setArticles(sortedArticles);
-    }
+  const sortedArticles = useMemo(() => {
+    return [...data].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [data]);
 
-  useEffect(() => {
-    const initialActiveCards = allowedTags.reduce(
-      (acc, tag) => {
-        acc[tag] = 0;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
-    setActiveCards(initialActiveCards);
-  }, [allowedTags]);
+  const getTagArticles = useCallback((tag: string) => {
+    return sortedArticles.filter(article => article.tag === tag).slice(0, 3);
+  }, [sortedArticles]);
 
-  useEffect(() => {
-    const intervals = allowedTags.map((tag) => {
-      return setInterval(() => {
-        setActiveCards((prev) => {
-          const tagArticles = articles.filter((article) =>
-            article.labels.includes(tag),
-          );
-          return {
-            ...prev,
-            [tag]: (prev[tag] + 1) % Math.min(tagArticles.length, 3),
-          };
-        });
-      }, 5000);
-    });
+  const activeCards = useRotatingIndex(tags, 5000);
 
-    return () => {
-      intervals.forEach(clearInterval);
-    };
-  }, [articles, allowedTags]);
+  if (loading) return <ArticlesByTagsLoading />;
+  if (error) return <div>Error loading articles: {error.message}</div>;
 
-  const renderArticleCard = (
+  const renderArticleCard = useCallback((
     article: ArticleType['articles'][0],
     tag: string,
-    index: number,
+    index: number
   ) => (
     <article
       key={article.slug}
@@ -78,8 +48,8 @@ const ArticlesByTags = () => {
           <Link href={`/articles/${article.slug}`} className='block h-full'>
             <div className='relative w-full h-full transition-all duration-500 grayscale hover:grayscale-0'>
               <Image
-                src={article.coverImage || '/images/default-fallback-image.png'}
-                alt={article.coverImageAlt || 'Article cover image'}
+                src={article.coverImg || '/images/default-fallback-image.png'}
+                alt={article.coverImgAlt || 'Article cover image'}
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 fill
                 className='object-cover'
@@ -91,17 +61,13 @@ const ArticlesByTags = () => {
 
         <div className='col-span-2 flex flex-col h-full p-4'>
           <div className='flex flex-col h-full space-y-2'>
-            {Array.isArray(article.labels) && article.labels.length > 0 && (
-              <div className='flex flex-wrap gap-1 md:gap-2'>
-                {article.labels.map((label, idx) => (
-                  <Link key={idx} href={`/tags/${label}`}>
-                    <Button size='sm' className='text-xs'>
-                      {label}
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className='flex flex-wrap gap-1 md:gap-2'>
+              <Link href={`/tags/${article.region}`}>
+                <Button size='sm' className='text-xs'>
+                  {article.region}
+                </Button>
+              </Link>
+            </div>
 
             <Link href={`/articles/${article.slug}`}>
               <h3 className='text-xl font-bold leading-tight text-black hover:underline transition-all line-clamp-2'>
@@ -129,23 +95,12 @@ const ArticlesByTags = () => {
         </div>
       </div>
     </article>
-  );
-
-  if (!articles.length) {
-    return (
-      <div>
-        {' '}
-        <ArticlesByTagsLoading />{' '}
-      </div>
-    );
-  }
+  ), [activeCards]);
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-      {allowedTags.map((tag) => {
-        const tagArticles = articles
-          .filter((article) => article.labels.includes(tag))
-          .slice(0, 3);
+      {tags.map((tag) => {
+        const tagArticles = getTagArticles(tag)
 
         return (
           <div key={tag} className='space-y-4'>

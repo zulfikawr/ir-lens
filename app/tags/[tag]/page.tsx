@@ -22,12 +22,7 @@ export default function TagPage() {
   }
 
   const filteredArticles = data.filter((article) => {
-    if (Array.isArray(article.labels)) {
-      return article.labels.some((label) => label === tag);
-    } else if (typeof article.labels === 'string') {
-      return article.labels === tag;
-    }
-    return false;
+    return article.tag === tag;
   });
 
   if (filteredArticles.length === 0) {
@@ -82,8 +77,8 @@ export default function TagPage() {
               >
                 <Image
                   className='w-full h-64 md:h-full object-cover transition-all duration-300 group-hover:brightness-90'
-                  src={article.coverImage}
-                  alt={article.coverImageAlt}
+                  src={article.coverImg}
+                  alt={article.coverImgAlt}
                   width={1488}
                   height={992}
                 />
@@ -91,11 +86,9 @@ export default function TagPage() {
               <div className='flex flex-col justify-between'>
                 <div className='space-y-4'>
                   <div className='flex flex-wrap gap-2'>
-                    {article.labels.map((label, idx) => (
-                      <Link key={idx} href={`/tags/${label}`}>
-                        <Button>{label}</Button>
-                      </Link>
-                    ))}
+                    <Link href={`/tags/${article.tag}`}>
+                      <Button>{article.tag}</Button>
+                    </Link>
                   </div>
                   <h2 className='text-2xl font-bold hover:underline transition duration-200'>
                     <Link href={`/articles/${article.slug}`}>

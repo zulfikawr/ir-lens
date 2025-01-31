@@ -12,16 +12,16 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
         <figure className='my-8'>
           <div className='relative w-full max-w-4xl h-[300px] md:h-[500px] mx-auto'>
             <Image
-              src={block.imageUrl || '/images/default-fallback-image.png'}
-              alt={block.imageAlt || 'Image related to the article'}
+              src={block.imgUrl || '/images/default-fallback-image.png'}
+              alt={block.imgAlt || 'Image related to the article'}
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               className='object-cover shadow-none border border-black'
               fill
             />
           </div>
-          {block.imageAlt && (
+          {block.imgAlt && (
             <figcaption className='text-xs md:text-sm text-gray-800 mt-2 text-center italic'>
-              {block.imageAlt}
+              {block.imgAlt}
             </figcaption>
           )}
         </figure>
@@ -40,11 +40,9 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
               allowFullScreen
             />
           </div>
-          {block.content && (
-            <p className='text-sm text-gray-800 mt-2 text-center italic'>
-              {block.content}
-            </p>
-          )}
+          <p className='text-sm text-gray-800 mt-2 text-center italic'>
+            {block.videoAlt}
+          </p>
         </div>
       );
 
@@ -53,7 +51,7 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
         <div className='my-8 bg-gray-50 p-6 border border-black'>
           <Quote className='w-6 h-6 text-black mb-4' />
           <blockquote className='text-md md:text-lg italic text-gray-900'>
-            {block.content}
+            {block.quote}
           </blockquote>
           <div className='mt-4'>
             <cite className='block font-semibold text-black not-italic'>
@@ -67,20 +65,20 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
     case 'highlight':
       return (
         <div className='my-8 p-4 bg-black text-white'>
-          <p className='text-md md:text-lg font-medium'>{block.content}</p>
+          <p className='text-md md:text-lg font-medium'>{block.highlight}</p>
         </div>
       );
 
     case 'callout':
       return (
         <div className='my-8 border-l-4 border-black bg-gray-200 p-4'>
-          <p className='text-md md:text-lg text-gray-800'>{block.content}</p>
+          <p className='text-md md:text-lg text-gray-800'>{block.callout}</p>
         </div>
       );
 
     case 'heading':
       return (
-        <h2 className='my-6 text-2xl font-bold text-black'>{block.content}</h2>
+        <h2 className='my-6 text-2xl font-bold text-black'>{block.heading}</h2>
       );
 
     case 'separator':
@@ -99,7 +97,7 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
 
     case 'text':
       return (
-        <p className='my-6 text-gray-800 text-md md:text-lg'>{block.content}</p>
+        <p className='my-6 text-gray-800 text-md md:text-lg'>{block.text}</p>
       );
   }
 };
@@ -107,7 +105,7 @@ export const ArticleContent = ({ block }: { block: ContentBlock }) => {
 export const GalleryComponent = ({
   images,
 }: {
-  images: Array<{ imageUrl: string; imageAlt?: string }>;
+  images: Array<{ imgUrl: string; imgAlt?: string }>;
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -131,9 +129,9 @@ export const GalleryComponent = ({
     <div className='my-8 relative w-full max-w-4xl mx-auto'>
       <div className='relative w-full h-[300px] md:h-[500px]'>
         <Image
-          src={currentImage.imageUrl}
+          src={currentImage.imgUrl}
           alt={
-            currentImage.imageAlt || `Gallery image ${currentImageIndex + 1}`
+            currentImage.imgAlt || `Gallery image ${currentImageIndex + 1}`
           }
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           className='object-cover shadow-none border border-black'
@@ -160,9 +158,9 @@ export const GalleryComponent = ({
         </div>
       )}
 
-      {currentImage.imageAlt && (
+      {currentImage.imgAlt && (
         <figcaption className='text-sm text-gray-800 mt-2 text-center'>
-          {currentImage.imageAlt} | {currentImageIndex + 1} / {images.length}
+          {currentImage.imgAlt} | {currentImageIndex + 1} / {images.length}
         </figcaption>
       )}
     </div>

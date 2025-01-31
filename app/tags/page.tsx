@@ -14,9 +14,8 @@ export default function TagsPage() {
 
   const tagCounts = data.reduce(
     (acc, article) => {
-      article.labels.forEach((tag) => {
-        acc[tag] = (acc[tag] || 0) + 1;
-      });
+      const tag = article.tag;
+      acc[tag] = (acc[tag] || 0) + 1;
       return acc;
     },
     {} as Record<string, number>,

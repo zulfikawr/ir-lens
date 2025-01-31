@@ -35,13 +35,13 @@ export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
       <div className='relative mb-4'>
         <blockquote
           {...commonProps('quote', (e) =>
-            onUpdateBlock({ content: e.currentTarget.textContent || '' }),
+            onUpdateBlock({ quote: e.currentTarget.textContent || '' }),
           )}
           className='text-md md:text-lg italic text-gray-900 focus:outline-none min-h-[1.5em]'
         >
-          {block.content}
+          {block.quote}
         </blockquote>
-        {renderPlaceholder(focusedField === 'quote', block.content) && (
+        {renderPlaceholder(focusedField === 'quote', block.quote) && (
           <span className='absolute top-0 left-0 text-gray-400 pointer-events-none'>
             Quote...
           </span>

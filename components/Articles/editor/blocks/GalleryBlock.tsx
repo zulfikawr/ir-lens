@@ -16,32 +16,32 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
   onUpdateBlock,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageUrlInput, setImageUrlInput] = useState('');
+  const [imgUrlInput, setimgUrlInput] = useState('');
 
-  const handleImageAltChange = (
+  const handleimgAltChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     imageIndex: number,
   ) => {
     const updatedImages = [...block.images];
     updatedImages[imageIndex] = {
       ...updatedImages[imageIndex],
-      imageAlt: e.target.value,
+      imgAlt: e.target.value,
     };
     onUpdateBlock({ images: updatedImages });
   };
 
-  const handleImageUrlSubmit = () => {
-    handleAddImage(imageUrlInput);
-    setImageUrlInput('');
+  const handleimgUrlSubmit = () => {
+    handleAddImage(imgUrlInput);
+    setimgUrlInput('');
   };
 
   const handleAddImage = (fileOrUrl: File | string) => {
     if (typeof fileOrUrl === 'string') {
-      const newImage = { imageUrl: fileOrUrl, imageAlt: '' };
+      const newImage = { imgUrl: fileOrUrl, imgAlt: '' };
       onUpdateBlock({ images: [...block.images, newImage] });
     } else {
-      handleImageUpload(fileOrUrl, (imageUrl) => {
-        const newImage = { imageUrl, imageAlt: '' };
+      handleImageUpload(fileOrUrl, (imgUrl) => {
+        const newImage = { imgUrl, imgAlt: '' };
         onUpdateBlock({ images: [...block.images, newImage] });
       });
     }
@@ -72,10 +72,10 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
             <div className='relative w-full h-[300px] md:h-[500px]'>
               <Image
                 src={
-                  block.images[currentImageIndex].imageUrl || '/placeholder.svg'
+                  block.images[currentImageIndex].imgUrl || '/placeholder.svg'
                 }
                 alt={
-                  block.images[currentImageIndex].imageAlt ||
+                  block.images[currentImageIndex].imgAlt ||
                   `Gallery image ${currentImageIndex + 1}`
                 }
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
@@ -104,8 +104,8 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
             <div className='mt-2'>
               <input
                 type='text'
-                value={block.images[currentImageIndex].imageAlt || ''}
-                onChange={(e) => handleImageAltChange(e, currentImageIndex)}
+                value={block.images[currentImageIndex].imgAlt || ''}
+                onChange={(e) => handleimgAltChange(e, currentImageIndex)}
                 className='w-full p-2 border border-gray-300 cursor-text focus:outline-none'
                 placeholder={`Enter alt text for image ${currentImageIndex + 1}`}
               />
@@ -129,15 +129,15 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
             <div className='flex flex-col space-y-2'>
               <input
                 type='text'
-                value={imageUrlInput}
-                onChange={(e) => setImageUrlInput(e.target.value)}
+                value={imgUrlInput}
+                onChange={(e) => setimgUrlInput(e.target.value)}
                 placeholder='Paste image URL here'
                 className='w-full p-2 border border-gray-300 focus:outline-none'
               />
               <Button
-                onClick={handleImageUrlSubmit}
+                onClick={handleimgUrlSubmit}
                 className='w-fit'
-                disabled={!imageUrlInput}
+                disabled={!imgUrlInput}
               >
                 Add Image from URL
               </Button>
@@ -170,15 +170,15 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
           <div className='flex flex-col space-y-2'>
             <input
               type='text'
-              value={imageUrlInput}
-              onChange={(e) => setImageUrlInput(e.target.value)}
+              value={imgUrlInput}
+              onChange={(e) => setimgUrlInput(e.target.value)}
               placeholder='Paste image URL here'
               className='w-full p-2 border border-gray-300 focus:outline-none'
             />
             <Button
-              onClick={handleImageUrlSubmit}
+              onClick={handleimgUrlSubmit}
               className='w-fit'
-              disabled={!imageUrlInput}
+              disabled={!imgUrlInput}
             >
               Add Image from URL
             </Button>

@@ -20,7 +20,7 @@ export const CalloutBlockComponent: React.FC<CalloutBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLParagraphElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ content: e.currentTarget.textContent || '' });
+      onUpdateBlock({ callout: e.currentTarget.textContent || '' });
     },
   };
 
@@ -30,9 +30,9 @@ export const CalloutBlockComponent: React.FC<CalloutBlockProps> = ({
         {...commonProps}
         className='text-md md:text-lg text-gray-800 min-h-[1.5em] focus:outline-none'
       >
-        {block.content}
+        {block.callout}
       </p>
-      {renderPlaceholder(isFocused, block.content) && (
+      {renderPlaceholder(isFocused, block.callout) && (
         <span className='absolute top-0 left-0 p-4 text-gray-400 pointer-events-none focus:outline-none'>
           Callout...
         </span>

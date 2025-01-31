@@ -19,7 +19,7 @@ export const VideoBlockComponent: React.FC<VideoBlockProps> = ({
   };
 
   const handleContentChange = (e: React.FocusEvent<HTMLParagraphElement>) => {
-    onUpdateBlock({ content: e.currentTarget.textContent || '' });
+    onUpdateBlock({ videoAlt: e.currentTarget.textContent || '' });
   };
 
   return (
@@ -53,13 +53,11 @@ export const VideoBlockComponent: React.FC<VideoBlockProps> = ({
               onBlur={handleContentChange}
               className='text-sm text-gray-800 text-center italic focus:outline-none min-h-[1.5em]'
             >
-              {block.content}
+              {block.videoAlt}
             </p>
-            {!block.content && (
-              <span className='absolute -top-1 left-0 text-gray-400 pointer-events-none p-2 focus:outline-none'>
-                Video description...
-              </span>
-            )}
+            <span className='absolute -top-1 left-0 text-gray-400 pointer-events-none p-2 focus:outline-none'>
+              Video description...
+            </span>
           </div>
         </>
       )}

@@ -1,32 +1,28 @@
 import type { ContentBlock } from '@/types/contentBlocks';
 
 export function createNewBlock(type: ContentBlock['type']): ContentBlock {
-  const baseBlock = {
-    type,
-    content: '',
-  };
 
   switch (type) {
     case 'text':
-      return { ...baseBlock, type: 'text' };
+      return { type: 'text', text: 'string' };
     case 'image':
-      return { ...baseBlock, type: 'image', imageUrl: '', imageAlt: '' };
+      return { type: 'image', imgUrl: '', imgAlt: '' };
     case 'gallery':
-      return { ...baseBlock, type: 'gallery', images: [] };
+      return { type: 'gallery', images: [] };
     case 'video':
-      return { ...baseBlock, type: 'video', videoUrl: '' };
+      return { type: 'video', videoUrl: '', videoAlt: '' };
     case 'quote':
-      return { ...baseBlock, type: 'quote', spokesperson: '', role: '' };
+      return { type: 'quote', quote: 'string', spokesperson: '', role: '' };
     case 'highlight':
-      return { ...baseBlock, type: 'highlight' };
+      return { type: 'highlight', highlight: 'string' };
     case 'callout':
-      return { ...baseBlock, type: 'callout' };
+      return { type: 'callout', callout: 'string' };
     case 'heading':
-      return { ...baseBlock, type: 'heading' };
+      return { type: 'heading', heading: 'string' };
     case 'separator':
-      return { ...baseBlock, type: 'separator' };
+      return { type: 'separator' };
     case 'list':
-      return { ...baseBlock, type: 'list', items: [] };
+      return { type: 'list', items: [] };
     default:
       throw new Error(`Unsupported block type: ${type}`);
   }
@@ -41,7 +37,7 @@ export const renderPlaceholder = (
 
 export const handleImageUpload = (
   file: File,
-  onUpdate: (imageUrl: string) => void,
+  onUpdate: (imgUrl: string) => void,
 ) => {
   if (file.size > 2 * 1024 * 1024) {
     alert('File size must be less than 2MB');

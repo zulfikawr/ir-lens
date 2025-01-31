@@ -5,10 +5,11 @@ export type ArticleType = {
     title: string;
     description: string;
     date: string;
-    location?: string;
-    labels: string[];
-    coverImage: string;
-    coverImageAlt: string;
+    location: string;
+    tag: string;
+    region: string;
+    coverImg: string;
+    coverImgAlt: string;
     slug: string;
     blocks: ContentBlock[];
   }>;

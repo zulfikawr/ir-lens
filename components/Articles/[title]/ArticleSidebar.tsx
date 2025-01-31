@@ -19,7 +19,7 @@ export function RelatedArticlesSection({
     .filter(
       (article) =>
         article.slug !== currentArticle.slug &&
-        article.labels.some((label) => currentArticle.labels.includes(label)),
+        article.tag === currentArticle.tag,
     )
     .slice(0, 10);
 
@@ -41,8 +41,8 @@ export function RelatedArticlesSection({
               <div className='w-16 h-16 flex-shrink-0'>
                 <div className='relative w-full h-full'>
                   <Image
-                    src={article.coverImage}
-                    alt={article.coverImageAlt}
+                    src={article.coverImg}
+                    alt={article.coverImgAlt}
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     className='object-cover object-center group-hover:brightness-90'
                     fill
@@ -94,8 +94,8 @@ export function LatestArticlesSection({
               <div className='w-16 h-16 flex-shrink-0'>
                 <div className='relative w-full h-full'>
                   <Image
-                    src={article.coverImage}
-                    alt={article.coverImageAlt}
+                    src={article.coverImg}
+                    alt={article.coverImgAlt}
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     className='object-cover object-center group-hover:brightness-90'
                     fill
