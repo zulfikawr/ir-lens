@@ -37,7 +37,7 @@ const LatestArticle = () => {
   if (error) return <div>Error loading articles: {error.message}</div>;
 
   return (
-    <div className='relative w-full h-[calc(100vh-6rem)] max-h-[800px] max-w-7xl mx-auto pr-4 mt-10 scale-95'>
+    <div className='relative w-full h-[calc(100vh-6rem)] max-h-[800px] max-w-7xl mx-auto pr-4 mt-6 scale-95'>
       {sortedArticles.map((article, index) => (
         <article
           key={article.slug}
@@ -87,7 +87,7 @@ const LatestArticle = () => {
                   </h2>
                 </Link>
 
-                <p className='text-sm md:text-base text-gray-600 leading-relaxed mb-4'>
+                <p className='text-sm md:text-base text-gray-600 leading-relaxed mb-4 line-clamp-3 md:line-clamp-5'>
                   {article.description}
                 </p>
 

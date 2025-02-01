@@ -34,6 +34,9 @@ export function ArticleHeader({
         <Link href={`/tags/${article.tag}`}>
           <Button>{article.tag}</Button>
         </Link>
+        <Link href={`/tags/${article.region}`}>
+          <Button>{article.region}</Button>
+        </Link>
       </div>
 
       <div className='flex flex-col items-start'>

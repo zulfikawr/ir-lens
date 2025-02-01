@@ -24,7 +24,11 @@ export default function ArticleSlugPreviewPage({
   }, []);
 
   if (!article) {
-    return <div>Loading preview for {slug}...</div>;
+    return (
+      <div className='min-h-screen flex justify-center'>
+        Loading preview for {slug}...
+      </div>
+    );
   }
 
   return (

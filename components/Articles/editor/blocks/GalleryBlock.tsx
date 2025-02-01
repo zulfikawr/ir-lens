@@ -2,7 +2,7 @@ import type React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, Trash } from 'lucide-react';
 import type { GalleryBlock } from '@/types/contentBlocks';
 import { handleImageUpload } from '@/utils/blockUtils';
 
@@ -50,6 +50,9 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
   const handleRemoveImage = (imageIndex: number) => {
     const updatedImages = block.images.filter((_, i) => i !== imageIndex);
     onUpdateBlock({ images: updatedImages });
+    if (currentImageIndex >= updatedImages.length) {
+      setCurrentImageIndex(updatedImages.length - 1);
+    }
   };
 
   const handleNextImage = () => {
@@ -64,9 +67,21 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
     );
   };
 
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      handleAddImage(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className='relative'>
-      <div className='my-8 relative w-full max-w-4xl mx-auto'>
+    <div className='relative mt-2'>
+      <div className='relative w-full max-w-4xl mx-auto'>
         {block.images.length > 0 ? (
           <>
             <div className='relative w-full h-[300px] md:h-[450px]'>
@@ -116,88 +131,126 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
               </span>
               <Button
                 variant='outline'
-                size='sm'
                 onClick={() => handleRemoveImage(currentImageIndex)}
-                className='cursor-pointer'
+                className='h-9'
               >
+                <Trash className='w-4 h-4 mr-2' />
                 Remove Image
               </Button>
             </div>
           </>
         ) : (
-          <div className='space-y-4'>
-            <div className='flex flex-col space-y-2'>
-              <input
-                type='text'
-                value={imgUrlInput}
-                onChange={(e) => setimgUrlInput(e.target.value)}
-                placeholder='Paste image URL here'
-                className='w-full p-2 border border-gray-300 focus:outline-none'
-              />
-              <Button
-                onClick={handleimgUrlSubmit}
-                className='w-fit'
-                disabled={!imgUrlInput}
+          <div
+            className='relative w-full h-[300px] md:h-[450px] border-2 border-dashed border-gray-300'
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <div className='absolute inset-0 flex flex-col items-center justify-center'>
+              <div
+                className='w-full max-w-md space-y-4 p-4'
+                onClick={(e) => e.stopPropagation()}
               >
-                Add Image from URL
-              </Button>
-            </div>
-            <label className='flex flex-col items-center justify-center w-full h-[300px] border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors'>
-              <input
-                type='file'
-                accept='image/*'
-                className='hidden'
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleAddImage(file);
-                }}
-              />
-              <div className='text-center p-4'>
-                <Plus className='w-8 h-8 mx-auto mb-2 text-gray-400' />
-                <p className='text-sm text-gray-500'>
-                  Add images to the gallery
-                </p>
-                <p className='text-xs text-gray-400 mt-1'>
-                  Click to select or drop images here
-                </p>
+                {/* File Upload Section */}
+                <label className='flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors p-4'>
+                  <input
+                    type='file'
+                    className='hidden'
+                    accept='image/*'
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleAddImage(file);
+                    }}
+                  />
+                  <div className='text-center'>
+                    <Plus className='w-8 h-8 mx-auto mb-2 text-gray-400' />
+                    <p className='text-sm text-gray-500'>
+                      Drop an image here, or click to select
+                    </p>
+                    <p className='text-xs text-gray-400 mt-1'>
+                      Maximum size: 2MB
+                    </p>
+                  </div>
+                </label>
+
+                <div className='text-center'>
+                  <p className='text-sm text-gray-500'>or</p>
+                </div>
+
+                {/* URL Input Section */}
+                <div className='flex flex-row gap-2'>
+                  <input
+                    type='text'
+                    value={imgUrlInput}
+                    onChange={(e) => setimgUrlInput(e.target.value)}
+                    placeholder='Paste image URL here'
+                    className='w-full p-2 border border-gray-300 focus:outline-none text-sm'
+                  />
+                  <Button
+                    onClick={handleimgUrlSubmit}
+                    className='w-fit text-sm h-9'
+                    disabled={!imgUrlInput}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </div>
-            </label>
+            </div>
           </div>
         )}
       </div>
       {block.images.length > 0 && (
         <div className='mt-4 space-y-4'>
-          <div className='flex flex-col space-y-2'>
-            <input
-              type='text'
-              value={imgUrlInput}
-              onChange={(e) => setimgUrlInput(e.target.value)}
-              placeholder='Paste image URL here'
-              className='w-full p-2 border border-gray-300 focus:outline-none'
-            />
-            <Button
-              onClick={handleimgUrlSubmit}
-              className='w-fit'
-              disabled={!imgUrlInput}
-            >
-              Add Image from URL
-            </Button>
-          </div>
-          <label className='flex flex-col items-center justify-center w-full h-20 border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors'>
-            <input
-              type='file'
-              accept='image/*'
-              className='hidden'
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleAddImage(file);
-              }}
-            />
-            <div className='text-center'>
-              <Plus className='w-6 h-6 mx-auto mb-1 text-gray-400' />
-              <p className='text-sm text-gray-500'>Add more images</p>
+          <div
+            className='relative w-full h-[300px] md:h-[450px] border-2 border-dashed border-gray-300'
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <div className='absolute inset-0 flex flex-col items-center justify-center'>
+              <div
+                className='w-full max-w-md space-y-4 p-4'
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* File Upload Section */}
+                <label className='flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors p-4'>
+                  <input
+                    type='file'
+                    className='hidden'
+                    accept='image/*'
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleAddImage(file);
+                    }}
+                  />
+                  <div className='text-center'>
+                    <Plus className='w-6 h-6 mx-auto mb-1 text-gray-400' />
+                    <p className='text-sm text-gray-500'>Add more images</p>
+                  </div>
+                </label>
+
+                <div className='text-center'>
+                  <p className='text-sm text-gray-500'>or</p>
+                </div>
+
+                {/* URL Input Section */}
+                <div className='flex flex-row gap-2'>
+                  <input
+                    type='text'
+                    value={imgUrlInput}
+                    onChange={(e) => setimgUrlInput(e.target.value)}
+                    placeholder='Paste image URL here'
+                    className='w-full p-2 h-9 border border-gray-300 focus:outline-none text-sm'
+                  />
+                  <Button
+                    onClick={handleimgUrlSubmit}
+                    className='w-fit text-sm h-9'
+                    disabled={!imgUrlInput}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </div>
             </div>
-          </label>
+          </div>
         </div>
       )}
     </div>

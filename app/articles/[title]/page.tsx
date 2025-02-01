@@ -1,3 +1,4 @@
+import { getArticleBySlug } from '@/functions/getArticleBySlug';
 import { getArticles } from '@/functions/getArticles';
 import { ArticlePage } from '@/components/Articles/[title]/ArticlePage';
 import { ArticleSidebar } from '@/components/Articles/[title]/ArticleSidebar';
@@ -12,10 +13,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { title } = await params;
-  const articles = await getArticles();
-  const article = articles.find(
-    (article) => article.slug === decodeURIComponent(title),
-  );
+  const article = await getArticleBySlug(title);
+
   return {
     title: article ? `${article.title} | IR Lens` : 'Article Not Found',
   };
@@ -23,10 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function ArticleDetailsContent({ params }: Props) {
   const { title } = await params;
-  const articles = await getArticles();
-  const article = articles.find(
-    (article) => article.slug === decodeURIComponent(title),
-  );
+  const article = await getArticleBySlug(title);
 
   if (!article) {
     return (
@@ -40,6 +36,8 @@ async function ArticleDetailsContent({ params }: Props) {
       </div>
     );
   }
+
+  const articles = await getArticles();
 
   return (
     <main className='md:container mx-auto px-4'>

@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import { getArticles } from '@/functions/getArticles';
+import { getArticleBySlug } from '@/functions/getArticleBySlug';
 import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
 import type { ArticleType } from '@/types/article';
 
@@ -21,10 +21,7 @@ const EditArticlePage = () => {
 
     const fetchArticle = async () => {
       try {
-        const articles = await getArticles();
-        const foundArticle = articles.find(
-          (article) => article.slug === decodeURIComponent(articleSlug),
-        );
+        const foundArticle = await getArticleBySlug(articleSlug);
 
         if (foundArticle) {
           setArticle(foundArticle);

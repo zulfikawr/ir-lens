@@ -38,30 +38,29 @@ export default function ArticleEditor({
   const { toast } = useToast();
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 
-  // Effect to save changes to local storage for new articles
   useEffect(() => {
     if (isNewArticle) {
       const saveToLocalStorage = () => {
         localStorage.setItem('draftArticle', JSON.stringify(article));
       };
 
-      // Debounce the save operation to avoid excessive writes
       const timeoutId = setTimeout(saveToLocalStorage, 500);
 
       return () => clearTimeout(timeoutId);
+    } else {
+      localStorage.removeItem('draftArticle');
     }
   }, [article, isNewArticle]);
 
-  // Effect to load draft from local storage on initial render for new articles
   useEffect(() => {
-    if (isNewArticle) {
+    if (isNewArticle && !initialArticle.slug) {
       const savedDraft = localStorage.getItem('draftArticle');
       if (savedDraft) {
         const parsedDraft = JSON.parse(savedDraft);
         updateArticle(parsedDraft);
       }
     }
-  }, [isNewArticle, updateArticle]);
+  }, [isNewArticle, updateArticle, initialArticle.slug]);
 
   const validateArticle = () => {
     const requiredFields: ArticleField[] = [
@@ -116,14 +115,21 @@ export default function ArticleEditor({
       });
 
       if (response.ok) {
+        const data = await response.json();
+
         toast({
           description: isNew
             ? 'Article created successfully!'
             : 'Article updated successfully!',
           duration: 2000,
         });
+
         if (isNew) {
           localStorage.removeItem('draftArticle');
+          const slug = data.slug;
+          window.location.href = `/articles/${slug}`;
+        } else {
+          window.location.href = `/articles/${article.slug}`;
         }
       } else {
         const error = await response.json();
@@ -138,18 +144,6 @@ export default function ArticleEditor({
       });
     }
     setShowSaveDialog(false);
-  };
-
-  const handlePreview = () => {
-    if (validateArticle()) {
-      const previewWindow = window.open(
-        `/articles/preview/${article.slug || 'draft'}`,
-        '_blank',
-      );
-      if (previewWindow) {
-        previewWindow.articleData = article;
-      }
-    }
   };
 
   const handleDeleteConfirm = () => {
@@ -170,6 +164,18 @@ export default function ArticleEditor({
       description: 'Article deleted successfully!',
       duration: 2000,
     });
+  };
+
+  const handlePreview = () => {
+    if (validateArticle()) {
+      const previewWindow = window.open(
+        `/articles/preview/${article.slug || 'draft'}`,
+        '_blank',
+      );
+      if (previewWindow) {
+        previewWindow.articleData = article;
+      }
+    }
   };
 
   const handleMoveBlock = (fromIndex: number, toIndex: number) => {

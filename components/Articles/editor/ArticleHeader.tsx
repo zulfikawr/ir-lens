@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Calendar, MapPin, Tag, Globe, Plus, Trash, Link } from 'lucide-react';
 import { ArticleType } from '@/types/article';
@@ -49,12 +49,25 @@ const AutoResizeTextArea = ({
 };
 
 export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
+  const [imgUrlInput, setimgUrlInput] = useState('');
   const coverImgInputRef = useRef<HTMLInputElement>(null);
   const coverImgAltRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
 
   const tags = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
-  const regions = ['Asia', 'Europe', 'Middle East', 'Africa', 'Americas'];
+  const regions = [
+    'Global',
+    'Asia',
+    'Europe',
+    'Middle East',
+    'Africa',
+    'Americas',
+  ];
+
+  const handleimgUrlSubmit = () => {
+    onUpdate({ coverImg: imgUrlInput });
+    setimgUrlInput('');
+  };
 
   const handlecoverImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -126,10 +139,11 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       <div className='space-y-6'>
         {/* Cover Image Section */}
         <div
-          className={`relative w-full h-300px md:h-[450px] mb-4 ${article.coverImg ? 'mb-[1rem] md:mb-[5rem]' : ''}`}
+          className={`relative w-full h-[300px] md:h-[450px] ${article.coverImg ? 'mb-20' : 'mb-4'}`}
         >
+          {/* Drag and Drop Section */}
           <div
-            className='relative w-full max-w-4xl h-300px md:h-[450px] mx-auto border-2 border-dashed border-gray-300'
+            className='relative w-full max-w-4xl h-[300px] md:h-[450px] mx-auto border-2 border-dashed border-gray-300'
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
@@ -155,29 +169,60 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
                 </Button>
               </div>
             ) : (
-              <label className='absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors'>
-                <input
-                  ref={coverImgInputRef}
-                  type='file'
-                  className='hidden'
-                  accept='image/*'
-                  onChange={handlecoverImgChange}
-                />
-                <div className='text-center p-4'>
-                  <Plus className='w-8 h-8 mx-auto mb-2 text-gray-400' />
-                  <p className='text-sm text-gray-500'>
-                    Drop a cover image here, or click to select
-                  </p>
-                  <p className='text-xs text-gray-400 mt-1'>
-                    Maximum size: 2MB
-                  </p>
+              <div className='absolute inset-0 flex flex-col items-center justify-center'>
+                <div
+                  className='w-full max-w-md space-y-4 p-4'
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* File Upload Section */}
+                  <label className='flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors p-4'>
+                    <input
+                      ref={coverImgInputRef}
+                      type='file'
+                      className='hidden'
+                      accept='image/*'
+                      onChange={handlecoverImgChange}
+                    />
+                    <div className='text-center'>
+                      <Plus className='w-8 h-8 mx-auto mb-2 text-gray-400' />
+                      <p className='text-sm text-gray-500'>
+                        Drop a cover image here, or click to select
+                      </p>
+                      <p className='text-xs text-gray-400 mt-1'>
+                        Maximum size: 2MB
+                      </p>
+                    </div>
+                  </label>
+
+                  <div className='text-center'>
+                    <p className='text-sm text-gray-500'>or</p>
+                  </div>
+
+                  {/* URL Input Section */}
+                  <div className='flex flex-row gap-2'>
+                    <input
+                      type='text'
+                      value={imgUrlInput}
+                      onChange={(e) => setimgUrlInput(e.target.value)}
+                      placeholder='Paste cover image URL here'
+                      className='w-full p-2 h-9 border border-gray-300 focus:outline-none text-sm'
+                    />
+                    <Button
+                      onClick={handleimgUrlSubmit}
+                      className='w-fit text-sm h-9'
+                      disabled={!imgUrlInput}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </div>
-              </label>
+              </div>
             )}
           </div>
 
+          {/* Alt Text Input */}
           {article.coverImg && (
-            <div className='text-center mt-2'>
+            <div className='text-center mt-2 mb-12'>
               <input
                 ref={coverImgAltRef}
                 type='text'
