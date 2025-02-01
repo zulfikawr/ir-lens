@@ -6,7 +6,7 @@
     "dev": "rm -rf .next && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
+    "lint": "next lint --fix && npx prettier --write .",
     "reset": "rm -rf .next && rm -rf node_modules"
   },
   "dependencies": {

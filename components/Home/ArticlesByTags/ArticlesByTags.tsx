@@ -39,7 +39,7 @@ const ArticlesByTags = () => {
       <article
         key={article.slug}
         className={`absolute w-full transition-all duration-500 ease-in-out 
-        bg-white shadow-xl border border-black overflow-hidden h-[250px]
+        bg-white shadow-md hover:shadow-lg border border-black overflow-hidden h-[250px]
         ${index === activeCards[tag] ? 'z-30 opacity-100 -translate-x-2 -translate-y-2' : ''}
         ${index === (activeCards[tag] + 1) % 3 ? 'translate-x-0 translate-y-0' : 'z-10'}
         ${index === (activeCards[tag] + 2) % 3 ? 'translate-x-2 translate-y-2' : 'z-20'}`}

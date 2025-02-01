@@ -48,7 +48,7 @@ const EditArticlePage = () => {
     return <div>Article not found.</div>;
   }
 
-  return <ArticleEditor article={article} />;
+  return <ArticleEditor article={article} isNewArticle={false} />;
 };
 
 export default withAdminAuth(EditArticlePage);

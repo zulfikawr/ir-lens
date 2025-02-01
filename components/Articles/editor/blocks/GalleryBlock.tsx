@@ -69,7 +69,7 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
       <div className='my-8 relative w-full max-w-4xl mx-auto'>
         {block.images.length > 0 ? (
           <>
-            <div className='relative w-full h-[300px] md:h-[500px]'>
+            <div className='relative w-full h-[300px] md:h-[450px]'>
               <Image
                 src={
                   block.images[currentImageIndex].imgUrl || '/placeholder.svg'

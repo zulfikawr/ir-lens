@@ -73,7 +73,7 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
         </div>
       ) : (
         <>
-          <div className='relative w-full max-w-4xl h-[300px] mx-auto border border-gray-300 overflow-hidden'>
+          <div className='relative w-full max-w-4xl h-[300px] md:h-[450px] mx-auto border border-gray-300 overflow-hidden'>
             <Image
               src={block.imgUrl || '/placeholder.svg'}
               alt={block.imgAlt || 'Image related to the article'}

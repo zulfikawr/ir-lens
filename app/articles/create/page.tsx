@@ -19,7 +19,7 @@ const CreateArticlePage = () => {
     blocks: [],
   };
 
-  return <ArticleEditor article={initialArticle} />;
+  return <ArticleEditor article={initialArticle} isNewArticle />;
 };
 
 export default withAdminAuth(CreateArticlePage);

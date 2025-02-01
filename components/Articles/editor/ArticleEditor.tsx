@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Eye, Save, Trash } from 'lucide-react';
 import { useArticleState } from '@/hooks/useArticleState';
@@ -22,16 +22,86 @@ import {
 import type { ArticleType } from '@/types/article';
 import type { ContentBlock } from '@/types/contentBlocks';
 
+type ArticleField = keyof Omit<ArticleType['articles'][0], 'blocks' | 'slug'>;
+
 interface ArticleEditorProps {
   article: ArticleType['articles'][0];
+  isNewArticle: boolean;
 }
 
 export default function ArticleEditor({
   article: initialArticle,
+  isNewArticle,
 }: ArticleEditorProps) {
   const { article, updateArticle, addBlock, updateBlock, removeBlock } =
     useArticleState(initialArticle);
   const { toast } = useToast();
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+
+  // Effect to save changes to local storage for new articles
+  useEffect(() => {
+    if (isNewArticle) {
+      const saveToLocalStorage = () => {
+        localStorage.setItem('draftArticle', JSON.stringify(article));
+      };
+
+      // Debounce the save operation to avoid excessive writes
+      const timeoutId = setTimeout(saveToLocalStorage, 500);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [article, isNewArticle]);
+
+  // Effect to load draft from local storage on initial render for new articles
+  useEffect(() => {
+    if (isNewArticle) {
+      const savedDraft = localStorage.getItem('draftArticle');
+      if (savedDraft) {
+        const parsedDraft = JSON.parse(savedDraft);
+        updateArticle(parsedDraft);
+      }
+    }
+  }, [isNewArticle, updateArticle]);
+
+  const validateArticle = () => {
+    const requiredFields: ArticleField[] = [
+      'title',
+      'description',
+      'date',
+      'location',
+      'tag',
+      'region',
+      'coverImg',
+      'coverImgAlt',
+    ];
+    const emptyFields = requiredFields.filter((field) => !article[field]);
+
+    if (emptyFields.length > 0) {
+      toast({
+        description: `Please fill in the following fields: ${emptyFields.join(', ')}`,
+        duration: 5000,
+        variant: 'destructive',
+      });
+      return false;
+    }
+
+    if (article.blocks.length === 0) {
+      toast({
+        description: 'Please add at least one content block to the article.',
+        duration: 5000,
+        variant: 'destructive',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSaveClick = () => {
+    if (validateArticle()) {
+      setShowSaveDialog(true);
+    }
+  };
 
   const handleSaveConfirm = async () => {
     const isNew = !article.slug;
@@ -67,15 +137,18 @@ export default function ArticleEditor({
         variant: 'destructive',
       });
     }
+    setShowSaveDialog(false);
   };
 
   const handlePreview = () => {
-    const previewWindow = window.open(
-      `/articles/preview/${article.slug}`,
-      '_blank',
-    );
-    if (previewWindow) {
-      previewWindow.articleData = article;
+    if (validateArticle()) {
+      const previewWindow = window.open(
+        `/articles/preview/${article.slug || 'draft'}`,
+        '_blank',
+      );
+      if (previewWindow) {
+        previewWindow.articleData = article;
+      }
     }
   };
 
@@ -143,13 +216,12 @@ export default function ArticleEditor({
           </AlertDialogContent>
         </AlertDialog>
 
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button className='flex items-center gap-2'>
-              <Save className='w-4 h-4' />
-              Save
-            </Button>
-          </AlertDialogTrigger>
+        <Button onClick={handleSaveClick} className='flex items-center gap-2'>
+          <Save className='w-4 h-4' />
+          Save
+        </Button>
+
+        <AlertDialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Save Article</AlertDialogTitle>

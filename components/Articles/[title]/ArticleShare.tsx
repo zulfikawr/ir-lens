@@ -62,7 +62,7 @@ export const ArticleShareDialog = ({
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-2xl border-black p-0 overflow-hidden'>
+      <DialogContent className='w-11/12 sm:max-w-md p-0'>
         <div className='flex flex-col md:flex-row'>
           <div className='w-full md:w-1/2 block'>
             <Image
@@ -79,7 +79,7 @@ export const ArticleShareDialog = ({
               <DialogTitle className='text-left text-2xl font-bold'>
                 {article.title}
               </DialogTitle>
-              <p className='text-gray-600 text-sm line-clamp-3'>
+              <p className='text-left text-gray-600 text-sm line-clamp-3'>
                 {article.description}
               </p>
             </DialogHeader>

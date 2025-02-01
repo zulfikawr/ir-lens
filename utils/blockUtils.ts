@@ -3,7 +3,7 @@ import type { ContentBlock } from '@/types/contentBlocks';
 export function createNewBlock(type: ContentBlock['type']): ContentBlock {
   switch (type) {
     case 'text':
-      return { type: 'text', text: 'string' };
+      return { type: 'text', text: '' };
     case 'image':
       return { type: 'image', imgUrl: '', imgAlt: '' };
     case 'gallery':
@@ -11,13 +11,13 @@ export function createNewBlock(type: ContentBlock['type']): ContentBlock {
     case 'video':
       return { type: 'video', videoUrl: '', videoAlt: '' };
     case 'quote':
-      return { type: 'quote', quote: 'string', spokesperson: '', role: '' };
+      return { type: 'quote', quote: '', spokesperson: '', role: '' };
     case 'highlight':
-      return { type: 'highlight', highlight: 'string' };
+      return { type: 'highlight', highlight: '' };
     case 'callout':
-      return { type: 'callout', callout: 'string' };
+      return { type: 'callout', callout: '' };
     case 'heading':
-      return { type: 'heading', heading: 'string' };
+      return { type: 'heading', heading: '' };
     case 'separator':
       return { type: 'separator' };
     case 'list':

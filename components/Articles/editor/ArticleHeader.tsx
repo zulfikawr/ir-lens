@@ -1,7 +1,7 @@
 import type React from 'react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { Calendar, MapPin, Tag, Globe, Plus, Trash } from 'lucide-react';
+import { Calendar, MapPin, Tag, Globe, Plus, Trash, Link } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import {
   DropdownMenu,
@@ -17,11 +17,40 @@ interface ArticleHeaderProps {
   onUpdate: (updates: Partial<ArticleType['articles'][0]>) => void;
 }
 
+const AutoResizeTextArea = ({
+  value,
+  onChange,
+  className,
+  placeholder,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  className?: string;
+  placeholder?: string;
+}) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [value]);
+
+  return (
+    <textarea
+      ref={textareaRef}
+      value={value}
+      onChange={onChange}
+      className={`w-full resize-none ${className}`}
+      placeholder={placeholder}
+    />
+  );
+};
+
 export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
   const coverImgInputRef = useRef<HTMLInputElement>(null);
   const coverImgAltRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLTextAreaElement>(null);
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
 
   const tags = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
@@ -66,9 +95,6 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     const content = e.target.value;
     onUpdate({ title: content });
 
-    e.target.style.height = 'auto';
-    e.target.style.height = `${e.target.scrollHeight}px`;
-
     const slug = content
       .toLowerCase()
       .replace(/[^\w\s-]/g, '')
@@ -81,9 +107,6 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     onUpdate({ description: e.target.value });
-
-    e.target.style.height = 'auto';
-    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,10 +126,10 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       <div className='space-y-6'>
         {/* Cover Image Section */}
         <div
-          className={`relative w-full h-[400px] mb-4 ${article.coverImg ? 'mb-[5rem]' : ''}`}
+          className={`relative w-full h-300px md:h-[450px] mb-4 ${article.coverImg ? 'mb-[1rem] md:mb-[5rem]' : ''}`}
         >
           <div
-            className='relative w-full max-w-4xl h-[400px] mx-auto border-2 border-dashed border-gray-300 overflow-hidden'
+            className='relative w-full max-w-4xl h-300px md:h-[450px] mx-auto border-2 border-dashed border-gray-300'
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
@@ -160,7 +183,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
                 type='text'
                 value={article.coverImgAlt}
                 onChange={handlecoverImgAltChange}
-                className='w-full p-2 focus:outline-none text-center border border-gray-300 focus:outline-none'
+                className='w-full p-2 focus:outline-none text-center border border-gray-300'
                 placeholder='Enter alt text for the cover image'
               />
             </div>
@@ -216,26 +239,33 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
           </DropdownMenu>
         </div>
 
+        {/* Slug Section */}
+        <div className='flex items-center w-full gap-4 relative text-gray-500 line-clamp-1'>
+          <Link className='w-5 h-5 flex-shrink-0' />
+          <input
+            value={`https://ir-lens.vercel.app/${article.slug}`}
+            onChange={() => {}}
+            className='focus:outline-none bg-transparent flex-grow truncate'
+            readOnly
+          />
+        </div>
+
         {/* Title Section */}
         <div className='relative'>
-          <textarea
-            ref={titleRef}
+          <AutoResizeTextArea
             value={article.title}
             onChange={handleTitleChange}
-            className='w-full text-4xl md:text-5xl font-bold leading-tight focus:outline-none resize-none overflow-hidden bg-transparent'
-            rows={1}
+            className='text-4xl md:text-5xl font-bold leading-tight focus:outline-none bg-transparent'
             placeholder='Untitled Article'
           />
         </div>
 
         {/* Description Section */}
         <div className='relative'>
-          <textarea
-            ref={descriptionRef}
+          <AutoResizeTextArea
             value={article.description}
             onChange={handleDescriptionChange}
-            className='w-full text-md md:text-lg text-gray-600 leading-relaxed focus:outline-none resize-none overflow-hidden bg-transparent'
-            rows={3}
+            className='text-md md:text-lg text-gray-600 leading-relaxed focus:outline-none bg-transparent'
             placeholder='Add a description...'
           />
         </div>
