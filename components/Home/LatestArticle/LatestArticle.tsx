@@ -75,7 +75,11 @@ const LatestArticle = () => {
                   </Link>
 
                   <Link href={`/tags/${article.region}`}>
-                    <Button size='sm' className='text-xs md:text-sm'>
+                    <Button
+                      size='sm'
+                      variant='secondary'
+                      className='text-xs md:text-sm'
+                    >
                       {article.region}
                     </Button>
                   </Link>

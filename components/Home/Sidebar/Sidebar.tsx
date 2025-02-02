@@ -98,23 +98,23 @@ const Sidebar = () => {
                 </div>
               </div>
               <div className='w-full'>
-                <div className='flex items-center justify-between mb-1'>
-                  <div className='flex items-center gap-2'>
+                <div className='flex justify-between mb-1'>
+                  <div className='flex items-center gap-2 -mt-1'>
                     <Link href={`/tags/${article.tag}`}>
-                      <Button size='sm' text='small'>
+                      <Button size='sm' className='h-5 text-[10px]'>
                         {article.tag}
                       </Button>
                     </Link>
                   </div>
                   <time
-                    className='text-xs text-gray-500 -mt-1'
+                    className='text-[10px] text-gray-500'
                     dateTime={article.date}
                   >
                     {article.date}
                   </time>
                 </div>
                 <Link href={`/articles/${article.slug}`}>
-                  <h3 className='font-bold hover:underline line-clamp-2'>
+                  <h3 className='text-sm font-bold hover:underline line-clamp-3'>
                     {article.title}
                   </h3>
                 </Link>

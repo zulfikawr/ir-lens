@@ -9,6 +9,7 @@ import { Hash, MapPin, Calendar } from 'lucide-react';
 import Loading from '@/components/Tags/[tag]/loading';
 import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
+import ArticleCard from '@/components/Home/ArticleCard';
 
 export default function TagPage() {
   const { tag } = useParams();
@@ -66,54 +67,12 @@ export default function TagPage() {
         </p>
       </div>
 
-      {/* Articles List */}
-      <div className='space-y-12'>
-        {currentArticles.map((article, _index) => (
-          <article key={article.title} className='group'>
-            <div className='grid md:grid-cols-[0.4fr_1fr] gap-8'>
-              <Link
-                href={`articles/${article.slug}`}
-                className='block overflow-hidden'
-              >
-                <Image
-                  className='w-full h-64 md:h-full object-cover transition-all duration-300 group-hover:brightness-90'
-                  src={article.coverImg}
-                  alt={article.coverImgAlt}
-                  width={1488}
-                  height={992}
-                />
-              </Link>
-              <div className='flex flex-col justify-between'>
-                <div className='space-y-4'>
-                  <div className='flex flex-wrap gap-2'>
-                    <Link href={`/tags/${article.tag}`}>
-                      <Button>{article.tag}</Button>
-                    </Link>
-                  </div>
-                  <h2 className='text-2xl font-bold hover:underline transition duration-200'>
-                    <Link href={`/articles/${article.slug}`}>
-                      {article.title}
-                    </Link>
-                  </h2>
-                  <p className='text-gray-600 leading-relaxed'>
-                    {article.description}
-                  </p>
-                </div>
-                <div className='flex flex-wrap gap-6 mt-6 text-sm text-gray-500'>
-                  <div className='flex items-center gap-2'>
-                    <Calendar className='w-4 h-4' />
-                    <time dateTime={article.date}>{article.date}</time>
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <MapPin className='w-4 h-4' />
-                    <span>{article.location}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='border-b border-gray-200 mt-12' />
-          </article>
+      {/* Articles Grid */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        {currentArticles.map((article, index) => (
+          <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
+            <ArticleCard article={article} cardIndex={0} activeIndex={0} />
+          </div>
         ))}
       </div>
 

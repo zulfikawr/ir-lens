@@ -7,12 +7,10 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main className='container mx-auto px-4 md:px-0 py-8 md:py-12'>
-      <div>
-        <h1 className='w-full text-center font-bold text-[120px] mt-4 mb-6'>
-          Not Found
-        </h1>
-        <h2 className='w-full text-center mb-6'>
+    <main className='container min-h-screen mx-auto px-4 md:px-0 flex items-center justify-center'>
+      <div className='text-center'>
+        <h1 className='font-bold text-5xl md:text-7xl mb-6'>Not Found</h1>
+        <h2 className='mb-6'>
           The page you&apos;re looking for does not exist. Click{' '}
           <Link className='font-semibold hover:underline' href='/'>
             here to return home
