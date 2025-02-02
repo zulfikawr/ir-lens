@@ -21,7 +21,7 @@ const HomeSection = () => {
     <div>
       <NewsTicker />
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-8'>
-        <div className='lg:col-span-8 space-y-28 md:space-y-14'>
+        <div className='lg:col-span-8 md:space-y-14'>
           <LatestArticle />
           <ArticlesByTags />
         </div>

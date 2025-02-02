@@ -60,7 +60,7 @@ const ArticlesByTags = () => {
             </Link>
           </div>
 
-          <div className='col-span-2 flex flex-col h-full p-4'>
+          <div className='col-span-2 flex flex-col h-full p-3'>
             <div className='flex flex-col h-full space-y-2'>
               <div className='flex flex-wrap gap-1 md:gap-2'>
                 <Link href={`/tags/${article.region}`}>
