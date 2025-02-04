@@ -7,11 +7,17 @@ export const metadata = {
   description: 'List of Articles',
 };
 
-export default function ArticlesPage() {
+export default function ArticlesPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const initialPage = searchParams.page ? Number(searchParams.page) : 1;
+
   return (
     <main>
       <Suspense fallback={<Loading />}>
-        <Articles />
+        <Articles initialPage={initialPage} />
       </Suspense>
     </main>
   );

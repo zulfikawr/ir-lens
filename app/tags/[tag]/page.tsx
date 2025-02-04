@@ -2,14 +2,13 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import { useRef, useState } from 'react';
-import { Hash, MapPin, Calendar } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import Loading from '@/components/Tags/[tag]/loading';
 import Pagination from '@/components/Pagination';
-import { Button } from '@/components/ui/button';
 import ArticleCard from '@/components/Home/ArticleCard';
+import PageTitle from '@/components/PageTitle';
 
 export default function TagPage() {
   const { tag } = useParams();
@@ -52,22 +51,12 @@ export default function TagPage() {
 
   return (
     <div ref={sectionRef} className='mx-auto px-4 md:px-8 py-16'>
-      {/* Header Section */}
-      <div className='mb-16 text-center'>
-        <div className='flex items-center justify-center mb-6'>
-          <div className='w-16 h-px bg-black'></div>
-          <Hash className='mx-4 w-8 h-8' />
-          <div className='w-16 h-px bg-black'></div>
-        </div>
-        <h1 className='text-4xl font-bold mb-4 capitalize'>{tag}</h1>
-        <p className='text-gray-600'>
-          {filteredArticles.length}{' '}
-          {filteredArticles.length === 1 ? 'article' : 'articles'} tagged with
-          &quot;{tag}&quot;
-        </p>
-      </div>
+      <PageTitle
+        icon={<Hash />}
+        title={typeof tag === 'string' ? tag : 'Unknown Tag'}
+        description={`${filteredArticles.length} ${filteredArticles.length === 1 ? 'article' : 'articles'} tagged with "${tag}"`}
+      />
 
-      {/* Articles Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {currentArticles.map((article, index) => (
           <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
@@ -76,7 +65,6 @@ export default function TagPage() {
         ))}
       </div>
 
-      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

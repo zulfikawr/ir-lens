@@ -2,13 +2,13 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import { useRef, useState } from 'react';
-import { Search, MapPin, Calendar } from 'lucide-react';
+import { Search } from 'lucide-react';
 import Pagination from '@/components/Pagination';
-import { Button } from '@/components/ui/button';
 import ArticleCard from '@/components/Home/ArticleCard';
+import PageTitle from '@/components/PageTitle';
+import Loading from '@/components/Articles/loading';
 
 export default function SearchPage() {
   const { query } = useParams();
@@ -16,6 +16,10 @@ export default function SearchPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
+
+  if (!data.length) {
+    return <Loading />;
+  }
 
   const decodedQuery = decodeURIComponent(query as string).toLowerCase();
 
@@ -52,23 +56,13 @@ export default function SearchPage() {
   const totalPages = Math.ceil(searchResults.length / articlesPerPage);
 
   return (
-    <div ref={sectionRef} className='mx-auto px-4 md:px-8 py-16'>
-      {/* Header Section */}
-      <div className='mb-16 text-center'>
-        <div className='flex items-center justify-center mb-6'>
-          <div className='w-16 h-px bg-black'></div>
-          <Search className='mx-4 w-8 h-8' />
-          <div className='w-16 h-px bg-black'></div>
-        </div>
-        <h1 className='text-4xl font-bold mb-4'>Search Results</h1>
-        <p className='text-gray-600'>
-          {searchResults.length}{' '}
-          {searchResults.length === 1 ? 'article' : 'articles'} found for &quot;
-          {decodedQuery}&quot;
-        </p>
-      </div>
+    <div ref={sectionRef} className='mx-auto px-4 md:px-8 my-12 md:my-16'>
+      <PageTitle
+        icon={<Search />}
+        title='Search Results'
+        description={`${searchResults.length} ${searchResults.length === 1 ? 'article' : 'articles'} found for "${decodedQuery}"`}
+      />
 
-      {/* Articles Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {currentArticles.map((article, index) => (
           <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
@@ -77,7 +71,6 @@ export default function SearchPage() {
         ))}
       </div>
 
-      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

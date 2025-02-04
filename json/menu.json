@@ -23,9 +23,14 @@
   ],
   "regions": [
     {
+      "title": "Global",
+      "href": "/regions/Global",
+      "description": "Worldwide coverage, including major international developments and global trends"
+    },
+    {
       "title": "Asia",
       "href": "/regions/Asia",
-      "description": "East Asia, Southeast Asia, and South Asia, including China, India, Japan, and others"
+      "description": "East Asia, Southeast Asia, South Asia, and the Pacific region, including China, India, Japan, Australia, and others"
     },
     {
       "title": "Europe",

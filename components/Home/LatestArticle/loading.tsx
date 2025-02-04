@@ -2,12 +2,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function LatestArticleLoading() {
   return (
-    <div className='relative h-[600px] md:h-[560px] w-full pr-4 mx-auto mt-6 scale-90'>
+    <div className='relative w-full h-[600px] sm:h-[700px] md:h-[800px] lg:h-[calc(100vh-6rem)] max-h-[900px] max-w-7xl mx-auto pr-4 mt-6 scale-95 mb-12'>
       {Array.from({ length: 3 }).map((_, index) => (
         <article
           key={index}
-          className={`absolute w-full transition-all duration-500 ease-in-out 
-            bg-white shadow-xl border border-black overflow-hidden h-[600px] md:h-[500px]
+          className={`absolute w-full h-full transition-all duration-500 ease-in-out 
+            bg-white shadow-xl border border-black overflow-hidden
             ${index === 0 ? 'z-30 opacity-100 -translate-x-4 -translate-y-4' : ''} 
             ${index === 1 ? 'translate-x-0 translate-y-0' : 'z-10'} 
             ${index === 2 ? 'translate-x-4 translate-y-4' : 'z-20'}`}
@@ -40,13 +40,12 @@ export default function LatestArticleLoading() {
                 </div>
 
                 <div className='mt-auto'>
-                  <div className='flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-4'>
+                  <div className='flex flex-wrap items-center gap-4 text-gray-500 text-sm mb-4'>
                     <Skeleton className='h-5 w-32 bg-[#a1a1a1]' />
-                    <span>|</span>
                     <Skeleton className='h-5 w-24 bg-[#a1a1a1]' />
                   </div>
 
-                  <Skeleton className='h-10 w-full md:w-24 bg-black' />
+                  <Skeleton className='h-10 w-full bg-black' />
                 </div>
               </div>
             </div>
