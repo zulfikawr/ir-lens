@@ -32,7 +32,7 @@ const ArticleCard = ({
 
   return (
     <article
-      className={`${isStatic ? 'relative' : 'absolute'} w-full transition-all duration-500 ease-in-out 
+      className={`${isStatic ? 'relative' : 'absolute mx-2'} w-full transition-all duration-500 ease-in-out 
       bg-white shadow-md hover:shadow-lg border border-black overflow-hidden h-[250px]
       ${getPositionClasses(cardIndex, activeIndex)}`}
     >

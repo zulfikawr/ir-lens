@@ -93,7 +93,9 @@ export default function NewsTicker() {
         ))}
       </div>
       <div className='absolute right-0 top-1/2 transform -translate-y-1/2 bg-black border-l border-white px-4'>
-        <time className='whitespace-nowrap font-mono'>{currentTime}</time>
+        <time className='whitespace-nowrap font-mono text-sm'>
+          {currentTime}
+        </time>
       </div>
     </div>
   );

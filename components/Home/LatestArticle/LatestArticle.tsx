@@ -48,7 +48,7 @@ const LatestArticle = () => {
             ${index === (activeCard + 2) % sortedArticles.length ? 'translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4' : 'z-20'}`}
         >
           <div className='flex flex-col md:flex-row h-full'>
-            <div className='relative w-full h-1/2 md:h-full md:w-1/2'>
+            <div className='relative w-full h-2/5 md:h-full md:w-1/2'>
               <Link href={`/articles/${article.slug}`} className='block h-full'>
                 <div className='absolute inset-0 transition-all duration-500 grayscale hover:grayscale-0'>
                   <Image
@@ -65,7 +65,7 @@ const LatestArticle = () => {
               </Link>
             </div>
 
-            <div className='flex flex-col p-4 md:w-1/2 h-1/2 md:h-full overflow-y-auto'>
+            <div className='flex flex-col p-4 md:w-1/2 h-3/5 md:h-full overflow-y-auto'>
               <div className='flex flex-col h-full'>
                 <div className='flex flex-wrap gap-2 mb-2 md:mb-4'>
                   <Link href={`/tags/${article.tag}`}>
@@ -86,26 +86,23 @@ const LatestArticle = () => {
                 </div>
 
                 <Link href={`/articles/${article.slug}`}>
-                  <h2 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-black hover:underline mb-2 md:mb-4'>
+                  <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black hover:underline mb-2 md:mb-4'>
                     {article.title}
                   </h2>
                 </Link>
 
-                <p className='text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed mb-4 flex-grow overflow-y-auto'>
+                <p className='text-sm md:text-lg text-gray-600 leading-relaxed mb-4 flex-grow overflow-y-auto'>
                   {article.description}
                 </p>
 
                 <div className='mt-auto'>
-                  <div className='flex flex-wrap items-center gap-2 text-gray-500 text-xs md:text-sm mb-4'>
+                  <div className='flex flex-wrap items-center justify-between md:justify-start md:gap-6 text-gray-500 text-xs md:text-sm mb-4'>
                     <div className='flex items-center gap-2'>
-                      <Calendar className='w-3 h-3' />
-                      <time dateTime={article.date} className='italic'>
-                        {article.date}
-                      </time>
+                      <Calendar className='w-4 h-4' />
+                      <time dateTime={article.date}>{article.date}</time>
                     </div>
-                    <span>|</span>
                     <div className='flex items-center gap-2'>
-                      <MapPin className='w-3 h-3' />
+                      <MapPin className='w-4 h-4' />
                       <p>{article.location}</p>
                     </div>
                   </div>
@@ -114,7 +111,7 @@ const LatestArticle = () => {
                     href={`/articles/${article.slug}`}
                     className='block w-full'
                   >
-                    <Button className='w-full'>Read More</Button>
+                    <Button className='w-full text-md'>Read More</Button>
                   </Link>
                 </div>
               </div>

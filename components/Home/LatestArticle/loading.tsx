@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function LatestArticleLoading() {
   return (
-    <div className='relative h-[600px] md:h-[560px] w-full pr-4 mx-auto mt-6 scale-95'>
+    <div className='relative h-[600px] md:h-[560px] w-full pr-4 mx-auto mt-6 scale-90'>
       {Array.from({ length: 3 }).map((_, index) => (
         <article
           key={index}
