@@ -7,13 +7,13 @@ import { Book } from 'lucide-react';
 import Loading from './loading';
 import ArticleCard from '../Home/ArticleCard';
 import { useRouter, useSearchParams } from 'next/navigation';
-import PageTitle from '../PageTitle';
+import PageTitle from '../PageTitle/PageTitle';
 
-const ArticlesPage = ({ initialPage = 1 }) => {
+const Articles = () => {
   const { data } = useArticleContext();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const articlesPerPage = 9;
@@ -61,7 +61,7 @@ const ArticlesPage = ({ initialPage = 1 }) => {
       />
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-        {currentArticles.map((article, index) => (
+        {currentArticles.map((article) => (
           <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
             <ArticleCard article={article} cardIndex={0} activeIndex={0} />
           </div>
@@ -81,4 +81,4 @@ const ArticlesPage = ({ initialPage = 1 }) => {
   );
 };
 
-export default ArticlesPage;
+export default Articles;

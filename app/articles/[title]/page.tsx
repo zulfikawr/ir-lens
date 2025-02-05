@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function ArticleDetailsContent({ params }: Props) {
   const { title } = await params;
+  const articles = await getArticles();
   const article = await getArticleBySlug(title);
 
   if (!article) {
@@ -37,12 +38,12 @@ async function ArticleDetailsContent({ params }: Props) {
     );
   }
 
-  const articles = await getArticles();
-
   return (
-    <main className='md:container mx-auto px-4'>
-      <div className={`py-16 md:grid md:grid-cols-[1fr_auto] md:gap-16`}>
-        <ArticlePage article={article} />
+    <main className='container mx-auto px-4 max-w-screen-xl'>
+      <div className='py-16 flex flex-col items-center lg:items-start lg:flex-row lg:justify-center'>
+        <div className='w-full max-w-3xl lg:w-3/4 lg:pr-6'>
+          <ArticlePage article={article} />
+        </div>
         <ArticleSidebar articles={articles} currentArticle={article} />
       </div>
     </main>

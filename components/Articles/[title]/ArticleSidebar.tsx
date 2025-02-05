@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
 
 export function RelatedArticlesSection({
   articles,
   currentArticle,
-  isExpanded,
 }: {
   articles: ArticleType['articles'];
   currentArticle: ArticleType['articles'][0];
-  isExpanded: boolean;
 }) {
   const relatedArticles = articles
     .filter(
@@ -24,7 +21,7 @@ export function RelatedArticlesSection({
     )
     .slice(0, 10);
 
-  if (!isExpanded || relatedArticles.length === 0) return null;
+  if (relatedArticles.length === 0) return null;
 
   return (
     <div>
@@ -110,37 +107,19 @@ export function ArticleSidebar({
   articles: ArticleType['articles'];
   currentArticle: ArticleType['articles'][0];
 }) {
-  const [isExpanded, setIsExpanded] = useState(true);
-
   return (
     <aside
-      className={`
-        mt-16 md:mt-0 block md:border-l md:border-black
-        ${isExpanded ? 'md:w-[300px] md:pl-6' : 'md:w-0'}
-        relative transition-all duration-300 ease-in-out
-      `}
+      className='
+        mt-16 md:mt-0 md:w-1/4 md:max-w-[300px] md:pl-6 md:border-l md:border-black 
+        relative transition-all duration-300 ease-in-out px-4 md:px-0
+      '
     >
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className={`
-          absolute left-[-42px] top-0 z-10 p-2 bg-white hover:bg-black hover:text-white border-l border-t border-b border-black 
-          ${isExpanded ? 'border-l border-t border-b' : 'border-r'}
-          hidden md:block
-        `}
-      >
-        {isExpanded ? <ChevronRight /> : <ChevronLeft />}
-      </button>
-
-      {isExpanded && (
-        <div className='space-y-6'>
-          <RelatedArticlesSection
-            articles={articles}
-            currentArticle={currentArticle}
-            isExpanded={isExpanded}
-          />
-          {/* <LatestArticlesSection articles={articles} isExpanded={isExpanded} /> */}
-        </div>
-      )}
+      <div className='space-y-6'>
+        <RelatedArticlesSection
+          articles={articles}
+          currentArticle={currentArticle}
+        />
+      </div>
     </aside>
   );
 }

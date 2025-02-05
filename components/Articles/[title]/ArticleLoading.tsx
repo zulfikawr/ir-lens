@@ -11,7 +11,7 @@ export default function ArticleLoading() {
           {/* Header Loading */}
           <div className='mb-12'>
             {/* Cover Image Loading */}
-            <Skeleton className='w-full h-[50vh] md:h-[60vh] mb-8 bg-[#a1a1a1] border border-black' />
+            <Skeleton className='w-full aspect-[16-9] h-[400px] shadow-md mb-8 bg-[#a1a1a1] border border-black' />
 
             {/* Labels Loading */}
             <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>

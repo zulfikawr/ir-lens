@@ -22,12 +22,12 @@ const ArticleCard = ({
     if (isStatic) return '';
 
     if (index === active) {
-      return 'z-30 opacity-100 -translate-x-2 -translate-y-2';
+      return 'z-30 opacity-100 -translate-x-4 -translate-y-2';
     }
     if (index === (active + 1) % 3) {
-      return 'translate-x-0 translate-y-0 z-20';
+      return '-translate-x-2 translate-y-0 z-20';
     }
-    return 'translate-x-2 translate-y-2 z-10';
+    return 'translate-y-2 z-10';
   };
 
   return (

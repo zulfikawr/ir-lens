@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import { Hash, ArrowRight } from 'lucide-react';
 import Loading from '@/components/Tags/loading';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/PageTitle/PageTitle';
 
 export default function TagsPage() {
   const { data } = useArticleContext();

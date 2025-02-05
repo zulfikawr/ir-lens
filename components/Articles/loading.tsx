@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import PageTitleLoading from '../PageTitleLoading';
+import PageTitleLoading from '../PageTitle/PageTitleLoading';
 
 export default function Loading() {
   return (

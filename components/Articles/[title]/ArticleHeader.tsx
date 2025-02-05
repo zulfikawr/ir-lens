@@ -3,7 +3,7 @@
 import { ArticleType } from '@/types/article';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, MapPin, Edit } from 'lucide-react';
+import { Calendar, MapPin, Edit, TagIcon, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ArticleShareDialog } from './ArticleShare';
 import { useAuth } from '@/hooks/useAuth';
@@ -18,7 +18,7 @@ export function ArticleHeader({
   return (
     <div>
       <div className='mb-8 relative w-full max-w-4xl mx-auto'>
-        <div className='relative w-full aspect-[16/9] shadow-md mb-8'>
+        <div className='relative w-full aspect-[16/9] shadow-lg mb-8'>
           <Image
             src={article.coverImg}
             alt={article.coverImgAlt}
@@ -30,13 +30,36 @@ export function ArticleHeader({
         </div>
       </div>
 
-      <div className='flex flex-wrap gap-2 md:gap-4 mb-4'>
-        <Link href={`/tags/${article.tag}`}>
-          <Button>{article.tag}</Button>
-        </Link>
-        <Link href={`/tags/${article.region}`}>
-          <Button>{article.region}</Button>
-        </Link>
+      <div className='flex flex-wrap gap-2 md:gap-4 mb-4 justify-between'>
+        <div className='flex gap-2'>
+          <Link href={`/tags/${article.tag}`}>
+            <Button className='flex items-center gap-2'>
+              <TagIcon className='w-4 h-4' />
+              {article.tag}
+            </Button>
+          </Link>
+          <Link href={`/tags/${article.region}`}>
+            <Button className='flex items-center gap-2'>
+              <Globe className='w-4 h-4' />
+              {article.region}
+            </Button>
+          </Link>
+        </div>
+        <div className='flex gap-4 items-center'>
+          {user && (
+            <div className='w-fit'>
+              <Link href={`/articles/${article.slug}/edit`}>
+                <Button variant='outline' className='flex items-center gap-2'>
+                  <Edit className='w-4 h-4' />
+                  Edit Article
+                </Button>
+              </Link>
+            </div>
+          )}
+          <div className='w-fit'>
+            <ArticleShareDialog article={article} />
+          </div>
+        </div>
       </div>
 
       <div className='flex flex-col items-start'>
@@ -48,8 +71,8 @@ export function ArticleHeader({
         </p>
       </div>
 
-      <div className='flex flex-col md:flex-row items-start justify-between md:items-center gap-6 mt-6 pb-6 border-b border-black'>
-        <div className='flex flex-col sm:flex-row gap-4 sm:gap-6'>
+      <div className='flex flex-col md:flex-row justify-between md:items-center gap-4 mt-6 pb-6 border-b border-black'>
+        <div className='flex items-start justify-between md:justify-start gap-4'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />
             <time dateTime={article.date}>{article.date}</time>
@@ -60,20 +83,6 @@ export function ArticleHeader({
               <span>{article.location}</span>
             </div>
           )}
-        </div>
-
-        <div className='flex items-center gap-4'>
-          {user && (
-            <div className='w-fit'>
-              <Link href={`/articles/${article.slug}/edit`}>
-                <Button variant='outline' className='flex items-center gap-2'>
-                  <Edit className='w-4 h-4' />
-                  Edit Article
-                </Button>
-              </Link>
-            </div>
-          )}
-          <ArticleShareDialog article={article} />
         </div>
       </div>
     </div>

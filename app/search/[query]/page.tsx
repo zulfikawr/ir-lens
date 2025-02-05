@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import { Search } from 'lucide-react';
 import Pagination from '@/components/Pagination';
 import ArticleCard from '@/components/Home/ArticleCard';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/PageTitle/PageTitle';
 import Loading from '@/components/Articles/loading';
 
 export default function SearchPage() {
