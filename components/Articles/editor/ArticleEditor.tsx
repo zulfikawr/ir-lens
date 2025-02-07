@@ -234,7 +234,11 @@ export default function ArticleEditor({
 
       <ArticleHeader article={article} onUpdate={updateArticle} />
 
-      <ContentBlocks blocks={article.blocks} isEditing={true} />
+      <ContentBlocks 
+        blocks={article.blocks} 
+        isEditing={true} 
+        onUpdateBlocks={(newBlocks) => updateArticle({ blocks: newBlocks })}
+      />
     </div>
   );
 }

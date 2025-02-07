@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Plus,
@@ -62,60 +62,54 @@ export const blockTypes = [
 interface ContentBlocksProps {
   blocks: ContentBlock[];
   isEditing?: boolean;
+  onUpdateBlocks?: (blocks: ContentBlock[]) => void;
 }
 
 export function ContentBlocks({
-  blocks: initialBlocks,
+  blocks,
   isEditing = false,
+  onUpdateBlocks,
 }: ContentBlocksProps) {
-  const [blocks, setBlocks] = useState<ContentBlock[]>(initialBlocks);
-
   const addBlock = useCallback((type: ContentBlock['type'], index?: number) => {
     const newBlock = createNewBlock(type);
-    setBlocks((prevBlocks) => {
-      const newBlocks = [...prevBlocks];
-      if (index !== undefined) {
-        newBlocks.splice(index, 0, newBlock);
-      } else {
-        newBlocks.push(newBlock);
-      }
-      return newBlocks;
-    });
-  }, []);
+    const newBlocks = [...blocks];
+    if (index !== undefined) {
+      newBlocks.splice(index, 0, newBlock);
+    } else {
+      newBlocks.push(newBlock);
+    }
+    onUpdateBlocks?.(newBlocks);
+  }, [blocks, onUpdateBlocks]);
 
   const updateBlock = useCallback(
     (index: number, updates: Partial<ContentBlock>) => {
-      setBlocks((prevBlocks) =>
-        prevBlocks.map((block, i) => {
-          if (i !== index) return block;
-          return { ...block, ...updates } as ContentBlock; // Use type assertion here
-        }),
-      );
+      const newBlocks = blocks.map((block, i) => {
+        if (i !== index) return block;
+        return { ...block, ...updates } as ContentBlock;
+      });
+      onUpdateBlocks?.(newBlocks);
     },
-    [],
+    [blocks, onUpdateBlocks],
   );
 
   const removeBlock = useCallback((index: number) => {
-    setBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
-  }, []);
+    const newBlocks = blocks.filter((_, i) => i !== index);
+    onUpdateBlocks?.(newBlocks);
+  }, [blocks, onUpdateBlocks]);
 
   const moveBlock = useCallback((fromIndex: number, toIndex: number) => {
-    setBlocks((prevBlocks) => {
-      const newBlocks = [...prevBlocks];
-      const [movedBlock] = newBlocks.splice(fromIndex, 1);
-      newBlocks.splice(toIndex, 0, movedBlock);
-      return newBlocks;
-    });
-  }, []);
+    const newBlocks = [...blocks];
+    const [movedBlock] = newBlocks.splice(fromIndex, 1);
+    newBlocks.splice(toIndex, 0, movedBlock);
+    onUpdateBlocks?.(newBlocks);
+  }, [blocks, onUpdateBlocks]);
 
   const duplicateBlock = useCallback((index: number) => {
-    setBlocks((prevBlocks) => {
-      const newBlocks = [...prevBlocks];
-      const blockToDuplicate = { ...prevBlocks[index] };
-      newBlocks.splice(index + 1, 0, blockToDuplicate);
-      return newBlocks;
-    });
-  }, []);
+    const newBlocks = [...blocks];
+    const blockToDuplicate = { ...blocks[index] };
+    newBlocks.splice(index + 1, 0, blockToDuplicate);
+    onUpdateBlocks?.(newBlocks);
+  }, [blocks, onUpdateBlocks]);
 
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
