@@ -1,4 +1,4 @@
-import { ref, get, set, update, remove } from 'firebase/database';
+import { ref, get, set, update, remove, runTransaction } from 'firebase/database';
 import { database } from '@/lib/firebase';
 import { ArticleType } from '@/types/article';
 
@@ -9,6 +9,25 @@ const getDateParts = (dateString: string) => {
   const day = date.getDate().toString().padStart(2, '0');
   return { year, month, day };
 };
+
+export async function incrementArticleViews(slug: string, date: string): Promise<void> {
+  const { year, month, day } = getDateParts(date);
+  const articleRef = ref(database, `articles/${year}/${month}/${day}/${slug}`);
+
+  try {
+    await runTransaction(articleRef, (currentData) => {
+      if (currentData) {
+        currentData.views = (currentData.views || 0) + 1;
+      } else {
+        currentData = { views: 1 };
+      }
+      return currentData;
+    });
+  } catch (error) {
+    console.error('Error incrementing views:', error);
+    throw error;
+  }
+}
 
 export async function getArticles(): Promise<ArticleType['articles']> {
   const articlesRef = ref(database, 'articles');
@@ -27,6 +46,7 @@ export async function getArticles(): Promise<ArticleType['articles']> {
             articles.push({
               slug,
               ...article,
+              views: article.views || 0,
             });
           });
         });
@@ -90,6 +110,7 @@ export async function addArticle(article: Record<string, any>): Promise<void> {
     await set(articleRef, {
       ...article,
       slug: article.slug,
+      views: 0,
     });
     console.log('Article added:', article.slug);
   } catch (error) {

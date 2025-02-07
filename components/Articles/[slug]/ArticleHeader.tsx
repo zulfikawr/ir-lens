@@ -3,11 +3,13 @@
 import { ArticleType } from '@/types/article';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, MapPin, Edit, TagIcon, Globe } from 'lucide-react';
+import { Calendar, MapPin, Edit, TagIcon, Globe, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ArticleShareDialog } from './ArticleShare';
 import { useAuth } from '@/hooks/useAuth';
 import { getArticleUrl } from '@/utils/articleLinks';
+import { useEffect } from 'react';
+import { incrementArticleViews } from '@/lib/database';
 
 export function ArticleHeader({
   article,
@@ -15,6 +17,12 @@ export function ArticleHeader({
   article: ArticleType['articles'][0];
 }) {
   const { user } = useAuth();
+  
+  useEffect(() => {
+    if (article?.slug && article?.date) {
+      incrementArticleViews(article.slug, article.date);
+    }
+  }, [article]);
 
   return (
     <div>
@@ -73,17 +81,19 @@ export function ArticleHeader({
       </div>
 
       <div className='flex flex-col md:flex-row justify-between md:items-center gap-4 mt-6 pb-6 border-b border-black'>
-        <div className='flex items-start justify-between md:justify-start gap-4'>
+        <div className='flex items-start justify-between md:justify-start gap-4 md:gap-8'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />
             <time dateTime={article.date}>{article.date}</time>
           </div>
-          {article.location && (
-            <div className='flex items-center gap-2 text-gray-600'>
-              <MapPin className='w-5 h-5' />
-              <span>{article.location}</span>
-            </div>
-          )}
+          <div className='flex items-center gap-2 text-gray-600'>
+            <MapPin className='w-5 h-5' />
+            <span>{article.location}</span>
+          </div>
+          <div className='flex items-center gap-2 text-gray-600'>
+            <Eye className='w-5 h-5' />
+            <span>{article.views} Views</span>
+          </div>
         </div>
 
         <div className='md:hidden flex gap-2 md:gap-4 items-center justify-end'>

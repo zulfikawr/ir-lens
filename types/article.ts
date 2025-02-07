@@ -12,6 +12,7 @@ export type ArticleType = {
     coverImgAlt: string;
     slug: string;
     headline?: boolean;
+    views?: number;
     blocks: ContentBlock[];
   }>;
 };

@@ -1,4 +1,4 @@
-import ArticleList from '@/components/Articles/list/ArticleList';
+import ArticleList from '@/components/dashboard/list/ArticleList';
 import Loading from '@/components/Articles/loading';
 import { Suspense } from 'react';
 

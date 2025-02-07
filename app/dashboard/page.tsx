@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import ArticleStats from '@/components/Articles/stats/ArticleStats';
+import ArticleStats from '@/components/dashboard/stats/ArticleStats';
 
 const DashboardPage = () => {
   return <ArticleStats />;

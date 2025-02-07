@@ -113,19 +113,6 @@ const ArticleStats = () => {
             {new Set(articles.map((a) => a.tag)).size}
           </div>
         </div>
-        <div className='border border-gray-200 p-4 shadow-sm'>
-          <div className='text-sm text-gray-600'>Average Article Length</div>
-          <div className='text-2xl font-semibold'>
-            {averageLength.toFixed(2)} characters
-          </div>
-        </div>
-        <div className='border border-gray-200 p-4 shadow-sm'>
-          <div className='text-sm text-gray-600'>Articles with Headlines</div>
-          <div className='text-2xl font-semibold'>
-            {headlineCount} (
-            {((headlineCount / articles.length) * 100).toFixed(2)}%)
-          </div>
-        </div>
       </div>
 
       {/* Grid for Articles by Region and Tags Frequency */}

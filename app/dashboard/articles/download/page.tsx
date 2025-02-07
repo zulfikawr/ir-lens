@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import DownloadData from '@/components/Articles/download/DownloadArticles';
+import DownloadData from '@/components/dashboard/download/DownloadArticles';
 
 const DownloadPage = () => {
   return (
