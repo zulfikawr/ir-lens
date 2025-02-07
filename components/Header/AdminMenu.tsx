@@ -55,7 +55,7 @@ const DesktopAdminMenu: React.FC<{ handleSignOut: () => void }> = ({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href='/articles/lists'>
-            <DropdownMenuItem className='className= flex items-center gap-4'>
+            <DropdownMenuItem className='flex items-center gap-4'>
               <TableIcon className='w-4 h-4' />
               List of articles
             </DropdownMenuItem>

@@ -4,9 +4,13 @@ import { addArticle } from '@/lib/database';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const slug = await addArticle(body);
+    await addArticle(body);
     return NextResponse.json(
-      { message: 'Article added successfully', slug },
+      {
+        message: 'Article added successfully',
+        slug: body.slug,
+        date: body.date,
+      },
       { status: 200 },
     );
   } catch (error) {

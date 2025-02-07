@@ -13,7 +13,7 @@ export async function PUT(request: Request) {
     await updateArticle(slug, articleData);
 
     return NextResponse.json(
-      { message: 'Article updated successfully' },
+      { message: 'Article updated successfully', slug, date: articleData.date },
       { status: 200 },
     );
   } catch (error) {

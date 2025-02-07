@@ -7,6 +7,7 @@ import { Calendar, MapPin, Edit, TagIcon, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ArticleShareDialog } from './ArticleShare';
 import { useAuth } from '@/hooks/useAuth';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 export function ArticleHeader({
   article,
@@ -20,8 +21,8 @@ export function ArticleHeader({
       <div className='mb-8 relative w-full max-w-4xl mx-auto'>
         <div className='relative w-full aspect-[16/9] shadow-lg mb-8'>
           <Image
-            src={article.coverImg}
-            alt={article.coverImgAlt}
+            src={article.coverImg || '/images/default-fallback-image.png'}
+            alt={article.coverImgAlt || 'Cover Image'}
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             className='object-cover shadow-none border border-black'
             fill
@@ -45,13 +46,13 @@ export function ArticleHeader({
             </Button>
           </Link>
         </div>
-        <div className='flex gap-4 items-center'>
+        <div className='hidden md:flex gap-2 md:gap-4 items-center justify-end'>
           {user && (
             <div className='w-fit'>
-              <Link href={`/articles/${article.slug}/edit`}>
+              <Link href={`${getArticleUrl(article)}/edit`}>
                 <Button variant='outline' className='flex items-center gap-2'>
                   <Edit className='w-4 h-4' />
-                  Edit Article
+                  Edit
                 </Button>
               </Link>
             </div>
@@ -83,6 +84,22 @@ export function ArticleHeader({
               <span>{article.location}</span>
             </div>
           )}
+        </div>
+
+        <div className='md:hidden flex gap-2 md:gap-4 items-center justify-end'>
+          {user && (
+            <div className='w-fit'>
+              <Link href={`${getArticleUrl(article)}/edit`}>
+                <Button variant='outline' className='flex items-center gap-2'>
+                  <Edit className='w-4 h-4' />
+                  Edit
+                </Button>
+              </Link>
+            </div>
+          )}
+          <div className='w-fit'>
+            <ArticleShareDialog article={article} />
+          </div>
         </div>
       </div>
     </div>

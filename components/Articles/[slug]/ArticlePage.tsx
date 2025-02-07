@@ -1,8 +1,8 @@
 'use client';
 
 import { ArticleType } from '@/types/article';
-import { ArticleContent } from './ArticleContent';
 import { ArticleHeader } from './ArticleHeader';
+import { ContentBlocks } from '../editor/ContentBlocks';
 import ScrollToTop from '@/components/ScrollToTop';
 
 export function ArticlePage({
@@ -15,9 +15,7 @@ export function ArticlePage({
       <div className='md:max-w-3xl mx-auto'>
         <ArticleHeader article={article} />
 
-        {article.blocks.map((block, index) => (
-          <ArticleContent key={index} block={block} />
-        ))}
+        <ContentBlocks blocks={article.blocks} />
       </div>
       <ScrollToTop />
     </div>

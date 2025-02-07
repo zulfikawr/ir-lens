@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 export function RelatedArticlesSection({
   articles,
@@ -25,7 +26,7 @@ export function RelatedArticlesSection({
 
   return (
     <div>
-      <h3 className='text-xl text-center font-bold mb-6 border-b border-black pb-2 bg-black text-white px-2 py-1'>
+      <h3 className='text-xl text-center font-bold mb-6 pb-2 bg-black text-white px-2 py-1'>
         Related Articles
       </h3>
       <div className='grid gap-6'>
@@ -37,7 +38,7 @@ export function RelatedArticlesSection({
             <div className='flex'>
               {/* Image */}
               <Link
-                href={`/articles/${article.slug}`}
+                href={getArticleUrl(article)}
                 className='w-24 flex-shrink-0 relative block'
               >
                 <Image
@@ -72,7 +73,7 @@ export function RelatedArticlesSection({
                 </div>
 
                 {/* Title */}
-                <Link href={`/articles/${article.slug}`} className='group'>
+                <Link href={getArticleUrl(article)} className='group'>
                   <h4 className='text-sm font-semibold mb-2 text-gray-800 hover:underline md:line-clamp-3'>
                     {article.title}
                   </h4>

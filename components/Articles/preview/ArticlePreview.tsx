@@ -1,7 +1,7 @@
 'use client';
 
 import type { ArticleType } from '@/types/article';
-import { ArticleContent } from '@/components/Articles/[title]/ArticleContent';
+import { ArticleContent } from '@/components/Articles/[slug]/ArticleContent';
 import Image from 'next/image';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';

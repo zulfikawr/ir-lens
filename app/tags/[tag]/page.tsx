@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getArticles } from '@/functions/getArticles';
+import { getArticles } from '@/lib/database';
 import Tag from '@/components/Tags/[tag]/[tag]';
 import Loading from '@/components/Tags/[tag]/loading';
 

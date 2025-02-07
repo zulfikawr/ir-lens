@@ -1,19 +1,18 @@
-import { getArticleBySlug } from '@/functions/getArticleBySlug';
-import { getArticles } from '@/functions/getArticles';
-import { ArticlePage } from '@/components/Articles/[title]/ArticlePage';
-import { ArticleSidebar } from '@/components/Articles/[title]/ArticleSidebar';
-import ArticleLoading from '@/components/Articles/[title]/ArticleLoading';
+import { getArticleBySlug, getArticles } from '@/lib/database';
+import { ArticlePage } from '@/components/Articles/[slug]/ArticlePage';
+import { ArticleSidebar } from '@/components/Articles/[slug]/ArticleSidebar';
+import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 type Props = {
-  params: Promise<{ title: string }>;
+  params: { slug: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { title } = await params;
-  const article = await getArticleBySlug(title);
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   return {
     title: article ? `${article.title} | IR Lens` : 'Article Not Found',
@@ -21,9 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 async function ArticleDetailsContent({ params }: Props) {
-  const { title } = await params;
+  const { slug } = await params;
   const articles = await getArticles();
-  const article = await getArticleBySlug(title);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     return (

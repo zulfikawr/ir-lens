@@ -1,19 +1,20 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import { getArticleBySlug } from '@/functions/getArticleBySlug';
+import { getArticleBySlug } from '@/lib/database';
 import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
 import type { ArticleType } from '@/types/article';
+import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
 
 const EditArticlePage = () => {
   const [article, setArticle] = useState<ArticleType['articles'][0] | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
-  const { title } = useParams();
-  const articleSlug = Array.isArray(title) ? title[0] : title;
+  const { slug } = useParams();
+  const articleSlug = Array.isArray(slug) ? slug[0] : slug;
   const hasFetched = useRef(false);
 
   useEffect(() => {
@@ -38,11 +39,11 @@ const EditArticlePage = () => {
   }, [articleSlug]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <ArticleLoading />;
   }
 
   if (!article) {
-    return <div>Article not found.</div>;
+    return notFound();
   }
 
   return <ArticleEditor article={article} isNewArticle={false} />;

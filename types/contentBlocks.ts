@@ -1,15 +1,15 @@
-export type TextBlock = {
+export type TextBlockTypes = {
   type: 'text';
   text: string;
 };
 
-export type ImageBlock = {
+export type ImageBlockTypes = {
   type: 'image';
   imgUrl: string;
   imgAlt?: string;
 };
 
-export type GalleryBlock = {
+export type GalleryBlockTypes = {
   type: 'gallery';
   images: Array<{
     imgUrl: string;
@@ -17,51 +17,51 @@ export type GalleryBlock = {
   }>;
 };
 
-export type VideoBlock = {
+export type VideoBlockTypes = {
   type: 'video';
   videoUrl: string;
   videoAlt?: string;
 };
 
-export type QuoteBlock = {
+export type QuoteBlockTypes = {
   type: 'quote';
   quote: string;
   spokesperson: string;
   role: string;
 };
 
-export type HighlightBlock = {
+export type HighlightBlockTypes = {
   type: 'highlight';
   highlight: string;
 };
 
-export type CalloutBlock = {
+export type CalloutBlockTypes = {
   type: 'callout';
   callout: string;
 };
 
-export type HeadingBlock = {
+export type HeadingBlockTypes = {
   type: 'heading';
   heading: string;
 };
 
-export type SeparatorBlock = {
+export type SeparatorBlockTypes = {
   type: 'separator';
 };
 
-export type ListBlock = {
+export type ListBlockTypes = {
   type: 'list';
   items: string[];
 };
 
 export type ContentBlock =
-  | TextBlock
-  | ImageBlock
-  | GalleryBlock
-  | VideoBlock
-  | QuoteBlock
-  | HighlightBlock
-  | CalloutBlock
-  | HeadingBlock
-  | SeparatorBlock
-  | ListBlock;
+  | TextBlockTypes
+  | ImageBlockTypes
+  | GalleryBlockTypes
+  | VideoBlockTypes
+  | QuoteBlockTypes
+  | HighlightBlockTypes
+  | CalloutBlockTypes
+  | HeadingBlockTypes
+  | SeparatorBlockTypes
+  | ListBlockTypes;

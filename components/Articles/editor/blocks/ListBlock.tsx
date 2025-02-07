@@ -1,15 +1,17 @@
 import type React from 'react';
 import { useState } from 'react';
-import type { ListBlock } from '@/types/contentBlocks';
+import type { ListBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 
 interface ListBlockProps {
-  block: ListBlock;
-  onUpdateBlock: (updates: Partial<ListBlock>) => void;
+  block: ListBlockTypes;
+  isEditing: boolean;
+  onUpdateBlock?: (updates: Partial<ListBlockTypes>) => void;
 }
 
-export const ListBlockComponent: React.FC<ListBlockProps> = ({
+export const ListBlock: React.FC<ListBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -22,7 +24,7 @@ export const ListBlockComponent: React.FC<ListBlockProps> = ({
       e.preventDefault();
       const newItems = [...block.items];
       newItems.splice(itemIndex + 1, 0, '');
-      onUpdateBlock({ items: newItems });
+      onUpdateBlock?.({ items: newItems });
 
       setTimeout(() => {
         const nextItem = document.getElementById(`list-item-${itemIndex + 1}`);
@@ -38,7 +40,7 @@ export const ListBlockComponent: React.FC<ListBlockProps> = ({
       e.preventDefault();
       const newItems = [...block.items];
       newItems.splice(itemIndex, 1);
-      onUpdateBlock({ items: newItems });
+      onUpdateBlock?.({ items: newItems });
 
       setTimeout(() => {
         const prevItem = document.getElementById(`list-item-${itemIndex - 1}`);
@@ -50,7 +52,7 @@ export const ListBlockComponent: React.FC<ListBlockProps> = ({
   const handleItemChange = (itemIndex: number, value: string) => {
     const newItems = [...block.items];
     newItems[itemIndex] = value;
-    onUpdateBlock({ items: newItems });
+    onUpdateBlock?.({ items: newItems });
   };
 
   const commonProps = (itemIndex: number) => ({
@@ -65,6 +67,18 @@ export const ListBlockComponent: React.FC<ListBlockProps> = ({
     onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) =>
       handleListKeyDown(e, itemIndex),
   });
+
+  if (!isEditing) {
+    return (
+      <ul className='my-6 pl-6 list-disc text-black'>
+        {block.items.map((item, index) => (
+          <li key={index} className='mb-1'>
+            {item}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <ul className='list-disc list-outside pl-6 space-y-2 my-2'>

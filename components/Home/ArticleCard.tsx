@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 interface ArticleCardProps {
   article: ArticleType['articles'][0];
@@ -38,7 +39,7 @@ const ArticleCard = ({
     >
       <div className='grid grid-cols-3 h-full'>
         <div className='col-span-1 h-full'>
-          <Link href={`/articles/${article.slug}`} className='block h-full'>
+          <Link href={getArticleUrl(article)} className='block h-full'>
             <div className='relative w-full h-full transition-all duration-500 grayscale hover:grayscale-0'>
               <Image
                 src={article.coverImg || '/images/default-fallback-image.png'}
@@ -67,7 +68,7 @@ const ArticleCard = ({
               </Link>
             </div>
 
-            <Link href={`/articles/${article.slug}`}>
+            <Link href={getArticleUrl(article)}>
               <h3 className='text-xl font-bold leading-tight text-black hover:underline transition-all line-clamp-2'>
                 {article.title}
               </h3>

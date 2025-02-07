@@ -15,7 +15,6 @@ import { Menu, Home, Book, Tag, Globe, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/button';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { User } from 'firebase/auth';
-import { AdminMenu } from './AdminMenu';
 
 interface MobileNavProps {
   user: User | null;
@@ -145,7 +144,17 @@ export const MobileNav: React.FC<MobileNavProps> = ({ user }) => {
                   </div>
                 </div>
               </div>
-              {user && <AdminMenu isMobile />}
+              {user && (
+                <SheetClose asChild>
+                  <Link
+                    href='/'
+                    className='flex items-center gap-2 hover:bg-black hover:text-white transition duration-300 p-2'
+                  >
+                    <Home className='w-5 h-5' />
+                    Home
+                  </Link>
+                </SheetClose>
+              )}
             </nav>
           </ScrollArea>
         </SheetContent>

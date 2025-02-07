@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import type { ArticleType } from '@/types/article';
 import type { ContentBlock } from '@/types/contentBlocks';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 type ArticleField = keyof Omit<ArticleType['articles'][0], 'blocks' | 'slug'>;
 
@@ -103,7 +104,7 @@ export default function ArticleEditor({
   };
 
   const handleSaveConfirm = async () => {
-    const isNew = !article.slug;
+    const isNew = isNewArticle || !article.slug;
     const url = isNew ? '/api/article/create' : '/api/article/update';
     const method = isNew ? 'POST' : 'PUT';
 
@@ -116,6 +117,7 @@ export default function ArticleEditor({
 
       if (response.ok) {
         const data = await response.json();
+        const article = { date: data.date, slug: data.slug };
 
         toast({
           description: isNew
@@ -126,10 +128,9 @@ export default function ArticleEditor({
 
         if (isNew) {
           localStorage.removeItem('draftArticle');
-          const slug = data.slug;
-          window.location.href = `/articles/${slug}`;
+          window.location.href = getArticleUrl(article);
         } else {
-          window.location.href = `/articles/${article.slug}`;
+          window.location.href = getArticleUrl(article);
         }
       } else {
         const error = await response.json();
@@ -191,7 +192,7 @@ export default function ArticleEditor({
   };
 
   return (
-    <div className='max-w-4xl mx-auto px-4 py-8'>
+    <div className='max-w-4xl mx-auto md:px-4 py-8'>
       <div className='top-0 bg-white py-4 space-x-4 flex justify-end items-center border-b mb-8'>
         <Button onClick={handlePreview} className='flex items-center gap-2'>
           <Eye className='w-4 h-4' />
@@ -250,11 +251,11 @@ export default function ArticleEditor({
 
       <ContentBlocks
         blocks={article.blocks}
-        onAddBlock={handleAddBlock}
+        isEditing={true}
         onUpdateBlock={updateBlock}
         onRemoveBlock={removeBlock}
         onMoveBlock={handleMoveBlock}
-        updateArticle={updateArticle}
+        onAddBlock={handleAddBlock}
       />
     </div>
   );

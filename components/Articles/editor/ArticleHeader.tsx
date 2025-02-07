@@ -116,6 +116,17 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     onUpdate({ slug });
   };
 
+  function formatArticleUrl(article: { date: string; slug: string }) {
+    if (!article.date || !article.slug) return '';
+
+    const date = new Date(article.date);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}/${month}/${day}/${article.slug}`;
+  }
+
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -139,11 +150,11 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
       <div className='space-y-6'>
         {/* Cover Image Section */}
         <div
-          className={`relative w-full h-[300px] md:h-[450px] ${article.coverImg ? 'mb-20' : 'mb-4'}`}
+          className={`relative w-full h-[250px] md:h-[350px] lg:h-[400px] ${article.coverImg ? 'mb-20' : 'mb-4'}`}
         >
           {/* Drag and Drop Section */}
           <div
-            className='relative w-full max-w-4xl h-[300px] md:h-[450px] mx-auto border-2 border-dashed border-gray-300'
+            className='relative w-full max-w-4xl h-[250px] md:h-[350px] lg:h-[400px] mx-auto border-2 border-dashed border-gray-300'
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
@@ -288,7 +299,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
         <div className='flex items-center w-full gap-4 relative text-gray-500 line-clamp-1'>
           <Link className='w-5 h-5 flex-shrink-0' />
           <input
-            value={`https://ir-lens.vercel.app/${article.slug}`}
+            value={`https://ir-lens.vercel.app/${formatArticleUrl(article)}`}
             onChange={() => {}}
             className='focus:outline-none bg-transparent flex-grow truncate'
             readOnly

@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { User } from 'firebase/auth';
-import { AdminMenu } from './AdminMenu';
 import { Search } from './Search';
 import menu from '@/json/menu.json';
 import {
@@ -101,7 +100,17 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ user }) => {
             </NavigationMenuItem>
 
             <div className='flex items-center gap-4'>
-              {user && <AdminMenu />}
+              {user && (
+                <NavigationMenuItem>
+                  <Link href='/dashboard' legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Dashboard
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              )}
             </div>
           </NavigationMenuList>
         </NavigationMenu>

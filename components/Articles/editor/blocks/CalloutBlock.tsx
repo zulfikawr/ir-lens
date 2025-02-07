@@ -1,15 +1,17 @@
 import type React from 'react';
-import type { CalloutBlock } from '@/types/contentBlocks';
+import type { CalloutBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 import { useState } from 'react';
 
 interface CalloutBlockProps {
-  block: CalloutBlock;
-  onUpdateBlock: (updates: Partial<CalloutBlock>) => void;
+  block: CalloutBlockTypes;
+  isEditing: boolean;
+  onUpdateBlock?: (updates: Partial<CalloutBlockTypes>) => void;
 }
 
-export const CalloutBlockComponent: React.FC<CalloutBlockProps> = ({
+export const CalloutBlock: React.FC<CalloutBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -20,9 +22,17 @@ export const CalloutBlockComponent: React.FC<CalloutBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLParagraphElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ callout: e.currentTarget.textContent || '' });
+      onUpdateBlock?.({ callout: e.currentTarget.textContent || '' });
     },
   };
+
+  if (!isEditing) {
+    return (
+      <div className='my-8 border-l-4 border-black bg-gray-200 p-4'>
+        <p className='text-md md:text-lg text-gray-800'>{block.callout}</p>
+      </div>
+    );
+  }
 
   return (
     <div className='border-l-4 border-black bg-gray-200 p-4 relative mt-2'>

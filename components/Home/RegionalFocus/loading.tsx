@@ -3,11 +3,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function RegionalFocusLoading() {
   return (
     <div>
-      <div className='py-8 w-fit'>
-        <Skeleton className='h-12 w-56 bg-black' />
-      </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12'>
-        {Array.from({ length: 5 }).map((_, tagIndex) => (
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-2'>
+        {Array.from({ length: 6 }).map((_, tagIndex) => (
           <div key={tagIndex} className='space-y-4'>
             <h2 className='text-2xl font-bold tracking-tight pb-3 relative'>
               <Skeleton className='h-10 w-32 bg-black' />

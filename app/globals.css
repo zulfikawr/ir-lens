@@ -83,4 +83,15 @@
     list-style-type: disc;
     margin-left: 1.5em;
   }
+  .json-key {
+    color: #f7a51e;
+  }
+
+  .json-value {
+    color: #34b7f1;
+  }
+
+  .json-url {
+    color: #61dafb;
+  }
 }

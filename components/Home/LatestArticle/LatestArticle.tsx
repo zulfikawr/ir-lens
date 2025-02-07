@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import LatestArticleLoading from './loading';
 import { Calendar, MapPin } from 'lucide-react';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 const LatestArticle = () => {
   const { data, loading, error } = useArticleContext();
@@ -49,7 +50,7 @@ const LatestArticle = () => {
         >
           <div className='flex flex-col md:flex-row h-full'>
             <div className='relative w-full h-2/5 md:h-full md:w-1/2'>
-              <Link href={`/articles/${article.slug}`} className='block h-full'>
+              <Link href={getArticleUrl(article)} className='block h-full'>
                 <div className='absolute inset-0 transition-all duration-500 grayscale hover:grayscale-0'>
                   <Image
                     src={
@@ -85,7 +86,7 @@ const LatestArticle = () => {
                   </Link>
                 </div>
 
-                <Link href={`/articles/${article.slug}`}>
+                <Link href={getArticleUrl(article)}>
                   <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black hover:underline mb-2 md:mb-4'>
                     {article.title}
                   </h2>
@@ -107,10 +108,7 @@ const LatestArticle = () => {
                     </div>
                   </div>
 
-                  <Link
-                    href={`/articles/${article.slug}`}
-                    className='block w-full'
-                  >
+                  <Link href={getArticleUrl(article)} className='block w-full'>
                     <Button className='w-full text-md'>Read More</Button>
                   </Link>
                 </div>

@@ -2,43 +2,45 @@ import type React from 'react';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import type { ImageBlock } from '@/types/contentBlocks';
+import type { ImageBlockTypes } from '@/types/contentBlocks';
 import { handleImageUpload } from '@/utils/blockUtils';
 import { Plus, Trash } from 'lucide-react';
 
 interface ImageBlockProps {
-  block: ImageBlock;
-  onUpdateBlock: (updates: Partial<ImageBlock>) => void;
+  block: ImageBlockTypes;
+  isEditing?: boolean;
+  onUpdateBlock?: (updates: Partial<ImageBlockTypes>) => void;
 }
 
-export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
+export const ImageBlock: React.FC<ImageBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [imgUrlInput, setimgUrlInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleimgUrlSubmit = () => {
-    onUpdateBlock({ imgUrl: imgUrlInput });
+    onUpdateBlock?.({ imgUrl: imgUrlInput });
     setimgUrlInput('');
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      handleImageUpload(file, (imgUrl) => onUpdateBlock({ imgUrl }));
+      handleImageUpload(file, (imgUrl) => onUpdateBlock?.({ imgUrl }));
     }
   };
 
   const handleimgAltChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onUpdateBlock({ imgAlt: e.target.value });
+    onUpdateBlock?.({ imgAlt: e.target.value });
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      handleImageUpload(file, (imgUrl) => onUpdateBlock({ imgUrl }));
+      handleImageUpload(file, (imgUrl) => onUpdateBlock?.({ imgUrl }));
     }
   };
 
@@ -47,14 +49,35 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
   };
 
   const handleRemoveImg = () => {
-    onUpdateBlock({ imgUrl: '', imgAlt: '' });
+    onUpdateBlock?.({ imgUrl: '', imgAlt: '' });
   };
+
+  if (!isEditing) {
+    return (
+      <div className='my-8 relative w-full max-w-4xl mx-auto'>
+        <div className='relative w-full aspect-[16/9]'>
+          <Image
+            src={block.imgUrl || '/images/default-fallback-image.png'}
+            alt={block.imgAlt || 'Image related to the article'}
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            className='object-cover shadow-none border border-black'
+            fill
+          />
+        </div>
+        {block.imgAlt && (
+          <figcaption className='text-xs md:text-sm text-gray-800 mt-2 text-center italic'>
+            {block.imgAlt}
+          </figcaption>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className='relative mt-2'>
       {!block.imgUrl ? (
         <div
-          className='relative w-full max-w-4xl h-[300px] md:h-[450px] mx-auto border-2 border-dashed border-gray-300'
+          className='relative w-full max-w-4xl h-[250px] md:h-[350px] lg:h-[400px] mx-auto border-2 border-dashed border-gray-300'
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
@@ -109,9 +132,9 @@ export const ImageBlockComponent: React.FC<ImageBlockProps> = ({
         </div>
       ) : (
         <>
-          <div className='relative w-full max-w-4xl h-[300px] mx-auto border border-gray-300 overflow-hidden'>
+          <div className='relative w-full max-w-4xl h-[250px] md:h-[350px] lg:h-[400px] mx-auto border border-gray-300 overflow-hidden'>
             <Image
-              src={block.imgUrl || '/placeholder.svg'}
+              src={block.imgUrl || '/images/default-fallback-image.png'}
               alt={block.imgAlt || 'Image related to the article'}
               className='object-cover'
               fill

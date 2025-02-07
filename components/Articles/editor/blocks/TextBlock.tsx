@@ -1,15 +1,17 @@
 import type React from 'react';
-import type { TextBlock } from '@/types/contentBlocks';
+import type { TextBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 import { useState } from 'react';
 
 interface TextBlockProps {
-  block: TextBlock;
-  onUpdateBlock: (updates: Partial<TextBlock>) => void;
+  block: TextBlockTypes;
+  isEditing?: boolean;
+  onUpdateBlock?: (updates: Partial<TextBlockTypes>) => void;
 }
 
-export const TextBlockComponent: React.FC<TextBlockProps> = ({
+export const TextBlock: React.FC<TextBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -20,9 +22,15 @@ export const TextBlockComponent: React.FC<TextBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ text: e.currentTarget.textContent || '' });
+      onUpdateBlock?.({ text: e.currentTarget.textContent || '' });
     },
   };
+
+  if (!isEditing) {
+    return (
+      <p className='my-6 text-gray-800 text-md md:text-lg'>{block.text}</p>
+    );
+  }
 
   return (
     <div className='relative mt-2'>

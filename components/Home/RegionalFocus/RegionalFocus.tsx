@@ -1,11 +1,8 @@
 'use client';
 
 import { useMemo, useCallback } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
-import { Button } from '@/components/ui/button';
-import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import RegionalFocusLoading from './loading';
 import useRotatingIndex from '@/hooks/useRotatingIndex';

@@ -1,15 +1,17 @@
 import type React from 'react';
 import { useState } from 'react';
-import type { HighlightBlock } from '@/types/contentBlocks';
+import type { HighlightBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 
 interface HighlightBlockProps {
-  block: HighlightBlock;
-  onUpdateBlock: (updates: Partial<HighlightBlock>) => void;
+  block: HighlightBlockTypes;
+  isEditing: boolean;
+  onUpdateBlock?: (updates: Partial<HighlightBlockTypes>) => void;
 }
 
-export const HighlightBlockComponent: React.FC<HighlightBlockProps> = ({
+export const HighlightBlock: React.FC<HighlightBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -20,9 +22,17 @@ export const HighlightBlockComponent: React.FC<HighlightBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLParagraphElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ highlight: e.currentTarget.textContent || '' });
+      onUpdateBlock?.({ highlight: e.currentTarget.textContent || '' });
     },
   };
+
+  if (!isEditing) {
+    return (
+      <div className='my-8 p-4 bg-black text-white'>
+        <p className='text-md md:text-lg font-medium'>{block.highlight}</p>
+      </div>
+    );
+  }
 
   return (
     <div className='bg-black p-4 relative mt-2'>

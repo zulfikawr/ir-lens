@@ -1,15 +1,17 @@
 import type React from 'react';
 import { useState } from 'react';
-import type { HeadingBlock } from '@/types/contentBlocks';
+import type { HeadingBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 
 interface HeadingBlockProps {
-  block: HeadingBlock;
-  onUpdateBlock: (updates: Partial<HeadingBlock>) => void;
+  block: HeadingBlockTypes;
+  isEditing?: boolean;
+  onUpdateBlock?: (updates: Partial<HeadingBlockTypes>) => void;
 }
 
-export const HeadingBlockComponent: React.FC<HeadingBlockProps> = ({
+export const HeadingBlock: React.FC<HeadingBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -20,9 +22,15 @@ export const HeadingBlockComponent: React.FC<HeadingBlockProps> = ({
     onFocus: () => setIsFocused(true),
     onBlur: (e: React.FocusEvent<HTMLHeadingElement>) => {
       setIsFocused(false);
-      onUpdateBlock({ heading: e.currentTarget.textContent || '' });
+      onUpdateBlock?.({ heading: e.currentTarget.textContent || '' });
     },
   };
+
+  if (!isEditing) {
+    return (
+      <h2 className='my-6 text-2xl font-bold text-black'>{block.heading}</h2>
+    );
+  }
 
   return (
     <div className='relative mt-2'>

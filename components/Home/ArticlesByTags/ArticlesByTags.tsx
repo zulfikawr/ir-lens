@@ -1,11 +1,8 @@
 'use client';
 
 import { useMemo, useCallback } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
-import { Button } from '@/components/ui/button';
-import { Calendar, MapPin } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import ArticlesByTagsLoading from './loading';
 import useRotatingIndex from '@/hooks/useRotatingIndex';
@@ -51,7 +48,7 @@ const ArticlesByTags = () => {
   if (error) return <div>Error loading articles: {error.message}</div>;
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
+    <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
       {tags.map((tag) => {
         const tagArticles = getTagArticles(tag);
 

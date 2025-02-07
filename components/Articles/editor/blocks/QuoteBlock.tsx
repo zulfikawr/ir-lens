@@ -1,16 +1,18 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Quote } from 'lucide-react';
-import type { QuoteBlock } from '@/types/contentBlocks';
+import type { QuoteBlockTypes } from '@/types/contentBlocks';
 import { renderPlaceholder } from '@/utils/blockUtils';
 
 interface QuoteBlockProps {
-  block: QuoteBlock;
-  onUpdateBlock: (updates: Partial<QuoteBlock>) => void;
+  block: QuoteBlockTypes;
+  isEditing: boolean;
+  onUpdateBlock?: (updates: Partial<QuoteBlockTypes>) => void;
 }
 
-export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
+export const QuoteBlock: React.FC<QuoteBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -28,6 +30,23 @@ export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
     },
   });
 
+  if (!isEditing) {
+    return (
+      <div className='my-8 bg-gray-50 p-6 border border-black'>
+        <Quote className='w-6 h-6 text-black mb-4' />
+        <blockquote className='text-md md:text-lg italic text-gray-900'>
+          {block.quote}
+        </blockquote>
+        <div className='mt-4'>
+          <cite className='block font-semibold text-black not-italic'>
+            {block.spokesperson}
+          </cite>
+          <span className='text-sm text-gray-600'>{block.role}</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='border border-black p-4 mt-2'>
       <Quote className='w-6 h-6 text-black mb-4' />
@@ -35,7 +54,7 @@ export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
       <div className='relative mb-4'>
         <blockquote
           {...commonProps('quote', (e) =>
-            onUpdateBlock({ quote: e.currentTarget.textContent || '' }),
+            onUpdateBlock?.({ quote: e.currentTarget.textContent || '' }),
           )}
           className='text-md md:text-lg italic text-gray-900 focus:outline-none min-h-[1.5em]'
         >
@@ -52,7 +71,7 @@ export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
         <div className='relative mb-2'>
           <cite
             {...commonProps('spokesperson', (e) =>
-              onUpdateBlock({
+              onUpdateBlock?.({
                 spokesperson: e.currentTarget.textContent || '',
               }),
             )}
@@ -73,7 +92,7 @@ export const QuoteBlockComponent: React.FC<QuoteBlockProps> = ({
         <div className='relative'>
           <span
             {...commonProps('role', (e) =>
-              onUpdateBlock({ role: e.currentTarget.textContent || '' }),
+              onUpdateBlock?.({ role: e.currentTarget.textContent || '' }),
             )}
             className='text-sm text-gray-600 focus:outline-none block min-h-[1.5em]'
           >

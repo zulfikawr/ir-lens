@@ -1,26 +1,45 @@
 import type React from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import type { VideoBlock } from '@/types/contentBlocks';
+import type { VideoBlockTypes } from '@/types/contentBlocks';
 
 interface VideoBlockProps {
-  block: VideoBlock;
-  onUpdateBlock: (updates: Partial<VideoBlock>) => void;
+  block: VideoBlockTypes;
+  isEditing: boolean;
+  onUpdateBlock?: (updates: Partial<VideoBlockTypes>) => void;
 }
 
-export const VideoBlockComponent: React.FC<VideoBlockProps> = ({
+export const VideoBlock: React.FC<VideoBlockProps> = ({
   block,
+  isEditing = false,
   onUpdateBlock,
 }) => {
   const [videoUrlInput, setVideoUrlInput] = useState(block.videoUrl);
 
   const handleVideoUrlSubmit = () => {
-    onUpdateBlock({ videoUrl: videoUrlInput });
+    onUpdateBlock?.({ videoUrl: videoUrlInput });
   };
 
   const handleContentChange = (e: React.FocusEvent<HTMLParagraphElement>) => {
-    onUpdateBlock({ videoAlt: e.currentTarget.textContent || '' });
+    onUpdateBlock?.({ videoAlt: e.currentTarget.textContent || '' });
   };
+
+  if (!isEditing) {
+    return (
+      <div className='my-8'>
+        <div className='relative w-full' style={{ paddingBottom: '56.25%' }}>
+          <iframe
+            src={block.videoUrl}
+            className='absolute top-0 left-0 w-full h-full border border-black'
+            allowFullScreen
+          />
+        </div>
+        <p className='text-sm text-gray-800 mt-2 text-center italic'>
+          {block.videoAlt}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className='relative'>

@@ -1,13 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/functions/getArticles';
+import { getArticles } from '@/lib/database';
 import Loading from '../loading';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 export default function NewsTicker() {
-  const [articles, setArticles] = useState<{ title: string; slug: string }[]>(
-    [],
-  );
+  const [articles, setArticles] = useState<
+    { title: string; slug: string; date: string }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState<string>('');
   const newsText = useRef<HTMLDivElement | null>(null);
@@ -21,6 +22,7 @@ export default function NewsTicker() {
         fetchedArticles.map((article) => ({
           title: article.title,
           slug: article.slug,
+          date: article.date,
         })),
       );
       setLoading(false);
@@ -86,7 +88,7 @@ export default function NewsTicker() {
       >
         {articles.map((article, index) => (
           <div key={index} className='hover:underline'>
-            <Link href={`/articles/${article.slug}`} passHref>
+            <Link href={getArticleUrl(article)} passHref>
               <p className='cursor-pointer'>{article.title} +++</p>
             </Link>
           </div>

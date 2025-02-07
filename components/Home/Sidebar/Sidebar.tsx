@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { ArticleType } from '@/types/article';
 import { Button } from '@/components/ui/button';
 import SidebarLoading from './loading';
-import { getArticles } from '@/functions/getArticles';
+import { getArticles } from '@/lib/database';
+import { getArticleUrl } from '@/utils/articleLinks';
 
 const Sidebar = () => {
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
@@ -86,7 +87,7 @@ const Sidebar = () => {
             <article key={article.slug} className='flex items-start gap-4'>
               <div className='w-20 h-20 flex-shrink-0'>
                 <div className='relative w-full h-full'>
-                  <Link href={`/articles/${article.slug}`}>
+                  <Link href={getArticleUrl(article)}>
                     <Image
                       src={article.coverImg}
                       alt={article.coverImgAlt || article.title}
@@ -113,7 +114,7 @@ const Sidebar = () => {
                     {article.date}
                   </time>
                 </div>
-                <Link href={`/articles/${article.slug}`}>
+                <Link href={getArticleUrl(article)}>
                   <h3 className='text-sm font-bold hover:underline line-clamp-3'>
                     {article.title}
                   </h3>
