@@ -1,8 +1,15 @@
 import type React from 'react';
 import { Button } from '@/components/ui/button';
-import { Trash, ChevronUp, ChevronDown, Plus } from 'lucide-react';
+import { Trash, ChevronUp, ChevronDown, Plus, Copy } from 'lucide-react';
 import type { ContentBlock } from '@/types/contentBlocks';
 import { blockTypes } from './ContentBlocks';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface BlockWrapperProps {
   children: React.ReactNode;
@@ -13,6 +20,7 @@ interface BlockWrapperProps {
   onRemoveBlock?: (index: number) => void;
   onMoveBlock?: (fromIndex: number, toIndex: number) => void;
   onAddBlock?: (type: ContentBlock['type'], index?: number) => void;
+  onDuplicateBlock?: (index: number) => void;
   onDragStart: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
   onDragOver: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
   onDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
@@ -27,6 +35,7 @@ export function BlockWrapper({
   onRemoveBlock,
   onMoveBlock,
   onAddBlock,
+  onDuplicateBlock,
   onDragStart,
   onDragOver,
   onDrop,
@@ -74,6 +83,16 @@ export function BlockWrapper({
             </Button>
           </>
         )}
+        {onDuplicateBlock && (
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => onDuplicateBlock(index)}
+            className='border border-gray-300 bg-gray-100 px-2 py-1 cursor-pointer'
+          >
+            <Copy className='w-4 h-4' />
+          </Button>
+        )}
         {onRemoveBlock && (
           <Button
             variant='ghost'
@@ -90,14 +109,27 @@ export function BlockWrapper({
 
       {onAddBlock && (
         <div className='absolute -bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-          <Button
-            variant='outline'
-            size='sm'
-            onClick={() => onAddBlock('text', index + 1)}
-            className='border border-gray-300 bg-gray-100 px-2 py-1 cursor-pointer'
-          >
-            <Plus className='w-4 h-4' />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size='sm' className='flex items-center gap-2'>
+                <Plus className='w-4 h-4' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
+              <DropdownMenuGroup>
+                {blockTypes.map(({ type, label, icon: Icon }) => (
+                  <DropdownMenuItem
+                    key={type}
+                    onClick={() => onAddBlock(type, index + 1)}
+                    className='cursor-pointer flex items-center gap-2'
+                  >
+                    <Icon className='w-4 h-4' />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )}
     </div>

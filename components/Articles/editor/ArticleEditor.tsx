@@ -6,7 +6,6 @@ import { Eye, Save, Trash } from 'lucide-react';
 import { useArticleState } from '@/hooks/useArticleState';
 import { ArticleHeader } from './ArticleHeader';
 import { ContentBlocks } from './ContentBlocks';
-import { createNewBlock } from '@/utils/blockUtils';
 import { useToast } from '@/hooks/useToast';
 import {
   AlertDialog,
@@ -20,7 +19,6 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import type { ArticleType } from '@/types/article';
-import type { ContentBlock } from '@/types/contentBlocks';
 import { getArticleUrl } from '@/utils/articleLinks';
 
 type ArticleField = keyof Omit<ArticleType['articles'][0], 'blocks' | 'slug'>;
@@ -34,8 +32,7 @@ export default function ArticleEditor({
   article: initialArticle,
   isNewArticle,
 }: ArticleEditorProps) {
-  const { article, updateArticle, addBlock, updateBlock, removeBlock } =
-    useArticleState(initialArticle);
+  const { article, updateArticle, addBlock } = useArticleState(initialArticle);
   const { toast } = useToast();
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 
@@ -179,18 +176,6 @@ export default function ArticleEditor({
     }
   };
 
-  const handleMoveBlock = (fromIndex: number, toIndex: number) => {
-    const newBlocks = [...article.blocks];
-    const [movedBlock] = newBlocks.splice(fromIndex, 1);
-    newBlocks.splice(toIndex, 0, movedBlock);
-    updateArticle({ blocks: newBlocks });
-  };
-
-  const handleAddBlock = (type: ContentBlock['type'], index?: number) => {
-    const newBlock = createNewBlock(type);
-    addBlock(newBlock, index);
-  };
-
   return (
     <div className='max-w-4xl mx-auto md:px-4 py-8'>
       <div className='top-0 bg-white py-4 space-x-4 flex justify-end items-center border-b mb-8'>
@@ -249,14 +234,7 @@ export default function ArticleEditor({
 
       <ArticleHeader article={article} onUpdate={updateArticle} />
 
-      <ContentBlocks
-        blocks={article.blocks}
-        isEditing={true}
-        onUpdateBlock={updateBlock}
-        onRemoveBlock={removeBlock}
-        onMoveBlock={handleMoveBlock}
-        onAddBlock={handleAddBlock}
-      />
+      <ContentBlocks blocks={article.blocks} isEditing={true} />
     </div>
   );
 }

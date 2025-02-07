@@ -54,7 +54,7 @@ export const ImageBlock: React.FC<ImageBlockProps> = ({
 
   if (!isEditing) {
     return (
-      <div className='my-8 relative w-full max-w-4xl mx-auto'>
+      <div className='py-4 relative w-full max-w-4xl mx-auto'>
         <div className='relative w-full aspect-[16/9]'>
           <Image
             src={block.imgUrl || '/images/default-fallback-image.png'}
