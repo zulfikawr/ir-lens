@@ -14,17 +14,20 @@ export function ArticlePreview({
 }) {
   return (
     <div className='mb-16 max-w-4xl mx-auto px-4 py-16'>
-      <div className='mb-8 relative w-full max-w-4xl mx-auto'>
-        <div className='relative w-full aspect-[16/9] shadow-md mb-8'>
+      <div className='mb-8 relative w-full max-w-4xl mx-auto mb-8'>
+        <div className='relative w-full aspect-[16/9] shadow-md'>
           <Image
             src={article.coverImg}
             alt={article.coverImgAlt}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='object-cover shadow-none border border-black'
+            sizes='90vw'
+            className='object-cover border border-black'
             fill
             priority
           />
         </div>
+        <figcaption className='text-xs md:text-sm text-gray-800 mt-2 text-center italic'>
+          {article.coverImgAlt}
+        </figcaption>
       </div>
 
       <div className='flex flex-wrap gap-2 md:gap-4 mb-6'>

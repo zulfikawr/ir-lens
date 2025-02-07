@@ -162,7 +162,7 @@ export const GalleryBlock: React.FC<GalleryBlockProps> = ({
             alt={
               currentImage.imgAlt || `Gallery image ${currentImageIndex + 1}`
             }
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            sizes='90vw'
             className='object-cover shadow-none border border-black'
             fill
           />
@@ -196,7 +196,7 @@ export const GalleryBlock: React.FC<GalleryBlockProps> = ({
                   block.images[currentImageIndex].imgAlt ||
                   `Gallery image ${currentImageIndex + 1}`
                 }
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                sizes='90vw'
                 className='object-cover shadow-none border border-black'
                 fill
               />

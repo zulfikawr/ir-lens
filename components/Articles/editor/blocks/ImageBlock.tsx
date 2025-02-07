@@ -55,12 +55,12 @@ export const ImageBlock: React.FC<ImageBlockProps> = ({
   if (!isEditing) {
     return (
       <div className='py-4 relative w-full max-w-4xl mx-auto'>
-        <div className='relative w-full aspect-[16/9]'>
+        <div className='relative w-full aspect-[16/9] shadow-md'>
           <Image
             src={block.imgUrl || '/images/default-fallback-image.png'}
             alt={block.imgAlt || 'Image related to the article'}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='object-cover shadow-none border border-black'
+            sizes='90vw'
+            className='object-cover border border-black'
             fill
           />
         </div>
@@ -138,7 +138,7 @@ export const ImageBlock: React.FC<ImageBlockProps> = ({
               alt={block.imgAlt || 'Image related to the article'}
               className='object-cover'
               fill
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              sizes='90vw'
             />
             <Button
               variant='destructive'
