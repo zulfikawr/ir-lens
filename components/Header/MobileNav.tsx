@@ -11,7 +11,15 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Search } from './Search';
 import menu from '@/json/menu.json';
-import { Menu, Home, Book, Tag, Globe, ChevronDown } from 'lucide-react';
+import {
+  Menu,
+  Home,
+  Book,
+  Tag,
+  Globe,
+  ChevronDown,
+  LayoutDashboard,
+} from 'lucide-react';
 import { Button } from '../ui/button';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { User } from 'firebase/auth';
@@ -147,11 +155,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({ user }) => {
               {user && (
                 <SheetClose asChild>
                   <Link
-                    href='/'
+                    href='/dashboard'
                     className='flex items-center gap-2 hover:bg-black hover:text-white transition duration-300 p-2'
                   >
-                    <Home className='w-5 h-5' />
-                    Home
+                    <LayoutDashboard className='w-5 h-5' />
+                    Dashboard
                   </Link>
                 </SheetClose>
               )}
