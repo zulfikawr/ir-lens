@@ -19,7 +19,10 @@ interface BlockProviderProps {
   children: React.ReactNode;
 }
 
-export const BlockProvider: React.FC<BlockProviderProps> = ({ initialBlocks, children }) => {
+export const BlockProvider: React.FC<BlockProviderProps> = ({
+  initialBlocks,
+  children,
+}) => {
   const [blocks, setBlocks] = useState<ContentBlock[]>(initialBlocks);
 
   const addBlock = useCallback((type: ContentBlock['type'], index?: number) => {
@@ -35,13 +38,16 @@ export const BlockProvider: React.FC<BlockProviderProps> = ({ initialBlocks, chi
     });
   }, []);
 
-  const updateBlock = useCallback((index: number, updates: Partial<ContentBlock>) => {
-    setBlocks((prevBlocks) =>
-      prevBlocks.map((block, i) => 
-        i === index ? { ...block, ...updates } as ContentBlock : block
-      ),
-    );
-  }, []);  
+  const updateBlock = useCallback(
+    (index: number, updates: Partial<ContentBlock>) => {
+      setBlocks((prevBlocks) =>
+        prevBlocks.map((block, i) =>
+          i === index ? ({ ...block, ...updates } as ContentBlock) : block,
+        ),
+      );
+    },
+    [],
+  );
 
   const removeBlock = useCallback((index: number) => {
     setBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
@@ -67,7 +73,14 @@ export const BlockProvider: React.FC<BlockProviderProps> = ({ initialBlocks, chi
 
   return (
     <BlockContext.Provider
-      value={{ blocks, addBlock, updateBlock, removeBlock, moveBlock, duplicateBlock }}
+      value={{
+        blocks,
+        addBlock,
+        updateBlock,
+        removeBlock,
+        moveBlock,
+        duplicateBlock,
+      }}
     >
       {children}
     </BlockContext.Provider>

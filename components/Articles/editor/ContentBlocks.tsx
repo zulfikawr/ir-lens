@@ -70,16 +70,19 @@ export function ContentBlocks({
   isEditing = false,
   onUpdateBlocks,
 }: ContentBlocksProps) {
-  const addBlock = useCallback((type: ContentBlock['type'], index?: number) => {
-    const newBlock = createNewBlock(type);
-    const newBlocks = [...blocks];
-    if (index !== undefined) {
-      newBlocks.splice(index, 0, newBlock);
-    } else {
-      newBlocks.push(newBlock);
-    }
-    onUpdateBlocks?.(newBlocks);
-  }, [blocks, onUpdateBlocks]);
+  const addBlock = useCallback(
+    (type: ContentBlock['type'], index?: number) => {
+      const newBlock = createNewBlock(type);
+      const newBlocks = [...blocks];
+      if (index !== undefined) {
+        newBlocks.splice(index, 0, newBlock);
+      } else {
+        newBlocks.push(newBlock);
+      }
+      onUpdateBlocks?.(newBlocks);
+    },
+    [blocks, onUpdateBlocks],
+  );
 
   const updateBlock = useCallback(
     (index: number, updates: Partial<ContentBlock>) => {
@@ -92,24 +95,33 @@ export function ContentBlocks({
     [blocks, onUpdateBlocks],
   );
 
-  const removeBlock = useCallback((index: number) => {
-    const newBlocks = blocks.filter((_, i) => i !== index);
-    onUpdateBlocks?.(newBlocks);
-  }, [blocks, onUpdateBlocks]);
+  const removeBlock = useCallback(
+    (index: number) => {
+      const newBlocks = blocks.filter((_, i) => i !== index);
+      onUpdateBlocks?.(newBlocks);
+    },
+    [blocks, onUpdateBlocks],
+  );
 
-  const moveBlock = useCallback((fromIndex: number, toIndex: number) => {
-    const newBlocks = [...blocks];
-    const [movedBlock] = newBlocks.splice(fromIndex, 1);
-    newBlocks.splice(toIndex, 0, movedBlock);
-    onUpdateBlocks?.(newBlocks);
-  }, [blocks, onUpdateBlocks]);
+  const moveBlock = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      const newBlocks = [...blocks];
+      const [movedBlock] = newBlocks.splice(fromIndex, 1);
+      newBlocks.splice(toIndex, 0, movedBlock);
+      onUpdateBlocks?.(newBlocks);
+    },
+    [blocks, onUpdateBlocks],
+  );
 
-  const duplicateBlock = useCallback((index: number) => {
-    const newBlocks = [...blocks];
-    const blockToDuplicate = { ...blocks[index] };
-    newBlocks.splice(index + 1, 0, blockToDuplicate);
-    onUpdateBlocks?.(newBlocks);
-  }, [blocks, onUpdateBlocks]);
+  const duplicateBlock = useCallback(
+    (index: number) => {
+      const newBlocks = [...blocks];
+      const blockToDuplicate = { ...blocks[index] };
+      newBlocks.splice(index + 1, 0, blockToDuplicate);
+      onUpdateBlocks?.(newBlocks);
+    },
+    [blocks, onUpdateBlocks],
+  );
 
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
