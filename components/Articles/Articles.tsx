@@ -53,17 +53,22 @@ const Articles = () => {
   };
 
   return (
-    <section ref={sectionRef} className='px-4 md:px-8 my-12 md:my-16'>
+    <section ref={sectionRef} className='mx-auto px-4 md:px-8 py-16'>
       <PageTitle
         icon={<Book />}
         title='Articles'
         description={`Showing ${indexOfFirstArticle + 1}-${Math.min(indexOfLastArticle, allArticles.length)} of ${allArticles.length} articles`}
       />
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8'>
         {currentArticles.map((article) => (
           <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
-            <ArticleCard article={article} cardIndex={0} activeIndex={0} />
+            <ArticleCard
+              article={article}
+              cardIndex={0}
+              activeIndex={0}
+              isStatic
+            />
           </div>
         ))}
       </div>

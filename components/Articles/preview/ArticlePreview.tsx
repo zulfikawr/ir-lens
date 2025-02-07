@@ -13,7 +13,7 @@ export function ArticlePreview({
   article: ArticleType['articles'][0];
 }) {
   return (
-    <div className='mb-16 max-w-4xl mx-auto px-4'>
+    <div className='mb-16 max-w-4xl mx-auto px-4 py-16'>
       <div className='mb-8 relative w-full max-w-4xl mx-auto'>
         <div className='relative w-full aspect-[16/9] shadow-md mb-8'>
           <Image
