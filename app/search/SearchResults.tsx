@@ -1,29 +1,34 @@
+// app/search/SearchResults.tsx
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useArticleContext } from '@/hooks/useArticleContext';
 import { useRef, useState } from 'react';
 import { Search } from 'lucide-react';
+import type { ArticleType } from '@/types/article';
 import Pagination from '@/components/Pagination';
 import ArticleCard from '@/components/Home/ArticleCard';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import Loading from '@/components/Articles/loading';
 
-export default function SearchPage() {
-  const { query } = useParams();
-  const { data } = useArticleContext();
+interface SearchResultsProps {
+  initialArticles: ArticleType['articles'];
+}
+
+export default function SearchResults({ initialArticles }: SearchResultsProps) {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query') || '';
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
 
-  if (!data.length) {
+  if (!initialArticles.length) {
     return <Loading />;
   }
 
-  const decodedQuery = decodeURIComponent(query as string).toLowerCase();
+  const decodedQuery = query.toLowerCase();
 
-  const searchResults = data.filter((article) => {
+  const searchResults = initialArticles.filter((article) => {
     const titleMatch = article.title.toLowerCase().includes(decodedQuery);
     const descriptionMatch = article.description
       .toLowerCase()
@@ -60,11 +65,13 @@ export default function SearchPage() {
       <PageTitle
         icon={<Search />}
         title='Search Results'
-        description={`${searchResults.length} ${searchResults.length === 1 ? 'article' : 'articles'} found for "${decodedQuery}"`}
+        description={`${searchResults.length} ${
+          searchResults.length === 1 ? 'article' : 'articles'
+        } found for "${decodedQuery}"`}
       />
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-        {currentArticles.map((article, index) => (
+        {currentArticles.map((article) => (
           <div key={article.slug} className='relative h-[250px] w-full mx-auto'>
             <ArticleCard article={article} cardIndex={0} activeIndex={0} />
           </div>

@@ -26,7 +26,7 @@ export function RelatedArticlesSection({
 
   return (
     <div>
-      <h3 className='text-xl text-center font-bold mb-6 pb-2 bg-black text-white px-2 py-1'>
+      <h3 className='text-xl text-center font-bold mb-6 bg-black text-white p-2'>
         Related Articles
       </h3>
       <div className='grid gap-6'>
@@ -66,7 +66,7 @@ export function RelatedArticlesSection({
                     href={`/tags/${article.region}`}
                     className='hover:underline'
                   >
-                    <Button size='sm' className='text-[10px] h-6'>
+                    <Button size='sm' variant='secondary' className='text-[10px] h-6'>
                       {article.region}
                     </Button>
                   </Link>
@@ -109,18 +109,9 @@ export function ArticleSidebar({
   currentArticle: ArticleType['articles'][0];
 }) {
   return (
-    <aside
-      className='
-        mt-16 md:mt-0 md:w-1/4 md:max-w-[300px] md:pl-6 md:border-l md:border-black 
-        relative transition-all duration-300 ease-in-out px-4 md:px-0
-      '
-    >
-      <div className='space-y-6'>
-        <RelatedArticlesSection
-          articles={articles}
-          currentArticle={currentArticle}
-        />
-      </div>
-    </aside>
+    <RelatedArticlesSection
+      articles={articles}
+      currentArticle={currentArticle}
+    />
   );
 }

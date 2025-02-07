@@ -1,52 +1,21 @@
-'use client';
+import { getArticles } from '@/lib/database';
+import EditArticlePage from '@/components/Articles/[slug]/edit/EditArticlePage';
 
-import { useEffect, useState, useRef } from 'react';
-import { notFound, useParams } from 'next/navigation';
-import { withAdminAuth } from '@/hoc/withAdminAuth';
-import { getArticleBySlug } from '@/lib/database';
-import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
-import type { ArticleType } from '@/types/article';
-import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
+export async function generateStaticParams() {
+  const articles = await getArticles();
 
-const EditArticlePage = () => {
-  const [article, setArticle] = useState<ArticleType['articles'][0] | null>(
-    null,
-  );
-  const [loading, setLoading] = useState(true);
-  const { slug } = useParams();
-  const articleSlug = Array.isArray(slug) ? slug[0] : slug;
-  const hasFetched = useRef(false);
+  return articles.map((article) => {
+    const date = new Date(article.date);
 
-  useEffect(() => {
-    if (!articleSlug || hasFetched.current) return;
-
-    const fetchArticle = async () => {
-      try {
-        const foundArticle = await getArticleBySlug(articleSlug);
-
-        if (foundArticle) {
-          setArticle(foundArticle);
-        }
-      } catch (error) {
-        console.error('Error fetching article:', error);
-      } finally {
-        setLoading(false);
-        hasFetched.current = true;
-      }
+    return {
+      year: date.getFullYear().toString(),
+      month: (date.getMonth() + 1).toString().padStart(2, '0'),
+      day: date.getDate().toString().padStart(2, '0'),
+      slug: article.slug,
     };
+  });
+}
 
-    fetchArticle();
-  }, [articleSlug]);
-
-  if (loading) {
-    return <ArticleLoading />;
-  }
-
-  if (!article) {
-    return notFound();
-  }
-
-  return <ArticleEditor article={article} isNewArticle={false} />;
-};
-
-export default withAdminAuth(EditArticlePage);
+export default function Page() {
+  return <EditArticlePage />;
+}

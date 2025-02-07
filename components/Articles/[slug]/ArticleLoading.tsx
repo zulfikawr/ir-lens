@@ -4,24 +4,23 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ArticleLoading() {
   return (
-    <main className='max-w-6xl mx-auto px-4'>
-      <div className='py-16 md:grid md:grid-cols-[1fr_auto] md:gap-16'>
+    <main className='mx-auto px-4 md:px-8 py-16'>
+      <div className='flex flex-col items-center lg:items-start lg:flex-row lg:justify-center'>
         {/* Article Content Loading */}
-        <div className='mb-16'>
+        <div className='w-full max-w-3xl lg:w-3/4 lg:pr-6'>
           {/* Header Loading */}
           <div className='mb-12'>
             {/* Cover Image Loading */}
-            <Skeleton className='w-full aspect-[16-9] h-[250px] md:h-[400px] shadow-md mb-6 bg-[#a1a1a1] border border-black' />
+            <Skeleton className='w-full aspect-[16-9] h-[225px] md:h-[418px] shadow-md mb-6 bg-[#a1a1a1] border border-black' />
 
             {/* Labels Loading */}
             <div className='flex flex-wrap gap-2 md:gap-4 mb-4 justify-between'>
               <div className='flex gap-2'>
-                {[...Array(2)].map((_, idx) => (
-                  <Skeleton key={idx} className='h-10 w-24 bg-black' />
-                ))}
+                <Skeleton className='h-9 w-28 bg-black' />
+                <Skeleton className='h-9 w-28 bg-[#a1a1a1]' />
               </div>
-              <div className='flex gap-4 items-center'>
-                <Skeleton className='h-10 w-24 bg-black' />
+              <div className='hidden md:flex gap-4 items-center'>
+                <Skeleton className='h-9 w-28 bg-black' />
               </div>
             </div>
 
@@ -38,9 +37,9 @@ export default function ArticleLoading() {
 
             {/* Metadata & Actions Loading */}
             <div className='flex flex-col md:flex-row items-start justify-between md:items-center gap-4 mt-6 pb-4 border-b border-gray-200'>
-              <div className='flex flex-col sm:flex-row gap-3 sm:gap-4'>
-                {[...Array(2)].map((_, idx) => (
-                  <Skeleton key={idx} className='h-5 w-24 bg-[#a1a1a1]' />
+              <div className='flex flex-col sm:flex-row gap-4 md:gap-8'>
+                {[...Array(3)].map((_, idx) => (
+                  <Skeleton key={idx} className='h-5 w-28 bg-[#a1a1a1]' />
                 ))}
               </div>
             </div>
@@ -48,7 +47,7 @@ export default function ArticleLoading() {
 
           {/* Article Content Blocks Loading */}
           <div className='prose prose-lg space-y-4'>
-            {[...Array(12)].map((_, idx) => (
+            {[...Array(10)].map((_, idx) => (
               <div key={idx} className='space-y-2'>
                 <Skeleton className='h-6 w-full bg-[#a1a1a1]' />
                 <Skeleton className='h-6 w-full bg-[#a1a1a1]' />
@@ -61,7 +60,7 @@ export default function ArticleLoading() {
         </div>
 
         {/* Sidebar Loading */}
-        <aside className='mt-16 md:mt-0 block md:border-l md:border-black md:top-10 md:self-start md:w-[300px] md:pl-8'>
+        <aside className='mt-16 md:mt-0 block md:border-l md:border-black md:top-10 md:self-start md:w-[300px] md:pl-6'>
           <div className='space-y-6'>
             {/* Related Articles Loading */}
             <Skeleton className='h-12 w-full bg-black mb-6' />

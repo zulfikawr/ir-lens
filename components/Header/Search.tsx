@@ -12,7 +12,7 @@ export const Search = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search/${encodeURIComponent(searchQuery.trim())}`);
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery('');
     }
   };

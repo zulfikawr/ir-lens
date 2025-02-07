@@ -48,7 +48,7 @@ export function ArticleHeader({
             </Button>
           </Link>
           <Link href={`/tags/${article.region}`}>
-            <Button className='flex items-center gap-2'>
+            <Button variant='secondary' className='flex items-center gap-2'>
               <Globe className='w-4 h-4' />
               {article.region}
             </Button>
@@ -81,7 +81,7 @@ export function ArticleHeader({
       </div>
 
       <div className='flex flex-col md:flex-row justify-between md:items-center gap-4 mt-6 pb-6 border-b border-black'>
-        <div className='flex items-start justify-between md:justify-start gap-4 md:gap-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 text-sm md:text-base'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />
             <time dateTime={article.date}>{article.date}</time>
