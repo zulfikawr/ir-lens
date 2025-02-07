@@ -1,11 +1,11 @@
 'use client';
 
-import type { ArticleType } from '@/types/article';
-import { ArticleContent } from '@/components/Articles/[slug]/ArticleContent';
+import type { ArticleType } from '@/types/article'
 import Image from 'next/image';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollToTop from '@/components/ScrollToTop';
+import { ContentBlocks } from '../editor/ContentBlocks';
 
 export function ArticlePreview({
   article,
@@ -56,9 +56,7 @@ export function ArticlePreview({
       </div>
 
       <div className='prose prose-lg mt-8'>
-        {article.blocks.map((block, index) => (
-          <ArticleContent key={index} block={block} />
-        ))}
+        <ContentBlocks blocks={article.blocks} />
       </div>
 
       <ScrollToTop />
