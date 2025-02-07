@@ -57,7 +57,7 @@ const LatestArticle = () => {
                       article.coverImg || '/images/default-fallback-image.png'
                     }
                     alt={article.coverImgAlt || 'Article cover image'}
-                    sizes='(max-width: 768px) 100vw, 50vw'
+                    sizes='90vw'
                     fill
                     className='object-cover'
                     priority

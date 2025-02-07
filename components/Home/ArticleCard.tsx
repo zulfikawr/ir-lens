@@ -44,7 +44,7 @@ const ArticleCard = ({
               <Image
                 src={article.coverImg || '/images/default-fallback-image.png'}
                 alt={article.coverImgAlt || 'Article cover image'}
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                sizes='90vw'
                 fill
                 className='object-cover'
                 priority
