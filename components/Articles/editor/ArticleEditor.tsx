@@ -32,7 +32,7 @@ export default function ArticleEditor({
   article: initialArticle,
   isNewArticle,
 }: ArticleEditorProps) {
-  const { article, updateArticle, addBlock } = useArticleState(initialArticle);
+  const { article, updateArticle } = useArticleState(initialArticle);
   const { toast } = useToast();
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 

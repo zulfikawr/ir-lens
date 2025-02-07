@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { getArticleUrl } from '@/utils/articleLinks';
+import { withAdminAuth } from '@/hoc/withAdminAuth';
 
 const ArticleStats = () => {
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
@@ -298,4 +299,4 @@ const ArticleStats = () => {
   );
 };
 
-export default ArticleStats;
+export default withAdminAuth(ArticleStats);

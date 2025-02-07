@@ -1,15 +1,11 @@
-'use client';
-
 import React from 'react';
-import { withAdminAuth } from '@/hoc/withAdminAuth';
-import DownloadData from '@/components/dashboard/download/DownloadArticles';
+import DownloadArticlePage from '@/components/dashboard/download/DownloadArticlePage';
 
-const DownloadPage = () => {
-  return (
-    <div className='flex justify-center items-center min-h-screen'>
-      <DownloadData />
-    </div>
-  );
+export const metadata = {
+  title: 'Download | IR Lens',
+  description: 'Download all data from Firebase database.',
 };
 
-export default withAdminAuth(DownloadPage);
+export default function Download() {
+  return <DownloadArticlePage />;
+}

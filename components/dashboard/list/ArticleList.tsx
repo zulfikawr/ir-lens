@@ -161,33 +161,13 @@ export default function ArticlesListPage() {
       />
 
       <div className='overflow-hidden'>
-        <div className='flex flex-col sm:flex-row justify-between items-center mb-6 gap-4'>
+        <div className='flex items-center mb-6 gap-4'>
           <Input
             placeholder='Search articles...'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className='w-full sm:max-w-md border border-gray-300 px-4 py-2 h-10 text-black placeholder-gray-500'
           />
-          <div className='flex justify-end gap-2 md:gap-4'>
-            <Link
-              href='/articles/create'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <Button className='px-6 h-10 text-sm'>
-                <Plus className='mr-2 h-5 w-5' /> New article
-              </Button>
-            </Link>
-            <Link
-              href='/articles/download'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <Button className='px-6 h-10 text-sm'>
-                <Download className='mr-2 h-5 w-5' /> Download data
-              </Button>
-            </Link>
-          </div>
         </div>
 
         <div className='overflow-x-auto shadow-lg'>

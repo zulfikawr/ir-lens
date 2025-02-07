@@ -8,13 +8,13 @@ import PageTitle from '@/components/PageTitle/PageTitle';
 import { Download } from 'lucide-react';
 import { ArticleType } from '@/types/article';
 import { getArticles } from '@/lib/database';
+import { withAdminAuth } from '@/hoc/withAdminAuth';
 
-const DownloadData = () => {
+const DownloadArticlePage = () => {
   const [status, setStatus] = useState('');
   const [data, setData] = useState<any>(null);
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
 
-  // Function to fetch data from Firebase
   const fetchData = async () => {
     try {
       setStatus('Fetching data...');
@@ -33,12 +33,10 @@ const DownloadData = () => {
     }
   };
 
-  // Fetch data on initial render
   useEffect(() => {
     fetchData();
   }, []);
 
-  // Function to download the data as a JSON file
   const handleDownload = () => {
     if (data) {
       const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -53,10 +51,9 @@ const DownloadData = () => {
     }
   };
 
-  // Function to format JSON with basic color coding
   const formatJsonWithSyntaxHighlighting = (jsonString: string) => {
     const formattedJson = jsonString
-      .replace(/"([^"]+)":/g, '<span class="json-key">"$1":</span>')
+      .replace(/"([^" ]+)":/g, '<span class="json-key">"$1":</span>')
       .replace(/"(http[s]?:\/\/[^\s]+)"/g, '<span class="json-url">"$1"</span>')
       .replace(
         /:\s*(\d+|\d*\.\d+|\btrue\b|\bfalse\b|\bnull\b)/g,
@@ -66,7 +63,7 @@ const DownloadData = () => {
   };
 
   const getDataPreview = () => {
-    if (!data) return ''; // Return empty string instead of null
+    if (!data) return '';
     const preview = JSON.stringify(data, null, 2).slice(0, 1000);
     return formatJsonWithSyntaxHighlighting(preview);
   };
@@ -85,11 +82,9 @@ const DownloadData = () => {
         </Button>
       </div>
 
-      {/* <p className="mb-4">{status}</p> */}
-
       {data && (
         <>
-          <div className='max-w-4xl bg-black p-4 text-left text-sm overflow-auto h-62'>
+          <div className='max-w-4xl bg-black p-4 text-left text-sm overflow-hidden h-62 mx-auto'>
             <pre
               className='text-blue-300 whitespace-pre-wrap'
               dangerouslySetInnerHTML={{ __html: getDataPreview() as string }}
@@ -104,4 +99,4 @@ const DownloadData = () => {
   );
 };
 
-export default DownloadData;
+export default withAdminAuth(DownloadArticlePage);

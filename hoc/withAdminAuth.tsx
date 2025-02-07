@@ -5,11 +5,9 @@ import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { database } from '@/lib/firebase';
 import { ref, get } from 'firebase/database';
-import Loading from '@/components/Home/loading';
 
 export function withAdminAuth(Component: React.ComponentType) {
   return function AdminProtectedComponent() {
-    const [isLoading, setIsLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
     const router = useRouter();
     const auth = getAuth();
@@ -27,18 +25,9 @@ export function withAdminAuth(Component: React.ComponentType) {
         } else {
           router.push('/login');
         }
-        setIsLoading(false);
       });
       return () => unsubscribe();
     }, [auth, router]);
-
-    if (isLoading) {
-      return (
-        <div className='px-4 md:px-8'>
-          <Loading />
-        </div>
-      );
-    }
 
     return isAdmin ? <Component /> : null;
   };
