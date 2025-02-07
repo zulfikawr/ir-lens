@@ -9,7 +9,9 @@ import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
 import type { ArticleType } from '@/types/article';
 
 const ArticleDetailsPage = () => {
-  const [article, setArticle] = useState<ArticleType['articles'][0] | null>(null);
+  const [article, setArticle] = useState<ArticleType['articles'][0] | null>(
+    null,
+  );
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
   const [loading, setLoading] = useState(true);
   const { slug } = useParams();
@@ -53,8 +55,7 @@ const ArticleDetailsPage = () => {
         <div className='w-full max-w-3xl lg:w-3/4 lg:pr-6 md:border-r md:border-black'>
           <ArticleContent article={article} />
         </div>
-        <aside className='mt-16 md:mt-0 md:w-1/4 md:max-w-[300px] md:pl-6'
-        >
+        <aside className='mt-16 md:mt-0 md:w-1/4 md:max-w-[300px] md:pl-6'>
           <ArticleSidebar articles={articles} currentArticle={article} />
         </aside>
       </div>

@@ -35,6 +35,7 @@ firebase-debug.log
 # firebase
 firebase.json
 .firebaserc
+.firebase
 
 # typescript
 *.tsbuildinfo

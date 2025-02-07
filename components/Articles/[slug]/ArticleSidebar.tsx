@@ -66,7 +66,11 @@ export function RelatedArticlesSection({
                     href={`/tags/${article.region}`}
                     className='hover:underline'
                   >
-                    <Button size='sm' variant='secondary' className='text-[10px] h-6'>
+                    <Button
+                      size='sm'
+                      variant='secondary'
+                      className='text-[10px] h-6'
+                    >
                       {article.region}
                     </Button>
                   </Link>
