@@ -3,11 +3,16 @@ import { ArticlePage } from '@/components/Articles/[slug]/ArticlePage';
 import { ArticleSidebar } from '@/components/Articles/[slug]/ArticleSidebar';
 import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
 import Link from 'next/link';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{
+    year: string;
+    month: string;
+    day: string;
+    slug: string;
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -49,7 +54,7 @@ async function ArticleDetailsContent({ params }: Props) {
   );
 }
 
-export default async function ArticleDetails({ params }: Props) {
+export default function ArticleDetails({ params }: Props) {
   return (
     <Suspense fallback={<ArticleLoading />}>
       <ArticleDetailsContent params={params} />
