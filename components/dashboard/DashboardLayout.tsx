@@ -40,7 +40,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<ArticleType['articles']>([]);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
     const fetchArticles = async () => {

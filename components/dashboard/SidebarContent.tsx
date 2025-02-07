@@ -5,7 +5,15 @@ import { cn } from '@/lib/utils';
 import { getAuth, signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { LogOut as LogOutIcon } from 'lucide-react';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription } from '@/components/ui/alert-dialog';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+} from '@/components/ui/alert-dialog';
 
 interface SidebarContentProps {
   isCollapsed: boolean;
@@ -51,7 +59,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
             {!isCollapsed && <span className='ml-2'>{item.name}</span>}
           </Button>
         ))}
-        
+
         <AlertDialog open={showAlert} onOpenChange={setShowAlert}>
           <AlertDialogTrigger asChild>
             <Button
@@ -70,8 +78,12 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <Button variant='ghost' onClick={() => setShowAlert(false)}>Cancel</Button>
-              <Button variant='default' onClick={handleSignOut}>Logout</Button>
+              <Button variant='ghost' onClick={() => setShowAlert(false)}>
+                Cancel
+              </Button>
+              <Button variant='default' onClick={handleSignOut}>
+                Logout
+              </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

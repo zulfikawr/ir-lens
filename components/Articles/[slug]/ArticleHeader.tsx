@@ -17,7 +17,7 @@ export function ArticleHeader({
   article: ArticleType['articles'][0];
 }) {
   const { user } = useAuth();
-  
+
   useEffect(() => {
     if (article?.slug && article?.date) {
       incrementArticleViews(article.slug, article.date);

@@ -1,4 +1,11 @@
-import { ref, get, set, update, remove, runTransaction } from 'firebase/database';
+import {
+  ref,
+  get,
+  set,
+  update,
+  remove,
+  runTransaction,
+} from 'firebase/database';
 import { database } from '@/lib/firebase';
 import { ArticleType } from '@/types/article';
 
@@ -10,7 +17,10 @@ const getDateParts = (dateString: string) => {
   return { year, month, day };
 };
 
-export async function incrementArticleViews(slug: string, date: string): Promise<void> {
+export async function incrementArticleViews(
+  slug: string,
+  date: string,
+): Promise<void> {
   const { year, month, day } = getDateParts(date);
   const articleRef = ref(database, `articles/${year}/${month}/${day}/${slug}`);
 
