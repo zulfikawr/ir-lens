@@ -196,7 +196,7 @@ export function ContentBlocks({
 
   return (
     <>
-      <div className='prose prose-lg max-w-none space-y-6'>
+      <div className='prose prose-lg max-w-none space-y-6 md:space-y-8'>
         {blocks.map((block, index) => (
           <BlockWrapper
             key={index}
