@@ -10,6 +10,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { getArticleUrl } from '@/utils/articleLinks';
 import { useEffect } from 'react';
 import { incrementArticleViews } from '@/lib/database';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 
 export function ArticleHeader({
   article,
@@ -36,10 +41,23 @@ export function ArticleHeader({
             fill
             priority
           />
+          <div className='absolute bottom-2 right-2'>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant='outline'
+                  size='sm'
+                  className='bg-white/90 backdrop-blur-sm'
+                >
+                  Alt
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='w-64'>
+                <p className='text-sm text-gray-800'>{article.coverImgAlt}</p>
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
-        <figcaption className='text-xs md:text-sm text-gray-800 mt-2 text-center italic'>
-          {article.coverImgAlt}
-        </figcaption>
       </div>
 
       <div className='flex flex-wrap gap-2 md:gap-4 mb-4 justify-between'>
@@ -75,7 +93,7 @@ export function ArticleHeader({
       </div>
 
       <div className='flex flex-col items-start'>
-        <h1 className='text-4xl sm:text-4xl md:text-5xl font-extrabold text-gray-900'>
+        <h1 className='text-4xl sm:text-4xl md:text-5xl font-extrabold text-black'>
           {article.title}
         </h1>
         <p className='text-md md:text-lg text-gray-600 mt-4 max-w-3xl'>

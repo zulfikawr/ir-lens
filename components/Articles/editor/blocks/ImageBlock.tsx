@@ -153,7 +153,7 @@ export const ImageBlock: React.FC<ImageBlockProps> = ({
             type='text'
             value={block.imgAlt || ''}
             onChange={handleimgAltChange}
-            className='w-full mt-2 p-2 border border-gray-300 focus:outline-none'
+            className='w-full mt-2 p-2 border border-gray-300 focus:outline-none text-center italic text-gray-800 text-sm md:text-md'
             placeholder='Enter alt text for the image'
           />
         </>

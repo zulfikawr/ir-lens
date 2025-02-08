@@ -15,13 +15,15 @@ export const VideoBlock: React.FC<VideoBlockProps> = ({
   onUpdateBlock,
 }) => {
   const [videoUrlInput, setVideoUrlInput] = useState(block.videoUrl);
+  const [videoAltInput, setVideoAltInput] = useState(block.videoAlt || '');
 
   const handleVideoUrlSubmit = () => {
     onUpdateBlock?.({ videoUrl: videoUrlInput });
   };
 
-  const handleContentChange = (e: React.FocusEvent<HTMLParagraphElement>) => {
-    onUpdateBlock?.({ videoAlt: e.currentTarget.textContent || '' });
+  const handleVideoAltChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVideoAltInput(e.target.value);
+    onUpdateBlock?.({ videoAlt: e.target.value });
   };
 
   if (!isEditing) {
@@ -34,15 +36,17 @@ export const VideoBlock: React.FC<VideoBlockProps> = ({
             allowFullScreen
           />
         </div>
-        <p className='text-sm text-gray-800 mt-2 text-center italic'>
-          {block.videoAlt}
-        </p>
+        {block.videoAlt && (
+          <p className='text-sm text-gray-800 mt-2 text-center italic'>
+            {block.videoAlt}
+          </p>
+        )}
       </div>
     );
   }
 
   return (
-    <div className='relative'>
+    <div className='relative mt-2'>
       {!block.videoUrl ? (
         <div className='flex flex-col space-y-2'>
           <input
@@ -65,19 +69,13 @@ export const VideoBlock: React.FC<VideoBlockProps> = ({
               allowFullScreen
             />
           </div>
-          <div className='relative mt-2'>
-            <p
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={handleContentChange}
-              className='text-sm text-gray-800 text-center italic focus:outline-none min-h-[1.5em]'
-            >
-              {block.videoAlt}
-            </p>
-            <span className='absolute -top-1 left-0 text-gray-400 pointer-events-none p-2 focus:outline-none'>
-              Video description...
-            </span>
-          </div>
+          <input
+            type='text'
+            value={videoAltInput}
+            onChange={handleVideoAltChange}
+            placeholder='Enter video description...'
+            className='w-full mt-2 p-2 border border-gray-300 focus:outline-none text-center italic text-gray-800 text-sm md:text-md'
+          />
         </>
       )}
     </div>

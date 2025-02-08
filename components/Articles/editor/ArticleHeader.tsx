@@ -239,7 +239,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
                 type='text'
                 value={article.coverImgAlt}
                 onChange={handlecoverImgAltChange}
-                className='w-full p-2 focus:outline-none text-center border border-gray-300'
+                className='w-full p-2 focus:outline-none text-center border border-gray-300 text-center italic text-gray-800 text-sm md:text-md'
                 placeholder='Enter alt text for the cover image'
               />
             </div>
@@ -347,7 +347,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
               type='text'
               value={article.location}
               onChange={handleLocationChange}
-              className='focus:outline-none min-w-[100px] bg-transparent'
+              className='focus:outline-none min-w-[200px] bg-transparent'
               placeholder='Jakarta, Indonesia...'
             />
           </div>
