@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer';
+import Footer from '@/components/Footer/Footer';
 import ArticleContextProvider from '@/context/ArticleContext';
 import { Toaster } from '@/components/ui/toaster';
 
