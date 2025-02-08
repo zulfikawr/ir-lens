@@ -24,32 +24,32 @@
   "regions": [
     {
       "title": "Global",
-      "href": "/regions/Global",
+      "href": "/region/Global",
       "description": "Worldwide coverage, including major international developments and global trends"
     },
     {
       "title": "Asia",
-      "href": "/regions/Asia",
+      "href": "/region/Asia",
       "description": "East Asia, Southeast Asia, South Asia, and the Pacific region, including China, India, Japan, Australia, and others"
     },
     {
       "title": "Europe",
-      "href": "/regions/Europe",
+      "href": "/region/Europe",
       "description": "Europe, including the European Union, Russia, and other European nations"
     },
     {
       "title": "Middle East",
-      "href": "/regions/Middle-East",
+      "href": "/region/Middle-East",
       "description": "The Middle East, with a focus on the Israel-Palestine conflict and the broader geopolitical dynamics in the region"
     },
     {
       "title": "Africa",
-      "href": "/regions/Africa",
+      "href": "/region/Africa",
       "description": "Africa, including North Africa, Sub-Saharan Africa, and the African Union"
     },
     {
       "title": "Americas",
-      "href": "/regions/Americas",
+      "href": "/region/Americas",
       "description": "North America, Central America, South America, and the Caribbean"
     }
   ],
