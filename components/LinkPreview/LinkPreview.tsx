@@ -26,11 +26,7 @@ export function LinkPreview({ href, children }: LinkPreviewProps) {
   const [hasError, setHasError] = useState(false);
 
   const handleMouseEnter = async () => {
-    if (
-      !previewData &&
-      !isLoading &&
-      !hasError
-    ) {
+    if (!previewData && !isLoading && !hasError) {
       setIsLoading(true);
       try {
         const data = await getArticlePreview(href);
