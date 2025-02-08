@@ -2,6 +2,8 @@ import { getArticles, getArticleBySlug } from '@/lib/database';
 import ArticleDetailsPage from '@/components/Articles/[slug]/ArticleDetailsPage';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const articles = await getArticles();
@@ -51,7 +53,7 @@ async function ArticleLoader({ params }: { params: Promise<Params> }) {
   const article = await getArticleBySlug(resolvedParams.slug);
 
   if (!article) {
-    return <div>Article not found</div>;
+    return notFound();
   }
 
   return <ArticleDetailsPage />;
@@ -59,7 +61,7 @@ async function ArticleLoader({ params }: { params: Promise<Params> }) {
 
 export default function Page({ params }: { params: Promise<Params> }) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<ArticleLoading />}>
       <ArticleLoader params={params} />
     </Suspense>
   );

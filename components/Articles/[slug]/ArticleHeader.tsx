@@ -52,7 +52,7 @@ export function ArticleHeader({
                   Alt
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className='w-64'>
+              <PopoverContent className='w-64 mr-4 md:mr-0'>
                 <p className='text-sm text-gray-800'>{article.coverImgAlt}</p>
               </PopoverContent>
             </Popover>
