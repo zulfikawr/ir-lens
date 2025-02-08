@@ -6,9 +6,7 @@ export async function getArticlePreview(url: string) {
   try {
     const slug = url.split('/').pop();
 
-    const res = await fetch(
-      `https://3000-idx-ir-lens-1738669618686.cluster-qpa6grkipzc64wfjrbr3hsdma2.cloudworkstations.dev/api/article/${slug}`,
-    );
+    const res = await fetch(`https://ir-lens.vercel.app/api/article/${slug}`);
     const data = (await res.json()) as ArticleType;
 
     const article = data.articles.find((a) => a.slug === slug);
