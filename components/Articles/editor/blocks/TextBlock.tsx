@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
+import { LinkPreview } from '@/components/LinkPreview/LinkPreview';
 
 interface TextBlockProps {
   block: TextBlockTypes;
@@ -230,26 +231,66 @@ export const TextBlock: React.FC<TextBlockProps> = ({
   }, [isLinkPopoverOpen, updateContent]);
 
   if (!isEditing) {
-    const processedHTML = block.text
-      .replace(
-        /<a /g,
-        '<a style="text-decoration: underline;" target="_blank" rel="noopener noreferrer" ',
-      )
-      .replace(/<(b|strong)>/g, '<span style="font-weight: bold;">')
-      .replace(/<\/(b|strong)>/g, '</span>')
-      .replace(/<(u|ins)>/g, '<span style="text-decoration: underline;">')
-      .replace(/<\/(u|ins)>/g, '</span>')
-      .replace(
-        /<(s|del|strike)>/g,
-        '<span style="text-decoration: line-through;">',
-      )
-      .replace(/<\/(s|del|strike)>/g, '</span>');
+    // Parse the HTML to replace links with LinkPreview components
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(block.text, 'text/html');
+
+    // Process non-link elements
+    doc.querySelectorAll('b,strong').forEach((el) => {
+      const span = doc.createElement('span');
+      span.style.fontWeight = 'bold';
+      span.innerHTML = el.innerHTML;
+      el.parentNode?.replaceChild(span, el);
+    });
+
+    doc.querySelectorAll('u,ins').forEach((el) => {
+      const span = doc.createElement('span');
+      span.style.textDecoration = 'underline';
+      span.innerHTML = el.innerHTML;
+      el.parentNode?.replaceChild(span, el);
+    });
+
+    doc.querySelectorAll('s,del,strike').forEach((el) => {
+      const span = doc.createElement('span');
+      span.style.textDecoration = 'line-through';
+      span.innerHTML = el.innerHTML;
+      el.parentNode?.replaceChild(span, el);
+    });
+
+    // Mark links for replacement
+    doc.querySelectorAll('a').forEach((a) => {
+      const wrapper = doc.createElement('span');
+      wrapper.setAttribute('data-link-preview', a.getAttribute('href') || '');
+      wrapper.innerHTML = a.outerHTML;
+      a.parentNode?.replaceChild(wrapper, a);
+    });
+
+    const processedHTML = doc.body.innerHTML;
 
     return (
-      <div
-        className='my-6 text-md md:text-lg'
-        dangerouslySetInnerHTML={{ __html: processedHTML }}
-      />
+      <div className='my-6 text-md md:text-lg'>
+        {processedHTML
+          .split(/(<span data-link-preview="[^"]+">.*?<\/span>)/)
+          .map((part, index) => {
+            const match = part.match(
+              /<span data-link-preview="([^"]+)">(.*?)<\/span>/,
+            );
+            if (match) {
+              const [, href, content] = match;
+              const decodedContent =
+                parser.parseFromString(content, 'text/html').body.textContent ||
+                content;
+              return (
+                <LinkPreview key={index} href={href}>
+                  {decodedContent}
+                </LinkPreview>
+              );
+            }
+            return (
+              <span key={index} dangerouslySetInnerHTML={{ __html: part }} />
+            );
+          })}
+      </div>
     );
   }
 
