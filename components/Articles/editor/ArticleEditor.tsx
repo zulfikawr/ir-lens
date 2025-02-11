@@ -44,8 +44,7 @@ export default function ArticleEditor({
   article: initialArticle,
   isNewArticle,
 }: ArticleEditorProps) {
-  const { article, updateArticle } =
-    useArticleState(initialArticle);
+  const { article, updateArticle } = useArticleState(initialArticle);
   const { toast } = useToast();
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [draftSlugs, setDraftSlugs] = useState<string[]>([]);

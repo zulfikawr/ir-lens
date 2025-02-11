@@ -158,7 +158,9 @@ export async function deleteArticle(date: string, slug: string): Promise<void> {
   }
 }
 
-export async function saveDraftArticle(article: ArticleType['articles'][0]): Promise<void> {
+export async function saveDraftArticle(
+  article: ArticleType['articles'][0],
+): Promise<void> {
   const draftRef = ref(database, `drafts/${article.slug}`);
   try {
     await set(draftRef, article);
@@ -169,7 +171,9 @@ export async function saveDraftArticle(article: ArticleType['articles'][0]): Pro
   }
 }
 
-export async function loadDraftArticle(slug: string): Promise<ArticleType['articles'][0] | null> {
+export async function loadDraftArticle(
+  slug: string,
+): Promise<ArticleType['articles'][0] | null> {
   const draftRef = ref(database, `drafts/${slug}`);
   try {
     const snapshot = await get(draftRef);
