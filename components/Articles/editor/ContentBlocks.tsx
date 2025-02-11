@@ -66,7 +66,7 @@ interface ContentBlocksProps {
 }
 
 export function ContentBlocks({
-  blocks,
+  blocks = [],
   isEditing = false,
   onUpdateBlocks,
 }: ContentBlocksProps) {

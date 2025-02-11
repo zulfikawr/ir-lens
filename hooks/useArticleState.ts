@@ -3,19 +3,8 @@ import type { ArticleType } from '@/types/article';
 import type { ContentBlock } from '@/types/contentBlocks';
 
 export function useArticleState(initialArticle: ArticleType['articles'][0]) {
-  const [article, setArticle] = useState<ArticleType['articles'][0]>(() => {
-    if (!initialArticle.slug) {
-      const savedArticle = localStorage.getItem('draftArticle');
-      return savedArticle ? JSON.parse(savedArticle) : initialArticle;
-    }
-    return initialArticle;
-  });
-
-  useEffect(() => {
-    if (!article.slug) {
-      localStorage.setItem('draftArticle', JSON.stringify(article));
-    }
-  }, [article]);
+  const [article, setArticle] =
+    useState<ArticleType['articles'][0]>(initialArticle);
 
   const updateArticle = useCallback(
     (updates: Partial<ArticleType['articles'][0]>) => {

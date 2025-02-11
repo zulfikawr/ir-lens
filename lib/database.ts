@@ -157,3 +157,39 @@ export async function deleteArticle(date: string, slug: string): Promise<void> {
     throw error;
   }
 }
+
+export async function saveDraftArticle(article: ArticleType['articles'][0]): Promise<void> {
+  const draftRef = ref(database, `drafts/${article.slug}`);
+  try {
+    await set(draftRef, article);
+    console.log('Draft article saved:', article.slug);
+  } catch (error) {
+    console.error('Error saving draft article:', error);
+    throw error;
+  }
+}
+
+export async function loadDraftArticle(slug: string): Promise<ArticleType['articles'][0] | null> {
+  const draftRef = ref(database, `drafts/${slug}`);
+  try {
+    const snapshot = await get(draftRef);
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+    return null;
+  } catch (error) {
+    console.error('Error loading draft article:', error);
+    throw error;
+  }
+}
+
+export async function deleteDraftArticle(slug: string): Promise<void> {
+  const draftRef = ref(database, `drafts/${slug}`);
+  try {
+    await remove(draftRef);
+    console.log('Draft article deleted:', slug);
+  } catch (error) {
+    console.error('Error deleting draft article:', error);
+    throw error;
+  }
+}

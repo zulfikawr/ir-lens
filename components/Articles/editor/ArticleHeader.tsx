@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { handleImageUpload } from '@/utils/blockUtils';
 
 interface ArticleHeaderProps {
   article: ArticleType['articles'][0];
@@ -72,11 +73,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
   const handlecoverImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        onUpdate({ coverImg: e.target?.result as string });
-      };
-      reader.readAsDataURL(file);
+      handleImageUpload(file, (coverImg) => onUpdate({ coverImg }));
     }
   };
 
@@ -88,11 +85,7 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        onUpdate({ coverImg: e.target?.result as string });
-      };
-      reader.readAsDataURL(file);
+      handleImageUpload(file, (coverImg) => onUpdate({ coverImg }));
     }
   };
 
