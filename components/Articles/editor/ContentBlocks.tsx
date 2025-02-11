@@ -34,7 +34,7 @@ import type {
   VideoBlockTypes,
 } from '@/types/contentBlocks';
 import { BlockWrapper } from './BlockWrapper';
-import { TextBlock } from './blocks/TextBlock';
+import { TextBlock } from './blocks/TextBlock/TextBlock';
 import { ImageBlock } from './blocks/ImageBlock';
 import { GalleryBlock } from './blocks/GalleryBlock';
 import { QuoteBlock } from './blocks/QuoteBlock';

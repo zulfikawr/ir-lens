@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { LinkPreview } from './LinkPreview';
+import { LinkPreview } from '@/components/LinkPreview/LinkPreview';
 
 interface Block {
   text: string;
