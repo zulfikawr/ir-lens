@@ -11,11 +11,10 @@ import RegionalFocus from '@/components/Home/RegionalFocus/RegionalFocus';
 import NewsletterSubscription from '@/components/Home/NewsletterSubscription/NewsletterSubscription';
 
 const HomeSection = () => {
-  const { data } = useArticleContext();
+  const { loading, error } = useArticleContext();
 
-  if (!data?.length) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
+  if (error) return <div>Error loading articles: {error.message}</div>;
 
   return (
     <div>

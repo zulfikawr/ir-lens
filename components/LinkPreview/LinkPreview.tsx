@@ -16,9 +16,14 @@ import { getArticleUrl } from '@/utils/articleLinks';
 interface LinkPreviewProps {
   href: string;
   children: ReactNode;
+  underline?: boolean;
 }
 
-export function LinkPreview({ href, children }: LinkPreviewProps) {
+export function LinkPreview({
+  href,
+  children,
+  underline = true,
+}: LinkPreviewProps) {
   const [previewData, setPreviewData] = useState<Awaited<
     ReturnType<typeof getArticlePreview>
   > | null>(null);
@@ -47,15 +52,14 @@ export function LinkPreview({ href, children }: LinkPreviewProps) {
   return (
     <HoverCard openDelay={100}>
       <HoverCardTrigger asChild>
-        <a
+        <Link
           href={href}
           target='_blank'
-          rel='noopener noreferrer'
-          className='underline'
+          className={underline ? 'underline' : ''}
           onMouseEnter={handleMouseEnter}
         >
           {children}
-        </a>
+        </Link>
       </HoverCardTrigger>
       <HoverCardContent className='w-80 p-0'>
         {isLoading ? (
@@ -96,14 +100,14 @@ export function LinkPreview({ href, children }: LinkPreviewProps) {
               <p className='text-sm text-muted-foreground line-clamp-3'>
                 {previewData.description}
               </p>
-              <div className='flex items-center gap-3 text-xs text-muted-foreground pt-2'>
-                <div className='flex items-center gap-1'>
-                  <Calendar className='h-3 w-3' />
-                  {previewData.date}
+              <div className='flex flex-wrap items-center justify-between text-gray-500 text-xs pt-1 gap-2'>
+                <div className='flex items-center gap-2'>
+                  <Calendar className='w-4 h-4' />
+                  <time dateTime={previewData.date}>{previewData.date}</time>
                 </div>
-                <div className='flex items-center gap-1'>
-                  <MapPin className='h-3 w-3' />
-                  {previewData.location}
+                <div className='flex items-center gap-2'>
+                  <MapPin className='w-4 h-4' />
+                  <p>{previewData.location}</p>
                 </div>
               </div>
             </div>

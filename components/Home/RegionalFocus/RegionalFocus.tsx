@@ -4,30 +4,14 @@ import { useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import { ArticleType } from '@/types/article';
-import RegionalFocusLoading from './loading';
 import useRotatingIndex from '@/hooks/useRotatingIndex';
 import ArticleCard from '../ArticleCard';
 
 const RegionalFocus = () => {
-  const { data, loading, error } = useArticleContext();
+  const { articlesByRegion } = useArticleContext();
   const regions = useMemo(
     () => ['Global', 'Asia', 'Europe', 'Middle East', 'Africa', 'Americas'],
     [],
-  );
-
-  const sortedArticles = useMemo(() => {
-    return [...data].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    );
-  }, [data]);
-
-  const getRegionArticles = useCallback(
-    (region: string) => {
-      return sortedArticles
-        .filter((article) => article.region === region)
-        .slice(0, 3);
-    },
-    [sortedArticles],
   );
 
   const activeCards = useRotatingIndex(regions, 5000);
@@ -44,14 +28,11 @@ const RegionalFocus = () => {
     [activeCards],
   );
 
-  if (loading) return <RegionalFocusLoading />;
-  if (error) return <div>Error loading articles: {error.message}</div>;
-
   return (
     <section className='my-8 sm:my-12 md:my-16'>
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12'>
         {regions.map((region) => {
-          const regionArticles = getRegionArticles(region);
+          const regionArticles = articlesByRegion[region]?.slice(0, 3) || [];
 
           return (
             <div key={region} className='space-y-4'>

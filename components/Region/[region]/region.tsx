@@ -7,19 +7,17 @@ import Pagination from '@/components/Pagination';
 import ArticleCard from '@/components/Home/ArticleCard';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import { useSearchParams, useRouter } from 'next/navigation';
-import type { ArticleType } from '@/types/article';
+import { useArticleContext } from '@/hooks/useArticleContext';
 
-type RegionProps = {
-  region: string;
-  articles: ArticleType['articles'];
-};
-
-export default function Region({ region, articles }: RegionProps) {
+export default function Region({ region }: { region: string }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { articlesByRegion } = useArticleContext();
+
+  const articles = articlesByRegion[region] || [];
 
   useEffect(() => {
     const page = searchParams.get('page');

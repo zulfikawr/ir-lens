@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { getArticles, deleteArticle } from '@/lib/database';
-import type { ArticleType } from '@/types/article';
+import { deleteArticle } from '@/lib/database';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -15,6 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useToast } from '@/hooks/useToast';
+import { useArticleContext } from '@/hooks/useArticleContext';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -45,12 +45,10 @@ import {
   ChevronLeft,
   ChevronRight,
   MoreHorizontal,
-  Plus,
   ExternalLink,
   Pencil,
   Trash2,
   ArrowUpDown,
-  Download,
 } from 'lucide-react';
 import { getArticleUrl } from '@/utils/articleLinks';
 import PageTitle from '@/components/PageTitle/PageTitle';
@@ -58,7 +56,7 @@ import PageTitle from '@/components/PageTitle/PageTitle';
 type SortableKeys = 'title' | 'date';
 
 export default function ArticlesListPage() {
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
+  const { data: articles, loading, error } = useArticleContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [articleToDelete, setArticleToDelete] = useState<{
@@ -72,21 +70,19 @@ export default function ArticlesListPage() {
   }>({ key: 'date', direction: 'desc' });
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+  if (loading) {
+    return <div>Loading articles...</div>;
+  }
 
-  const fetchArticles = async () => {
-    const data = await getArticles();
-    setArticles(data);
-  };
+  if (error) {
+    return <div>Error loading articles: {error.message}</div>;
+  }
 
   const handleDeleteConfirm = async () => {
     if (!articleToDelete) return;
 
     try {
       await deleteArticle(articleToDelete.date, articleToDelete.slug);
-      await fetchArticles();
       toast({
         description: 'Article deleted successfully!',
         duration: 2000,

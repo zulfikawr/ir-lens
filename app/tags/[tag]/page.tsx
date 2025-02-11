@@ -33,13 +33,11 @@ export async function generateStaticParams() {
 
 export default async function TagPage({ params }: Props) {
   const { tag } = await params;
-  const articles = await getArticles();
-  const filteredArticles = articles.filter((article) => article.tag === tag);
 
   return (
     <main>
       <Suspense fallback={<Loading />}>
-        <Tag tag={tag} articles={filteredArticles} />
+        <Tag tag={tag} />
       </Suspense>
     </main>
   );

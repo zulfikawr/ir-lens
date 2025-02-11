@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getArticles } from '@/lib/database';
 import Loading from '@/components/Region/[region]/loading';
 import Region from '@/components/Region/[region]/region';
+import { useArticleContext } from '@/hooks/useArticleContext';
 
 type Props = {
   params: Promise<{
@@ -33,15 +34,11 @@ export async function generateStaticParams() {
 
 export default async function RegionPage({ params }: Props) {
   const { region } = await params;
-  const articles = await getArticles();
-  const filteredArticles = articles.filter(
-    (article) => article.region === region,
-  );
 
   return (
     <main>
       <Suspense fallback={<Loading />}>
-        <Region region={region} articles={filteredArticles} />
+        <Region region={region} />
       </Suspense>
     </main>
   );

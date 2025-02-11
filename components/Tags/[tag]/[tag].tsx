@@ -8,18 +8,17 @@ import ArticleCard from '@/components/Home/ArticleCard';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import { useSearchParams, useRouter } from 'next/navigation';
 import type { ArticleType } from '@/types/article';
+import { useArticleContext } from '@/hooks/useArticleContext';
 
-type TagProps = {
-  tag: string;
-  articles: ArticleType['articles'];
-};
-
-export default function Tag({ tag, articles }: TagProps) {
+export default function Tag({ tag }: { tag: string }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { articlesByTag } = useArticleContext();
+
+  const articles = articlesByTag[tag] || [];
 
   useEffect(() => {
     const page = searchParams.get('page');

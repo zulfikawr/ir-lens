@@ -7,11 +7,9 @@ import Loading from '@/components/Tags/loading';
 import PageTitle from '@/components/PageTitle/PageTitle';
 
 export default function TagsPage() {
-  const { data } = useArticleContext();
+  const { data, loading } = useArticleContext();
 
-  if (!data.length) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   const tagCounts = data.reduce(
     (acc, article) => {

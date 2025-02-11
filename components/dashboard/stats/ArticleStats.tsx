@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import {
   XAxis,
   YAxis,
@@ -16,8 +16,6 @@ import {
   AreaChart,
   Area,
 } from 'recharts';
-import { getArticles } from '@/lib/database';
-import type { ArticleType } from '@/types/article';
 import {
   Select,
   SelectContent,
@@ -27,113 +25,62 @@ import {
 } from '@/components/ui/select';
 import { getArticleUrl } from '@/utils/articleLinks';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
+import { useArticleContext } from '@/hooks/useArticleContext';
 
 const ArticleStats = () => {
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
-  const [regionsStats, setRegionsStats] = useState<Record<string, number>>({});
-  const [tagsStats, setTagsStats] = useState<Record<string, number>>({});
-  const [recentArticles, setRecentArticles] = useState<ArticleType['articles']>(
-    [],
-  );
-  const [topViewedArticles, setTopViewedArticles] = useState<
-    Array<{ title: string; views: number }>
-  >([]);
-  const [publishedArticles, setPublishedArticles] = useState<
-    Array<{ date: string; count: number }>
-  >([]);
+  const { sortedArticles, articlesByTag, articlesByRegion } =
+    useArticleContext();
   const [timeFrame, setTimeFrame] = useState<'daily' | 'monthly' | 'yearly'>(
     'monthly',
   );
   const [selectedTag, setSelectedTag] = useState<string>('All');
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      const fetchedArticles = await getArticles();
-      setArticles(fetchedArticles);
+  const recentArticles = useMemo(() => {
+    return sortedArticles.slice(0, 5);
+  }, [sortedArticles]);
 
-      // Calculate region distribution
-      const regions = fetchedArticles.reduce(
-        (acc: Record<string, number>, article) => {
-          acc[article.region] = (acc[article.region] || 0) + 1;
-          return acc;
-        },
-        {},
-      );
-      setRegionsStats(regions);
+  // Get top viewed articles (filtered by selectedTag if necessary)
+  const topViewedArticles = useMemo(() => {
+    const filteredArticles =
+      selectedTag === 'All'
+        ? [...sortedArticles]
+        : [...(articlesByTag[selectedTag] || [])];
 
-      // Calculate tag distribution
-      const tags = fetchedArticles.reduce(
-        (acc: Record<string, number>, article) => {
-          acc[article.tag] = (acc[article.tag] || 0) + 1;
-          return acc;
-        },
-        {},
-      );
-      setTagsStats(tags);
+    return filteredArticles
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .slice(0, 5)
+      .map((article) => ({
+        title:
+          article.title.length > 30
+            ? article.title.substring(0, 30) + '...'
+            : article.title,
+        views: article.views || 0,
+      }));
+  }, [sortedArticles, selectedTag, articlesByTag]);
 
-      // Get recent articles (limit to 5)
-      setRecentArticles(
-        fetchedArticles
-          .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-          )
-          .slice(0, 5),
-      );
+  // Calculate published articles by time frame
+  const publishedArticles = useMemo(() => {
+    const publishedArticlesData = sortedArticles.reduce(
+      (acc: Record<string, number>, article) => {
+        const date =
+          timeFrame === 'daily'
+            ? new Date(article.date).toLocaleDateString()
+            : timeFrame === 'monthly'
+              ? new Date(article.date).toLocaleDateString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })
+              : new Date(article.date).getFullYear().toString();
+        acc[date] = (acc[date] || 0) + 1;
+        return acc;
+      },
+      {},
+    );
 
-      // Filter and set top viewed articles based on selected tag
-      const filteredArticles =
-        selectedTag === 'All'
-          ? fetchedArticles
-          : fetchedArticles.filter(
-              (article) =>
-                article.tag.toLowerCase() === selectedTag.toLowerCase(),
-            );
-
-      setTopViewedArticles(
-        filteredArticles
-          .sort((a, b) => (b.views || 0) - (a.views || 0))
-          .slice(0, 5)
-          .map((article) => ({
-            title:
-              article.title.length > 30
-                ? article.title.substring(0, 30) + '...'
-                : article.title,
-            views: article.views || 0,
-          })),
-      );
-
-      // Calculate published articles by time frame
-      const publishedArticlesData = fetchedArticles.reduce(
-        (acc: Record<string, number>, article) => {
-          const date =
-            timeFrame === 'daily'
-              ? new Date(article.date).toLocaleDateString()
-              : timeFrame === 'monthly'
-                ? new Date(article.date).toLocaleDateString('default', {
-                    month: 'long',
-                    year: 'numeric',
-                  })
-                : new Date(article.date).getFullYear().toString();
-          acc[date] = (acc[date] || 0) + 1;
-          return acc;
-        },
-        {},
-      );
-
-      setPublishedArticles(
-        Object.entries(publishedArticlesData)
-          .map(([date, count]) => ({
-            date,
-            count,
-          }))
-          .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-          ),
-      );
-    };
-
-    fetchArticles();
-  }, [timeFrame, selectedTag]);
+    return Object.entries(publishedArticlesData)
+      .map(([date, count]) => ({ date, count }))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, [sortedArticles, timeFrame]);
 
   return (
     <div className='space-y-6'>
@@ -141,18 +88,18 @@ const ArticleStats = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
         <div className='border border-gray-200 p-4 shadow-sm'>
           <div className='text-sm text-gray-600'>Total Articles</div>
-          <div className='text-2xl font-semibold'>{articles.length}</div>
+          <div className='text-2xl font-semibold'>{sortedArticles.length}</div>
         </div>
         <div className='border border-gray-200 p-4 shadow-sm'>
           <div className='text-sm text-gray-600'>Regions</div>
           <div className='text-2xl font-semibold'>
-            {new Set(articles.map((a) => a.region)).size}
+            {Object.keys(articlesByRegion).length}
           </div>
         </div>
         <div className='border border-gray-200 p-4 shadow-sm'>
           <div className='text-sm text-gray-600'>Tags</div>
           <div className='text-2xl font-semibold'>
-            {new Set(articles.map((a) => a.tag)).size}
+            {Object.keys(articlesByTag).length}
           </div>
         </div>
       </div>
@@ -165,8 +112,11 @@ const ArticleStats = () => {
           <ResponsiveContainer width='100%' height={300}>
             <PieChart>
               <Pie
-                data={Object.entries(regionsStats)
-                  .map(([region, count]) => ({ name: region, value: count }))
+                data={Object.entries(articlesByRegion)
+                  .map(([region, articles]) => ({
+                    name: region,
+                    value: articles.length,
+                  }))
                   .sort((a, b) => b.value - a.value)}
                 dataKey='value'
                 nameKey='name'
@@ -174,15 +124,12 @@ const ArticleStats = () => {
                 cy='50%'
                 outerRadius='80%'
               >
-                {Object.entries(regionsStats)
-                  .sort(([, a], [, b]) => b - a)
-                  .map(([region, count], index, arr) => {
+                {Object.entries(articlesByRegion)
+                  .sort(([, a], [, b]) => b.length - a.length)
+                  .map(([region], index, arr) => {
                     const opacity = 1 - (index / arr.length) * 0.8;
                     return (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={`rgba(0, 0, 0, ${opacity})`}
-                      />
+                      <Cell key={region} fill={`rgba(0, 0, 0, ${opacity})`} />
                     );
                   })}
               </Pie>
@@ -196,10 +143,10 @@ const ArticleStats = () => {
         <div className='border border-gray-200 p-6 shadow-sm'>
           <h2 className='text-lg font-semibold mb-4'>Tag Frequency</h2>
           <ul className='space-y-2'>
-            {Object.entries(tagsStats).map(([tag, count]) => (
+            {Object.entries(articlesByTag).map(([tag, articles]) => (
               <li key={tag} className='flex justify-between'>
                 <span className='font-medium'>{tag}</span>
-                <span>{count}</span>
+                <span>{articles.length}</span>
               </li>
             ))}
           </ul>

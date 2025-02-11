@@ -1,38 +1,22 @@
 'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/lib/database';
-import Loading from '../loading';
+import { useArticleContext } from '@/hooks/useArticleContext';
 import { getArticleUrl } from '@/utils/articleLinks';
 
 export default function NewsTicker() {
-  const [articles, setArticles] = useState<
-    { title: string; slug: string; date: string }[]
-  >([]);
-  const [loading, setLoading] = useState(true);
+  const { sortedArticles } = useArticleContext();
   const [currentTime, setCurrentTime] = useState<string>('');
   const newsText = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Fetch articles
   useEffect(() => {
-    const fetchArticles = async () => {
-      const fetchedArticles = await getArticles();
-      setArticles(
-        fetchedArticles.map((article) => ({
-          title: article.title,
-          slug: article.slug,
-          date: article.date,
-        })),
-      );
-      setLoading(false);
-    };
-    fetchArticles();
-  }, []);
-
-  // Animate news ticker
-  useEffect(() => {
-    if (!newsText.current || !containerRef.current || articles.length === 0)
+    if (
+      !newsText.current ||
+      !containerRef.current ||
+      sortedArticles.length === 0
+    )
       return;
 
     const ticker = newsText.current;
@@ -57,9 +41,8 @@ export default function NewsTicker() {
       ticker.style.transform = '';
       ticker.innerHTML = clonedContent;
     };
-  }, [articles]);
+  }, [sortedArticles]);
 
-  // Update current time every second
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -69,13 +52,11 @@ export default function NewsTicker() {
       setCurrentTime(`${hours}:${minutes}:${seconds}`);
     };
 
-    updateTime(); // Set initial time
-    const intervalId = setInterval(updateTime, 1000); // Update every second
+    updateTime();
+    const intervalId = setInterval(updateTime, 1000);
 
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
-
-  if (loading) return <Loading />;
 
   return (
     <div
@@ -86,7 +67,7 @@ export default function NewsTicker() {
         ref={newsText}
         className='flex gap-4 sliding-ticker whitespace-nowrap flex-grow'
       >
-        {articles.map((article, index) => (
+        {sortedArticles.map((article, index) => (
           <div key={index} className='hover:underline'>
             <Link href={getArticleUrl(article)} passHref>
               <p className='cursor-pointer'>{article.title} +++</p>
