@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin } from 'lucide-react';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import { getArticleUrl } from '@/utils/articleLinks';
 
 interface ArticleCardProps {
-  article: ArticleType['articles'][0];
+  article: Article;
   cardIndex: number;
   activeIndex: number;
   isStatic?: boolean;

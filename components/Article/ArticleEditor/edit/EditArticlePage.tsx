@@ -4,14 +4,12 @@ import { useEffect, useState, useRef } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
 import { getArticleBySlug } from '@/lib/database';
-import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
-import type { ArticleType } from '@/types/article';
-import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
+import ArticleEditor from '@/components/Article/ArticleEditor/ArticleEditor';
+import type { Article } from '@/types/article';
+import ArticleLoading from '@/components/Article/ArticleView/ArticleLoading';
 
 const EditArticlePage = () => {
-  const [article, setArticle] = useState<ArticleType['articles'][0] | null>(
-    null,
-  );
+  const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const { slug } = useParams();
   const articleSlug = Array.isArray(slug) ? slug[0] : slug;

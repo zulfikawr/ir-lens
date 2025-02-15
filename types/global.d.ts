@@ -1,7 +1,7 @@
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 
 declare global {
   interface Window {
-    articleData?: ArticleType['articles'][0];
+    articleData?: Article;
   }
 }

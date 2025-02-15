@@ -1,17 +1,13 @@
 'use client';
 
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import Image from 'next/image';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollToTop from '@/components/ScrollToTop';
-import { ContentBlocks } from '../editor/ContentBlocks';
+import { ContentBlocks } from '../ArticleEditor/ContentBlocks';
 
-export function ArticlePreview({
-  article,
-}: {
-  article: ArticleType['articles'][0];
-}) {
+export function ArticlePreview({ article }: { article: Article }) {
   return (
     <div className='mb-16 max-w-4xl mx-auto px-4 py-16'>
       <div className='mb-8 relative w-full max-w-4xl mx-auto mb-8'>

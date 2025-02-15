@@ -7,7 +7,7 @@ import {
   runTransaction,
 } from 'firebase/database';
 import { database } from '@/lib/firebase';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 
 const getDateParts = (dateString: string) => {
   const date = new Date(dateString);
@@ -39,13 +39,13 @@ export async function incrementArticleViews(
   }
 }
 
-export async function getArticles(): Promise<ArticleType['articles']> {
+export async function getArticles(): Promise<Article[]> {
   const articlesRef = ref(database, 'articles');
   try {
     const snapshot = await get(articlesRef);
     if (!snapshot.exists()) return [];
 
-    const articles: ArticleType['articles'] = [];
+    const articles: Article[] = [];
     const data = snapshot.val();
 
     Object.keys(data).forEach((year) => {
@@ -73,13 +73,13 @@ export async function getArticles(): Promise<ArticleType['articles']> {
 export async function getArticlesByMonth(
   year: string,
   month: string,
-): Promise<ArticleType['articles']> {
+): Promise<Article[]> {
   const monthRef = ref(database, `articles/${year}/${month}`);
   try {
     const snapshot = await get(monthRef);
     if (!snapshot.exists()) return [];
 
-    const articles: ArticleType['articles'] = [];
+    const articles: Article[] = [];
     const data = snapshot.val();
 
     Object.keys(data).forEach((day) => {
@@ -99,9 +99,7 @@ export async function getArticlesByMonth(
   }
 }
 
-export async function getArticleBySlug(
-  slug: string,
-): Promise<ArticleType['articles'][0] | null> {
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const articles = await getArticles();
   return (
     articles.find((article) => article.slug === decodeURIComponent(slug)) ||
@@ -158,9 +156,7 @@ export async function deleteArticle(date: string, slug: string): Promise<void> {
   }
 }
 
-export async function saveDraftArticle(
-  article: ArticleType['articles'][0],
-): Promise<void> {
+export async function saveDraftArticle(article: Article): Promise<void> {
   const draftRef = ref(database, `drafts/${article.slug}`);
   try {
     await set(draftRef, article);
@@ -171,9 +167,7 @@ export async function saveDraftArticle(
   }
 }
 
-export async function loadDraftArticle(
-  slug: string,
-): Promise<ArticleType['articles'][0] | null> {
+export async function loadDraftArticle(slug: string): Promise<Article | null> {
   const draftRef = ref(database, `drafts/${slug}`);
   try {
     const snapshot = await get(draftRef);

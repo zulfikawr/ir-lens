@@ -1,5 +1,5 @@
 import React from 'react';
-import DownloadArticlePage from '@/components/dashboard/download/DownloadArticlePage';
+import DownloadArticlePage from '@/components/Dashboard/download/DownloadArticlePage';
 
 export const metadata = {
   title: 'Download | IR Lens',

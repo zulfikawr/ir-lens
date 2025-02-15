@@ -6,14 +6,14 @@ import { ref, get } from 'firebase/database';
 import { Button } from '@/components/ui/button';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import { Download } from 'lucide-react';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import { getArticles } from '@/lib/database';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
 
 const DownloadArticlePage = () => {
   const [status, setStatus] = useState('');
   const [data, setData] = useState<any>(null);
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   const fetchData = async () => {
     try {

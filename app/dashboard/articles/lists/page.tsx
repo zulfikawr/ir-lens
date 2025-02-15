@@ -1,4 +1,4 @@
-import ArticleList from '@/components/dashboard/list/ArticleList';
+import ArticleList from '@/components/Dashboard/list/ArticleList';
 
 export const metadata = {
   title: 'Article List | IR Lens',

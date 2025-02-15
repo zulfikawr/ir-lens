@@ -1,4 +1,4 @@
-import ArticlePreviewPage from '@/components/Articles/preview/ArticlePreviewPage';
+import ArticlePreviewPage from '@/components/Article/ArticlePreview';
 import { getArticles } from '@/lib/database';
 
 export async function generateStaticParams() {

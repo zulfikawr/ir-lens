@@ -3,7 +3,7 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import { getArticles } from '@/lib/database';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import { SidebarContent } from './SidebarContent';
 import { MobileDrawer } from './MobileDrawer';
 import { Button } from '@/components/ui/button';
@@ -39,7 +39,7 @@ const navigation = [
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
-  const [articles, setArticles] = useState<ArticleType['articles']>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {

@@ -18,21 +18,23 @@ import {
   Copy,
 } from 'lucide-react';
 import { useToast } from '@/hooks/useToast';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import Image from 'next/image';
 
-export const ArticleShareDialog = ({
-  article,
-}: {
-  article: ArticleType['articles'][0];
-}) => {
+export const ArticleShareDialog = ({ article }: { article: Article }) => {
   const [copied, setCopied] = useState(false);
   const articleUrl = `https://ir-lens.vercel.app/articles/${article.slug}`;
 
   const shareLinks = {
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(articleUrl)}`,
-    instagram: `https://www.instagram.com/create/details/?caption=${encodeURIComponent(article.title)}`,
-    email: `mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(`Check out this article: ${articleUrl}`)}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      article.title,
+    )}&url=${encodeURIComponent(articleUrl)}`,
+    instagram: `https://www.instagram.com/create/details/?caption=${encodeURIComponent(
+      article.title,
+    )}`,
+    email: `mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(
+      `Check out this article: ${articleUrl}`,
+    )}`,
   };
 
   const { toast } = useToast();
@@ -67,7 +69,7 @@ export const ArticleShareDialog = ({
           <div className='w-full md:w-1/2 block'>
             <Image
               src={article.coverImg}
-              alt={article.title}
+              alt={article.coverImgAlt || article.title} // Use coverImgAlt for accessibility
               width={400}
               height={300}
               className='object-cover h-48 mx-auto w-full md:h-full'

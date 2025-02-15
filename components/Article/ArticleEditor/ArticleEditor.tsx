@@ -25,7 +25,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import { getArticleUrl } from '@/utils/articleLinks';
 import {
   saveDraftArticle,
@@ -33,10 +33,10 @@ import {
   loadDraftArticle,
 } from '@/lib/database';
 
-type ArticleField = keyof Omit<ArticleType['articles'][0], 'blocks' | 'slug'>;
+type ArticleField = keyof Omit<Article, 'blocks' | 'slug'>;
 
 interface ArticleEditorProps {
-  article: ArticleType['articles'][0];
+  article: Article;
   isNewArticle: boolean;
 }
 
@@ -48,50 +48,58 @@ export default function ArticleEditor({
   const { toast } = useToast();
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [draftSlugs, setDraftSlugs] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchDrafts() {
-      try {
-        const draftsSnapshot = await loadDraftArticle('');
-        if (draftsSnapshot) {
-          setDraftSlugs(Object.keys(draftsSnapshot));
-        } else {
-          setDraftSlugs([]);
-        }
-      } catch (error) {
-        console.error('Error fetching drafts:', error);
+  const fetchDrafts = async () => {
+    try {
+      const draftsSnapshot = await loadDraftArticle('');
+      if (draftsSnapshot) {
+        const slugs = Object.keys(draftsSnapshot);
+        setDraftSlugs(slugs);
+      } else {
         setDraftSlugs([]);
       }
+    } catch (error) {
+      console.error('Error fetching drafts:', error);
+      setDraftSlugs([]);
     }
+  };
 
+  useEffect(() => {
     fetchDrafts();
   }, []);
 
   const handleSelectDraft = async (slug: string) => {
-    if (slug === 'new') {
-      const newDraft = {
-        title: '',
-        description: '',
-        date: '',
-        location: '',
-        tag: '',
-        region: '',
-        coverImg: '',
-        coverImgAlt: '',
-        blocks: [],
-      };
-
-      try {
+    setIsLoading(true);
+    try {
+      if (slug === 'new') {
+        const newDraft = {
+          title: '',
+          description: '',
+          date: '',
+          location: '',
+          tag: '',
+          region: '',
+          coverImg: '',
+          coverImgAlt: '',
+          blocks: [],
+          slug: '',
+        };
         updateArticle(newDraft);
-        updateArticle({ ...newDraft, slug: '' });
-      } catch (error) {
-        console.error('Error creating new draft:', error);
+      } else {
+        const selectedDraft = await loadDraftArticle(slug);
+        if (selectedDraft) {
+          updateArticle(selectedDraft);
+        }
       }
-    } else {
-      const selectedDraft = await loadDraftArticle(slug);
-      if (selectedDraft) {
-        updateArticle(selectedDraft);
-      }
+    } catch (error) {
+      console.error('Error selecting draft:', error);
+      toast({
+        description: 'Error loading draft',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,12 +138,55 @@ export default function ArticleEditor({
   };
 
   const handleSaveAsDraft = async () => {
-    await saveDraftArticle(article);
-    setDraftSlugs((prevSlugs) => [...prevSlugs, article.slug]);
-    toast({
-      description: 'Article saved as draft!',
-      duration: 2000,
-    });
+    setIsLoading(true);
+    try {
+      await saveDraftArticle(article);
+      await fetchDrafts(); // Refresh the draft list after saving
+      toast({
+        description: 'Article saved as draft!',
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      toast({
+        description: 'Error saving draft',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    setIsLoading(true);
+    try {
+      await deleteDraftArticle(article.slug);
+      await fetchDrafts();
+      updateArticle({
+        title: '',
+        description: '',
+        date: '',
+        location: '',
+        tag: '',
+        region: '',
+        coverImg: '',
+        coverImgAlt: '',
+        slug: '',
+        blocks: [],
+      });
+      toast({
+        description: 'Article deleted successfully!',
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error('Error deleting draft:', error);
+      toast({
+        description: 'Error deleting draft',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSaveToDatabase = async () => {
@@ -168,7 +219,8 @@ export default function ArticleEditor({
         });
 
         if (isNew) {
-          deleteDraftArticle('draft');
+          await deleteDraftArticle('draft');
+          await fetchDrafts();
           window.location.href = getArticleUrl(article);
         } else {
           window.location.href = getArticleUrl(article);
@@ -188,29 +240,6 @@ export default function ArticleEditor({
     setShowSaveDialog(false);
   };
 
-  const handleDeleteConfirm = () => {
-    deleteDraftArticle(article.slug);
-    setDraftSlugs((prevSlugs) =>
-      prevSlugs.filter((slug) => slug !== article.slug),
-    );
-    updateArticle({
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      tag: '',
-      region: '',
-      coverImg: '',
-      coverImgAlt: '',
-      slug: '',
-      blocks: [],
-    });
-    toast({
-      description: 'Article deleted successfully!',
-      duration: 2000,
-    });
-  };
-
   const handlePreview = () => {
     if (validateArticle()) {
       const previewWindow = window.open(
@@ -225,17 +254,17 @@ export default function ArticleEditor({
 
   return (
     <div className='max-w-4xl mx-auto md:px-4 py-8'>
-      <div
-        className={`top-0 bg-white py-4 space-x-4 flex ${
-          draftSlugs.length > 0 ? 'justify-between' : 'justify-end'
-        } items-center border-b mb-8`}
-      >
+      <div className='top-0 bg-white py-4 flex flex-col md:flex-row md:justify-between items-center border-b mb-8 gap-2'>
+        {/* Draft Dropdown (Full Width on Mobile, Left on Desktop) */}
         {draftSlugs.length > 0 && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2'>
+              <Button
+                className='w-full md:w-auto flex items-center gap-2'
+                disabled={isLoading}
+              >
                 <FileText className='w-4 h-4' />
-                {article.slug ? article.slug : 'Select Draft'}
+                {isLoading ? 'Loading...' : article.slug || 'Select Draft'}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56 p-2 shadow-lg'>
@@ -260,60 +289,75 @@ export default function ArticleEditor({
           </DropdownMenu>
         )}
 
-        <div className='flex items-center gap-4'>
-          <Button onClick={handlePreview} className='flex items-center gap-2'>
-            <Eye className='w-4 h-4' />
-            Preview
-          </Button>
+        {/* Button Container */}
+        <div className='w-full md:w-auto flex flex-col md:flex-row justify-center md:justify-end gap-2'>
+          {/* Mobile: Buttons Centered Below | Desktop: Buttons on the Right */}
+          <div className='w-full flex flex-row justify-center gap-2'>
+            <Button
+              onClick={handlePreview}
+              className='flex items-center gap-2 justify-center'
+              disabled={isLoading}
+            >
+              <Eye className='w-4 h-4' />
+              Preview
+            </Button>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant='destructive' className='flex items-center gap-2'>
-                <Trash className='w-4 h-4' />
-                Delete
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Delete Article</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Are you sure you want to delete this draft article? This
-                  action cannot be undone.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteConfirm}>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant='destructive'
+                  className='flex items-center gap-2 justify-center'
+                  disabled={isLoading}
+                >
+                  <Trash className='w-4 h-4' />
                   Delete
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className='w-11/12 sm:max-w-md md:max-w-xl'>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Article</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete this draft article? This
+                    action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDeleteConfirm}>
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2'>
-                <Save className='w-4 h-4' />
-                Save
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56 p-2 shadow-lg'>
-              <DropdownMenuGroup>
-                <DropdownMenuItem
-                  onClick={handleSaveAsDraft}
-                  className='cursor-pointer flex items-center gap-2'
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className='flex items-center gap-2 justify-center'
+                  disabled={isLoading}
                 >
-                  Save as Draft
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={handleSaveToDatabase}
-                  className='cursor-pointer flex items-center gap-2'
-                >
-                  Save to Database
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  <Save className='w-4 h-4' />
+                  Save
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className='w-56 p-2 shadow-lg'>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={handleSaveAsDraft}
+                    className='cursor-pointer flex items-center gap-2'
+                  >
+                    Save as Draft
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleSaveToDatabase}
+                    className='cursor-pointer flex items-center gap-2'
+                  >
+                    Save to Database
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
           <AlertDialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
             <AlertDialogContent>

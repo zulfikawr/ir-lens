@@ -7,7 +7,7 @@ import Pagination from '@/components/Pagination';
 import ArticleCard from '@/components/Home/ArticleCard';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import { useSearchParams, useRouter } from 'next/navigation';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import { useArticleContext } from '@/hooks/useArticleContext';
 
 export default function Tag({ tag }: { tag: string }) {

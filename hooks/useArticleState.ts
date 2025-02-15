@@ -1,17 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import type { ContentBlock } from '@/types/contentBlocks';
 
-export function useArticleState(initialArticle: ArticleType['articles'][0]) {
-  const [article, setArticle] =
-    useState<ArticleType['articles'][0]>(initialArticle);
+export function useArticleState(initialArticle: Article) {
+  const [article, setArticle] = useState<Article>(initialArticle);
 
-  const updateArticle = useCallback(
-    (updates: Partial<ArticleType['articles'][0]>) => {
-      setArticle((prev) => ({ ...prev, ...updates }));
-    },
-    [],
-  );
+  const updateArticle = useCallback((updates: Partial<Article>) => {
+    setArticle((prev) => ({ ...prev, ...updates }));
+  }, []);
 
   const addBlock = useCallback((newBlock: ContentBlock, index?: number) => {
     setArticle((prev) => {

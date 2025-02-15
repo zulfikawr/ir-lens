@@ -3,7 +3,7 @@
 import { useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useArticleContext } from '@/hooks/useArticleContext';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import useRotatingIndex from '@/hooks/useRotatingIndex';
 import ArticleCard from '../ArticleCard';
 
@@ -17,7 +17,7 @@ const ArticlesByTags = () => {
   const activeCards = useRotatingIndex(tags, 5000);
 
   const renderArticleCard = useCallback(
-    (article: ArticleType['articles'][0], tag: string, index: number) => (
+    (article: Article, tag: string, index: number) => (
       <ArticleCard
         key={article.slug}
         article={article}

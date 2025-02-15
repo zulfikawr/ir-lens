@@ -1,8 +1,8 @@
 import { getArticles, getArticleBySlug } from '@/lib/database';
-import ArticleDetailsPage from '@/components/Articles/[slug]/ArticleDetailsPage';
+import ArticleDetailsPage from '@/components/Article/ArticleView';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import ArticleLoading from '@/components/Articles/[slug]/ArticleLoading';
+import ArticleLoading from '@/components/Article/ArticleView/ArticleLoading';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {

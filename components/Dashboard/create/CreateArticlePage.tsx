@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
-import ArticleEditor from '@/components/Articles/editor/ArticleEditor';
-import type { ArticleType } from '@/types/article';
+import ArticleEditor from '@/components/Article/ArticleEditor/ArticleEditor';
+import type { Article } from '@/types/article';
 
 const CreateArticlePage = () => {
-  const initialArticle: ArticleType['articles'][0] = {
+  const initialArticle: Article = {
     title: '',
     description: '',
     date: '',

@@ -2,7 +2,7 @@ import type React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Calendar, MapPin, Tag, Globe, Plus, Trash, Link } from 'lucide-react';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +14,8 @@ import { Button } from '@/components/ui/button';
 import { handleImageUpload } from '@/utils/blockUtils';
 
 interface ArticleHeaderProps {
-  article: ArticleType['articles'][0];
-  onUpdate: (updates: Partial<ArticleType['articles'][0]>) => void;
+  article: Article;
+  onUpdate: (updates: Partial<Article>) => void;
 }
 
 const AutoResizeTextArea = ({

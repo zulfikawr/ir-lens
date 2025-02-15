@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { getArticles } from '@/lib/database';
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import { ArticleContext } from '@/hooks/useArticleContext';
 
 type ArticleContextProviderType = {
@@ -12,7 +12,7 @@ type ArticleContextProviderType = {
 export default function ArticleContextProvider({
   children,
 }: ArticleContextProviderType) {
-  const [data, setData] = useState<ArticleType['articles']>([]);
+  const [data, setData] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -44,7 +44,7 @@ export default function ArticleContextProvider({
         acc[tag] = sortedArticles.filter((article) => article.tag === tag);
         return acc;
       },
-      {} as Record<string, ArticleType['articles']>,
+      {} as Record<string, Article[]>,
     );
   }, [sortedArticles]);
 
@@ -64,7 +64,7 @@ export default function ArticleContextProvider({
         );
         return acc;
       },
-      {} as Record<string, ArticleType['articles']>,
+      {} as Record<string, Article[]>,
     );
   }, [sortedArticles]);
 

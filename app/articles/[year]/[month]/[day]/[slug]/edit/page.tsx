@@ -1,5 +1,5 @@
 import { getArticles } from '@/lib/database';
-import EditArticlePage from '@/components/Articles/[slug]/edit/EditArticlePage';
+import EditArticlePage from '@/components/Article/ArticleEditor/edit/EditArticlePage';
 
 export async function generateStaticParams() {
   const articles = await getArticles();

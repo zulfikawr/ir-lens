@@ -1,5 +1,5 @@
 import React from 'react';
-import ArticleStats from '@/components/dashboard/stats/ArticleStats';
+import ArticleStats from '@/components/Dashboard/stats/ArticleStats';
 
 export const metadata = {
   title: 'Dashboard | IR Lens',

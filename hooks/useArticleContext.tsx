@@ -1,11 +1,11 @@
 import { createContext, useContext, useMemo } from 'react';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 
 type ArticleContextType = {
-  data: ArticleType['articles'];
-  sortedArticles: ArticleType['articles'];
-  articlesByTag: Record<string, ArticleType['articles']>;
-  articlesByRegion: Record<string, ArticleType['articles']>;
+  data: Article[];
+  sortedArticles: Article[];
+  articlesByTag: Record<string, Article[]>;
+  articlesByRegion: Record<string, Article[]>;
   loading: boolean;
   error: Error | null;
 };

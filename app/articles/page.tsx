@@ -1,5 +1,5 @@
-import Articles from '@/components/Articles/Articles';
-import Loading from '@/components/Articles/loading';
+import Articles from '@/components/Article/Articles';
+import Loading from '@/components/Article/loading';
 import { Suspense } from 'react';
 
 export const metadata = {

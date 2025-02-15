@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getArticleBySlug } from '@/lib/database';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 
 type Props = {
   params: Promise<{
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest, props: Props) {
 
     return NextResponse.json({
       articles: [article],
-    } as ArticleType);
+    });
   } catch (error) {
     console.error('Error fetching article:', error);
     return NextResponse.json(

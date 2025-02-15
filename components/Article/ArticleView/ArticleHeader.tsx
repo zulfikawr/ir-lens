@@ -1,6 +1,6 @@
 'use client';
 
-import { ArticleType } from '@/types/article';
+import { Article } from '@/types/article';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, MapPin, Edit, TagIcon, Globe, Eye } from 'lucide-react';
@@ -16,11 +16,7 @@ import {
   PopoverContent,
 } from '@/components/ui/popover';
 
-export function ArticleHeader({
-  article,
-}: {
-  article: ArticleType['articles'][0];
-}) {
+export function ArticleHeader({ article }: { article: Article }) {
   const { user } = useAuth();
 
   useEffect(() => {

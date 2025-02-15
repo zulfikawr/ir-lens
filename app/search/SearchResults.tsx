@@ -5,14 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { Search } from 'lucide-react';
-import type { ArticleType } from '@/types/article';
+import type { Article } from '@/types/article';
 import Pagination from '@/components/Pagination';
 import ArticleCard from '@/components/Home/ArticleCard';
 import PageTitle from '@/components/PageTitle/PageTitle';
-import Loading from '@/components/Articles/loading';
+import Loading from '@/components/Article/loading';
 
 interface SearchResultsProps {
-  initialArticles: ArticleType['articles'];
+  initialArticles: Article[];
 }
 
 export default function SearchResults({ initialArticles }: SearchResultsProps) {

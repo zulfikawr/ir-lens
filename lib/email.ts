@@ -1,4 +1,3 @@
-// lib/email.ts
 import { getArticleUrl } from '@/utils/articleLinks';
 import { Resend } from 'resend';
 

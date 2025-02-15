@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArticlePreview } from '@/components/Articles/preview/ArticlePreview';
-import type { ArticleType } from '@/types/article';
-import { notFound } from 'next/navigation';
+import type { Article } from '@/types/article';
+import { ArticlePreview } from '@/components/Article/ArticlePreview/ArticlePreview';
 import ArticlePreviewLoading from './ArticlePreviewLoading';
+import { notFound } from 'next/navigation';
 
 export default function ArticlePreviewPage() {
-  const [article] = useState<ArticleType['articles'][0] | null>(null);
+  const [article] = useState<Article | null>(null);
   const [localArticle, setLocalArticle] = useState(article);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
