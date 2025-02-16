@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getArticleBySlug } from '@/lib/database';
-import type { Article } from '@/types/article';
 
 type Props = {
   params: Promise<{

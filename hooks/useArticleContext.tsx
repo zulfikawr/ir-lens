@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, useContext } from 'react';
 import type { Article } from '@/types/article';
 
 type ArticleContextType = {
