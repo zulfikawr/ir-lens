@@ -35,7 +35,7 @@ const NEWS_SOURCES: NewsSource[] = [
     url: 'https://www.middleeasteye.net/rss',
     region: 'Middle East',
     tag: 'Diplomacy',
-  }
+  },
 ];
 
 // Custom slug generation
