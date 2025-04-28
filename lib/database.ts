@@ -107,7 +107,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   );
 }
 
-export async function addArticle(article: Record<string, any>): Promise<void> {
+export async function addArticle(article: Article): Promise<void> {
   const { year, month, day } = getDateParts(article.date);
   const articleRef = ref(
     database,
@@ -129,9 +129,11 @@ export async function addArticle(article: Record<string, any>): Promise<void> {
 
 export async function updateArticle(
   slug: string,
-  articleData: Record<string, any>,
+  articleData: Partial<Article>,
 ): Promise<void> {
-  const { year, month, day } = getDateParts(articleData.date);
+  const { year, month, day } = getDateParts(
+    articleData.date || new Date().toISOString(),
+  );
   const articleRef = ref(database, `articles/${year}/${month}/${day}/${slug}`);
 
   try {
