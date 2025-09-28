@@ -1,17 +1,15 @@
-const NewsAPI = require('newsapi');
 import { addArticle } from './database';
 import { Article } from '@/types/article';
 import { ContentBlock } from '@/types/contentBlocks';
 
-// --- Type definitions for clarity ---
+// --- Type definitions for clarity (no changes here) ---
 interface NewsApiSource {
-  id: string; // The ID from NewsAPI.org, e.g., 'al-jazeera-english'
-  name: string; // The display name
+  id: string; 
+  name: string;
   region: string;
-  tag: string; // A default tag for articles from this source
+  tag: string;
 }
 
-// Type for an article coming from the News API
 interface NewsApiArticle {
   source: {
     id: string | null;
@@ -26,32 +24,17 @@ interface NewsApiArticle {
   content: string | null;
 }
 
-// --- Initialize the NewsAPI client ---
-// Note: We use process.env.NEWS_API_KEY (server-side variable)
-const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
-
-// --- Define News API sources ---
-// For testing, we only have Al Jazeera. You can easily add more here later.
-// To find source IDs, you can check the News API documentation or use their 'sources' endpoint.
+// --- Define News API sources (no changes here) ---
 const NEWS_API_SOURCES: NewsApiSource[] = [
   {
     id: 'al-jazeera-english',
     name: 'Al Jazeera English',
     region: 'Middle East',
-    tag: 'Conflicts', // This will be the fallback tag
+    tag: 'Conflicts', 
   },
-  // Example of adding another source in the future:
-  // {
-  //   id: 'reuters',
-  //   name: 'Reuters',
-  //   region: 'Global',
-  //   tag: 'Economy',
-  // },
 ];
 
-// --- Helper Functions (adapted for News API) ---
-
-// Custom slug generation (no changes needed)
+// --- Helper Functions (no changes here) ---
 const generateSlug = (title: string): string => {
   const baseSlug = title
     .toLowerCase()
@@ -62,132 +45,88 @@ const generateSlug = (title: string): string => {
   return `${baseSlug}-${timestamp}`;
 };
 
-// Determine article tag based on content (adapted for News API article structure)
 const determineTag = (item: NewsApiArticle, defaultTag: string): string => {
   const content = (item.content || item.description || '').toLowerCase();
-
   const tagKeywords: Record<string, string[]> = {
     Diplomacy: ['diplomacy', 'negotiations', 'treaty', 'summit', 'ambassador'],
     Conflicts: ['conflict', 'war', 'battle', 'clash', 'militia', 'airstrike'],
     Economy: ['economy', 'trade', 'market', 'finance', 'investment', 'stocks'],
-    Climate: [
-      'climate',
-      'environment',
-      'sustainability',
-      'emissions',
-      'warming',
-    ],
+    Climate: ['climate', 'environment', 'sustainability', 'emissions', 'warming'],
   };
-
   for (const [tag, keywords] of Object.entries(tagKeywords)) {
     if (keywords.some((keyword) => content.includes(keyword))) {
       return tag;
     }
   }
-
-  return defaultTag; // Fallback to source default
+  return defaultTag;
 };
 
-// Create an Article object from a News API item
-const createArticleFromNews = (
-  item: NewsApiArticle,
-  source: NewsApiSource,
-): Article => {
+const createArticleFromNews = (item: NewsApiArticle, source: NewsApiSource): Article => {
   const date = new Date(item.publishedAt || Date.now()).toISOString();
   const title = item.title || 'Untitled Article';
   const slug = generateSlug(title);
   const tag = determineTag(item, source.tag);
-
   const description = item.description
     ? item.description.slice(0, 200) + '...'
     : 'No description available';
-
-  const contentText =
-    item.content || item.description || 'Content not available.';
-
-  // Construct content blocks from the available data
+  const contentText = item.content || item.description || 'Content not available.';
   const blocks: ContentBlock[] = [
-    {
-      type: 'heading',
-      heading: title,
-    },
-    {
-      type: 'text',
-      text: contentText,
-    },
-    {
-      type: 'quote',
-      quote: description,
-      spokesperson: item.author || 'News Source',
-      role: source.name,
-    },
+    { type: 'heading', heading: title },
+    { type: 'text', text: contentText },
+    { type: 'quote', quote: description, spokesperson: item.author || 'News Source', role: source.name },
   ];
-
-  // Use the image from the API or a fallback
   const coverImg = item.urlToImage || '/default-cover.jpg';
   const coverImgAlt = item.urlToImage
     ? `Image from ${source.name} article: ${title}`
     : 'Default news cover image';
-
   return {
-    title,
-    description,
-    date,
-    location: source.region,
-    tag,
-    region: source.region,
-    coverImg,
-    coverImgAlt,
-    slug,
-    headline: false,
-    views: 0,
-    blocks,
+    title, description, date, location: source.region, tag, region: source.region, coverImg,
+    coverImgAlt, slug, headline: false, views: 0, blocks,
   };
 };
 
-// --- Main Fetching and Processing Function ---
+// --- Main Fetching Function (REWRITTEN) ---
 export async function fetchAndProcessNews(): Promise<
-  Array<
-    | { source: string; articlesAdded: number }
-    | { source: string; error: string }
-  >
+  Array<{ source: string; articlesAdded: number } | { source: string; error: string }>
 > {
   const results: Array<
-    | { source: string; articlesAdded: number }
-    | { source: string; error: string }
+    { source: string; articlesAdded: number } | { source: string; error: string }
   > = [];
 
   for (const source of NEWS_API_SOURCES) {
+    // 1. Construct the API URL
+    const pageSize = 5;
+    const url = `https://newsapi.org/v2/top-headlines?sources=${source.id}&pageSize=${pageSize}`;
+
     try {
-      // Fetch top headlines from the current source
-      const response = await newsapi.v2.topHeadlines({
-        sources: source.id,
-        pageSize: 5, // Fetch 5 latest articles, similar to your old logic
+      // 2. Make a direct fetch request with the API key in the header
+      const response = await fetch(url, {
+        headers: {
+          'X-Api-Key': process.env.NEWS_API_KEY!,
+        },
       });
 
-      if (response.status !== 'ok') {
-        throw new Error(`News API error for source ${source.name}`);
+      if (!response.ok) {
+        // If the response status is not 200-299, throw an error
+        const errorData = await response.json();
+        throw new Error(`News API error: ${errorData.message || response.statusText}`);
       }
 
+      // 3. Parse the JSON data
+      const data = await response.json();
+
+      // 4. Process the articles (same logic as before)
       const newArticles: Article[] = [];
-      for (const apiArticle of response.articles) {
+      for (const apiArticle of data.articles) {
         try {
-          // Skip articles with removed content
           if (apiArticle.title === '[Removed]' || !apiArticle.description) {
             continue;
           }
-
-          const article = createArticleFromNews(
-            apiArticle as NewsApiArticle,
-            source,
-          );
+          const article = createArticleFromNews(apiArticle as NewsApiArticle, source);
           await addArticle(article);
           newArticles.push(article);
         } catch (error) {
-          console.error(
-            `Error processing article "${apiArticle.title}":`,
-            error,
-          );
+          console.error(`Error processing article "${apiArticle.title}":`, error);
         }
       }
 
@@ -195,6 +134,7 @@ export async function fetchAndProcessNews(): Promise<
         source: source.name,
         articlesAdded: newArticles.length,
       });
+
     } catch (error) {
       console.error(`Error fetching news from ${source.name}:`, error);
       results.push({
