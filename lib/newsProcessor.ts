@@ -4,7 +4,7 @@ import { ContentBlock } from '@/types/contentBlocks';
 
 // --- Type definitions for clarity (no changes here) ---
 interface NewsApiSource {
-  id: string; 
+  id: string;
   name: string;
   region: string;
   tag: string;
@@ -30,7 +30,7 @@ const NEWS_API_SOURCES: NewsApiSource[] = [
     id: 'al-jazeera-english',
     name: 'Al Jazeera English',
     region: 'Middle East',
-    tag: 'Conflicts', 
+    tag: 'Conflicts',
   },
 ];
 
@@ -51,7 +51,13 @@ const determineTag = (item: NewsApiArticle, defaultTag: string): string => {
     Diplomacy: ['diplomacy', 'negotiations', 'treaty', 'summit', 'ambassador'],
     Conflicts: ['conflict', 'war', 'battle', 'clash', 'militia', 'airstrike'],
     Economy: ['economy', 'trade', 'market', 'finance', 'investment', 'stocks'],
-    Climate: ['climate', 'environment', 'sustainability', 'emissions', 'warming'],
+    Climate: [
+      'climate',
+      'environment',
+      'sustainability',
+      'emissions',
+      'warming',
+    ],
   };
   for (const [tag, keywords] of Object.entries(tagKeywords)) {
     if (keywords.some((keyword) => content.includes(keyword))) {
@@ -61,7 +67,10 @@ const determineTag = (item: NewsApiArticle, defaultTag: string): string => {
   return defaultTag;
 };
 
-const createArticleFromNews = (item: NewsApiArticle, source: NewsApiSource): Article => {
+const createArticleFromNews = (
+  item: NewsApiArticle,
+  source: NewsApiSource,
+): Article => {
   const date = new Date(item.publishedAt || Date.now()).toISOString();
   const title = item.title || 'Untitled Article';
   const slug = generateSlug(title);
@@ -69,28 +78,48 @@ const createArticleFromNews = (item: NewsApiArticle, source: NewsApiSource): Art
   const description = item.description
     ? item.description.slice(0, 200) + '...'
     : 'No description available';
-  const contentText = item.content || item.description || 'Content not available.';
+  const contentText =
+    item.content || item.description || 'Content not available.';
   const blocks: ContentBlock[] = [
     { type: 'heading', heading: title },
     { type: 'text', text: contentText },
-    { type: 'quote', quote: description, spokesperson: item.author || 'News Source', role: source.name },
+    {
+      type: 'quote',
+      quote: description,
+      spokesperson: item.author || 'News Source',
+      role: source.name,
+    },
   ];
   const coverImg = item.urlToImage || '/default-cover.jpg';
   const coverImgAlt = item.urlToImage
     ? `Image from ${source.name} article: ${title}`
     : 'Default news cover image';
   return {
-    title, description, date, location: source.region, tag, region: source.region, coverImg,
-    coverImgAlt, slug, headline: false, views: 0, blocks,
+    title,
+    description,
+    date,
+    location: source.region,
+    tag,
+    region: source.region,
+    coverImg,
+    coverImgAlt,
+    slug,
+    headline: false,
+    views: 0,
+    blocks,
   };
 };
 
 // --- Main Fetching Function (REWRITTEN) ---
 export async function fetchAndProcessNews(): Promise<
-  Array<{ source: string; articlesAdded: number } | { source: string; error: string }>
+  Array<
+    | { source: string; articlesAdded: number }
+    | { source: string; error: string }
+  >
 > {
   const results: Array<
-    { source: string; articlesAdded: number } | { source: string; error: string }
+    | { source: string; articlesAdded: number }
+    | { source: string; error: string }
   > = [];
 
   for (const source of NEWS_API_SOURCES) {
@@ -109,7 +138,9 @@ export async function fetchAndProcessNews(): Promise<
       if (!response.ok) {
         // If the response status is not 200-299, throw an error
         const errorData = await response.json();
-        throw new Error(`News API error: ${errorData.message || response.statusText}`);
+        throw new Error(
+          `News API error: ${errorData.message || response.statusText}`,
+        );
       }
 
       // 3. Parse the JSON data
@@ -122,11 +153,17 @@ export async function fetchAndProcessNews(): Promise<
           if (apiArticle.title === '[Removed]' || !apiArticle.description) {
             continue;
           }
-          const article = createArticleFromNews(apiArticle as NewsApiArticle, source);
+          const article = createArticleFromNews(
+            apiArticle as NewsApiArticle,
+            source,
+          );
           await addArticle(article);
           newArticles.push(article);
         } catch (error) {
-          console.error(`Error processing article "${apiArticle.title}":`, error);
+          console.error(
+            `Error processing article "${apiArticle.title}":`,
+            error,
+          );
         }
       }
 
@@ -134,7 +171,6 @@ export async function fetchAndProcessNews(): Promise<
         source: source.name,
         articlesAdded: newArticles.length,
       });
-
     } catch (error) {
       console.error(`Error fetching news from ${source.name}:`, error);
       results.push({
