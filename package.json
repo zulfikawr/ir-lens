@@ -57,6 +57,7 @@
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
+    "newsapi": "^2.4.1",
     "postcss": "latest",
     "prettier": "^3.4.2",
     "tailwindcss": "latest",

@@ -1,44 +1,57 @@
-import Parser from 'rss-parser';
+import NewsAPI from 'newsapi';
 import { addArticle } from './database';
 import { Article } from '@/types/article';
 import { ContentBlock } from '@/types/contentBlocks';
 
-interface NewsSource {
-  name: string;
-  url: string;
+// --- Type definitions for clarity ---
+interface NewsApiSource {
+  id: string; // The ID from NewsAPI.org, e.g., 'al-jazeera-english'
+  name: string; // The display name
   region: string;
-  tag: string;
+  tag: string; // A default tag for articles from this source
 }
 
-interface RSSItem {
-  title?: string;
-  content?: string;
-  contentSnippet?: string;
-  description?: string;
-  pubDate?: string;
-  enclosure?: { url: string };
-  categories?: string[];
+// Type for an article coming from the News API
+interface NewsApiArticle {
+  source: {
+    id: string | null;
+    name: string;
+  };
+  author: string | null;
+  title: string;
+  description: string | null;
+  url: string;
+  urlToImage: string | null;
+  publishedAt: string;
+  content: string | null;
 }
 
-const parser = new Parser();
+// --- Initialize the NewsAPI client ---
+// Note: We use process.env.NEWS_API_KEY (server-side variable)
+const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
 
-// Define RSS feed sources
-const NEWS_SOURCES: NewsSource[] = [
+// --- Define News API sources ---
+// For testing, we only have Al Jazeera. You can easily add more here later.
+// To find source IDs, you can check the News API documentation or use their 'sources' endpoint.
+const NEWS_API_SOURCES: NewsApiSource[] = [
   {
-    name: 'Al Jazeera Middle East',
-    url: 'https://www.aljazeera.com/xml/rss/all.xml',
+    id: 'al-jazeera-english',
+    name: 'Al Jazeera English',
     region: 'Middle East',
-    tag: 'Conflicts',
+    tag: 'Conflicts', // This will be the fallback tag
   },
-  {
-    name: 'Middle East Eye',
-    url: 'https://www.middleeasteye.net/rss',
-    region: 'Middle East',
-    tag: 'Diplomacy',
-  },
+  // Example of adding another source in the future:
+  // {
+  //   id: 'reuters',
+  //   name: 'Reuters',
+  //   region: 'Global',
+  //   tag: 'Economy',
+  // },
 ];
 
-// Custom slug generation
+// --- Helper Functions (adapted for News API) ---
+
+// Custom slug generation (no changes needed)
 const generateSlug = (title: string): string => {
   const baseSlug = title
     .toLowerCase()
@@ -49,30 +62,19 @@ const generateSlug = (title: string): string => {
   return `${baseSlug}-${timestamp}`;
 };
 
-// Function to determine article tag based on content
-const determineTag = (item: RSSItem, defaultTag: string): string => {
+// Determine article tag based on content (adapted for News API article structure)
+const determineTag = (item: NewsApiArticle, defaultTag: string): string => {
   const content = (item.content || item.description || '').toLowerCase();
-  const categories = (item.categories || []).map((cat) => cat.toLowerCase());
 
-  // Keywords for each tag
   const tagKeywords: Record<string, string[]> = {
     Diplomacy: ['diplomacy', 'negotiations', 'treaty', 'summit', 'ambassador'],
-    Conflicts: ['conflict', 'war', 'battle', 'clash', 'militia'],
-    Economy: ['economy', 'trade', 'market', 'finance', 'investment'],
-    Climate: [
-      'climate',
-      'environment',
-      'sustainability',
-      'emissions',
-      'warming',
-    ],
+    Conflicts: ['conflict', 'war', 'battle', 'clash', 'militia', 'airstrike'],
+    Economy: ['economy', 'trade', 'market', 'finance', 'investment', 'stocks'],
+    Climate: ['climate', 'environment', 'sustainability', 'emissions', 'warming'],
   };
 
   for (const [tag, keywords] of Object.entries(tagKeywords)) {
-    if (
-      keywords.some((keyword) => content.includes(keyword)) ||
-      keywords.some((keyword) => categories.includes(keyword))
-    ) {
+    if (keywords.some((keyword) => content.includes(keyword))) {
       return tag;
     }
   }
@@ -80,17 +82,20 @@ const determineTag = (item: RSSItem, defaultTag: string): string => {
   return defaultTag; // Fallback to source default
 };
 
-// Function to create article from news item
-const createArticleFromNews = (item: RSSItem, source: NewsSource): Article => {
-  const date = new Date(item.pubDate || Date.now()).toISOString();
+// Create an Article object from a News API item
+const createArticleFromNews = (item: NewsApiArticle, source: NewsApiSource): Article => {
+  const date = new Date(item.publishedAt || Date.now()).toISOString();
   const title = item.title || 'Untitled Article';
   const slug = generateSlug(title);
   const tag = determineTag(item, source.tag);
 
-  const description = item.contentSnippet
-    ? item.contentSnippet.slice(0, 200) + '...'
-    : item.description || 'No description available';
+  const description = item.description
+    ? item.description.slice(0, 200) + '...'
+    : 'No description available';
 
+  const contentText = item.content || item.description || 'Content not available.';
+
+  // Construct content blocks from the available data
   const blocks: ContentBlock[] = [
     {
       type: 'heading',
@@ -98,27 +103,21 @@ const createArticleFromNews = (item: RSSItem, source: NewsSource): Article => {
     },
     {
       type: 'text',
-      text: item.content || item.description || 'Content not available.',
+      text: contentText,
     },
     {
       type: 'quote',
-      quote: item.contentSnippet
-        ? item.contentSnippet.slice(0, 100) + '...'
-        : 'No quote available.',
-      spokesperson: 'News Source',
+      quote: description,
+      spokesperson: item.author || 'News Source',
       role: source.name,
     },
   ];
 
-  let coverImg = '';
-  let coverImgAlt = '';
-  if (item.enclosure?.url) {
-    coverImg = item.enclosure.url;
-    coverImgAlt = `Image from ${source.name} article: ${title}`;
-  } else {
-    coverImg = '/default-cover.jpg';
-    coverImgAlt = 'Default news cover image';
-  }
+  // Use the image from the API or a fallback
+  const coverImg = item.urlToImage || '/default-cover.jpg';
+  const coverImgAlt = item.urlToImage
+    ? `Image from ${source.name} article: ${title}`
+    : 'Default news cover image';
 
   return {
     title,
@@ -136,30 +135,39 @@ const createArticleFromNews = (item: RSSItem, source: NewsSource): Article => {
   };
 };
 
-// Function to fetch and process news
+// --- Main Fetching and Processing Function ---
 export async function fetchAndProcessNews(): Promise<
-  Array<
-    | { source: string; articlesAdded: number }
-    | { source: string; error: string }
-  >
+  Array<{ source: string; articlesAdded: number } | { source: string; error: string }>
 > {
   const results: Array<
-    | { source: string; articlesAdded: number }
-    | { source: string; error: string }
+    { source: string; articlesAdded: number } | { source: string; error: string }
   > = [];
 
-  for (const source of NEWS_SOURCES) {
+  for (const source of NEWS_API_SOURCES) {
     try {
-      const feed = await parser.parseURL(source.url);
-      const newArticles: Article[] = [];
+      // Fetch top headlines from the current source
+      const response = await newsapi.v2.topHeadlines({
+        sources: source.id,
+        pageSize: 5, // Fetch 5 latest articles, similar to your old logic
+      });
 
-      for (const item of feed.items.slice(0, 5)) {
+      if (response.status !== 'ok') {
+        throw new Error(`News API error for source ${source.name}`);
+      }
+      
+      const newArticles: Article[] = [];
+      for (const apiArticle of response.articles) {
         try {
-          const article = createArticleFromNews(item as RSSItem, source);
+          // Skip articles with removed content
+          if (apiArticle.title === '[Removed]' || !apiArticle.description) {
+            continue;
+          }
+
+          const article = createArticleFromNews(apiArticle as NewsApiArticle, source);
           await addArticle(article);
           newArticles.push(article);
         } catch (error) {
-          console.error(`Error processing article from ${source.name}:`, error);
+          console.error(`Error processing article "${apiArticle.title}":`, error);
         }
       }
 
@@ -167,8 +175,9 @@ export async function fetchAndProcessNews(): Promise<
         source: source.name,
         articlesAdded: newArticles.length,
       });
+
     } catch (error) {
-      console.error(`Error fetching feed from ${source.name}:`, error);
+      console.error(`Error fetching news from ${source.name}:`, error);
       results.push({
         source: source.name,
         error: error instanceof Error ? error.message : 'Unknown error',
