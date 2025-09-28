@@ -1,9 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getArticles } from '@/lib/database';
 import Loading from '@/components/Region/[region]/loading';
 import Region from '@/components/Region/[region]/region';
-import { useArticleContext } from '@/hooks/useArticleContext';
 
 type Props = {
   params: Promise<{
@@ -18,18 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${region} | IR Lens`,
     description: `Articles from the "${region}"`,
   };
-}
-
-export async function generateStaticParams() {
-  const articles = await getArticles();
-
-  const uniqueRegions = Array.from(
-    new Set(articles.map((article) => article.region)),
-  );
-
-  return uniqueRegions.map((region) => ({
-    region: region,
-  }));
 }
 
 export default async function RegionPage({ params }: Props) {
