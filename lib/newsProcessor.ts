@@ -1,4 +1,4 @@
-import NewsAPI from 'newsapi';
+const NewsAPI = require('newsapi');
 import { addArticle } from './database';
 import { Article } from '@/types/article';
 import { ContentBlock } from '@/types/contentBlocks';

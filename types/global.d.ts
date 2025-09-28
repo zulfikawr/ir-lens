@@ -5,5 +5,3 @@ declare global {
     articleData?: Article;
   }
 }
-
-declare module 'newsapi';
