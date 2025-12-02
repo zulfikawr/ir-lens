@@ -40,7 +40,7 @@ const CreateArticleContent = () => {
           const storedData = sessionStorage.getItem('importedArticle');
           if (storedData) {
             const parsed = JSON.parse(storedData);
-            
+
             // Merge defaults with imported data to ensure all fields exist
             // We force the authorId to be the current user, not the original source
             setArticleData({
@@ -51,7 +51,7 @@ const CreateArticleContent = () => {
             });
 
             // Optional: Clean up URL and storage
-            // sessionStorage.removeItem('importedArticle'); 
+            // sessionStorage.removeItem('importedArticle');
             // router.replace('/dashboard/articles/create', { scroll: false });
           }
         } catch (error) {
@@ -68,21 +68,21 @@ const CreateArticleContent = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-[50vh] w-full items-center justify-center">
-        <Loader className="h-8 w-8 animate-spin text-gray-500" />
+      <div className='flex h-[50vh] w-full items-center justify-center'>
+        <Loader className='h-8 w-8 animate-spin text-gray-500' />
       </div>
     );
   }
 
-  // Key prop is CRITICAL here. 
-  // It forces React to destroy and recreate the ArticleEditor component 
-  // if the title changes (i.e. when data loads), ensuring the 
+  // Key prop is CRITICAL here.
+  // It forces React to destroy and recreate the ArticleEditor component
+  // if the title changes (i.e. when data loads), ensuring the
   // internal state of the editor picks up the new props.
   return (
-    <ArticleEditor 
-      key={articleData.title || 'new-article'} 
-      article={articleData} 
-      isNewArticle 
+    <ArticleEditor
+      key={articleData.title || 'new-article'}
+      article={articleData}
+      isNewArticle
     />
   );
 };
@@ -90,7 +90,9 @@ const CreateArticleContent = () => {
 // Next.js requires useSearchParams to be wrapped in Suspense
 const CreateArticlePage = () => {
   return (
-    <Suspense fallback={<div className="p-8 text-center">Loading editor...</div>}>
+    <Suspense
+      fallback={<div className='p-8 text-center'>Loading editor...</div>}
+    >
       <CreateArticleContent />
     </Suspense>
   );

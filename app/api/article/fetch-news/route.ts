@@ -16,7 +16,7 @@ const VALID_REGIONS = menuData.regions.map((r) => r.title).join(', ');
  */
 async function classifyArticle(
   title: string,
-  description: string
+  description: string,
 ): Promise<{ tag: string; region: string }> {
   try {
     const prompt = `
@@ -31,13 +31,13 @@ async function classifyArticle(
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-    
+
     if (!jsonMatch) return { tag: 'Diplomacy', region: 'Global' };
-    
+
     const parsed = JSON.parse(jsonMatch[0]);
     return {
-        tag: parsed.tag || 'Diplomacy',
-        region: parsed.region || 'Global'
+      tag: parsed.tag || 'Diplomacy',
+      region: parsed.region || 'Global',
     };
   } catch (error) {
     return { tag: 'Diplomacy', region: 'Global' };
@@ -67,27 +67,36 @@ export async function GET(request: Request) {
       const data = await response.json();
 
       for (const apiArticle of data.articles) {
-        if (apiArticle.title === '[Removed]' || !apiArticle.description) continue;
+        if (apiArticle.title === '[Removed]' || !apiArticle.description)
+          continue;
 
         const processPromise = async () => {
           try {
-            const date = new Date(apiArticle.publishedAt || Date.now()).toISOString();
+            const date = new Date(
+              apiArticle.publishedAt || Date.now(),
+            ).toISOString();
             const title = apiArticle.title || 'Untitled Article';
             const description = apiArticle.description || '';
-            
+
             // DEFAULT content to description in case scrape fails
-            let fullContent = apiArticle.content || description; 
+            let fullContent = apiArticle.content || description;
 
             // Attempt to scrape full content
             if (apiArticle.url) {
               try {
                 const scrapedData = await scrapeArticleContent(apiArticle.url);
                 // Only use scraped content if it's substantial
-                if (scrapedData && scrapedData.content && scrapedData.content.length > 200) {
+                if (
+                  scrapedData &&
+                  scrapedData.content &&
+                  scrapedData.content.length > 200
+                ) {
                   fullContent = scrapedData.content;
                 }
               } catch (e) {
-                console.warn(`Scrape failed for ${apiArticle.url}, using fallback.`);
+                console.warn(
+                  `Scrape failed for ${apiArticle.url}, using fallback.`,
+                );
               }
             }
 
@@ -105,11 +114,13 @@ export async function GET(request: Request) {
               content: fullContent,
               url: apiArticle.url,
               tag: classification.tag,
-              region: classification.region
+              region: classification.region,
             } as FetchedArticle;
-
           } catch (error) {
-            console.error(`Error processing article: ${apiArticle.title}`, error);
+            console.error(
+              `Error processing article: ${apiArticle.title}`,
+              error,
+            );
             return null;
           }
         };
@@ -122,9 +133,11 @@ export async function GET(request: Request) {
     const articles = results.filter((a): a is FetchedArticle => a !== null);
 
     return NextResponse.json({ articles });
-
   } catch (error) {
     console.error('Error fetching articles:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 },
+    );
   }
 }
