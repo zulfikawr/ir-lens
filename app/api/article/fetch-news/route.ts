@@ -2,226 +2,100 @@ import { NextResponse } from 'next/server';
 import { scrapeArticleContent } from '@/lib/articleScraper';
 import menuData from '@/json/menu.json';
 import { FetchedArticle, NEWS_SOURCES } from '@/types/newsApi';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+
+const VALID_TAGS = menuData.tags.map((t) => t.title).join(', ');
+const VALID_REGIONS = menuData.regions.map((r) => r.title).join(', ');
+
+/**
+ * AI Helper to classify a single article
+ */
+async function classifyArticle(
+  title: string,
+  description: string
+): Promise<{ tag: string; region: string }> {
+  try {
+    const prompt = `
+      Classify this news article.
+      Article: "${title}" - ${description}
+      Allowed Tags: [${VALID_TAGS}]
+      Allowed Regions: [${VALID_REGIONS}]
+      Return JSON only: { "tag": "SelectedTag", "region": "SelectedRegion" }
+      Defaults: Tag="Diplomacy", Region="Global"
+    `;
+
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text();
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    
+    if (!jsonMatch) return { tag: 'Diplomacy', region: 'Global' };
+    
+    const parsed = JSON.parse(jsonMatch[0]);
+    return {
+        tag: parsed.tag || 'Diplomacy',
+        region: parsed.region || 'Global'
+    };
+  } catch (error) {
+    return { tag: 'Diplomacy', region: 'Global' };
+  }
+}
 
 export async function GET(request: Request) {
-  const articles: FetchedArticle[] = [];
   const { searchParams } = new URL(request.url);
   const selectedSource = searchParams.get('source');
 
-  // helpers: simple keyword-based tag/region detection
-  const tagKeywords: Record<string, string[]> = {
-    Diplomacy: [
-      'diplomacy',
-      'summit',
-      'talks',
-      'foreign minister',
-      'treaty',
-      'diplomatic',
-      'sanctions',
-    ],
-    Economy: [
-      'economy',
-      'economy',
-      'market',
-      'inflation',
-      'gdp',
-      'stock',
-      'stocks',
-      'trade',
-      'black friday',
-      'shopping',
-      'consumers',
-      'spending',
-    ],
-    Conflicts: [
-      'war',
-      'conflict',
-      'attack',
-      'strike',
-      'troops',
-      'missile',
-      'casualty',
-      'fighting',
-      'battle',
-      'invasion',
-    ],
-    Climate: [
-      'climate',
-      'warming',
-      'emissions',
-      'environment',
-      'cop',
-      'temperature',
-      'sea level',
-      'carbon',
-      'sustainability',
-    ],
-  };
-
-  const regionKeywords: Record<string, string[]> = {
-    Asia: [
-      'asia',
-      'china',
-      'india',
-      'japan',
-      'korea',
-      'south korea',
-      'north korea',
-      'taiwan',
-      'asean',
-      'southeast asia',
-    ],
-    Europe: [
-      'europe',
-      'eu',
-      'germany',
-      'france',
-      'uk',
-      'united kingdom',
-      'russia',
-      'poland',
-      'italy',
-      'spain',
-    ],
-    'Middle East': [
-      'middle east',
-      'israel',
-      'palestine',
-      'iran',
-      'iraq',
-      'syria',
-      'saudi',
-      'saudi arabia',
-      'uae',
-      'qatar',
-    ],
-    Africa: [
-      'africa',
-      'nigeria',
-      'kenya',
-      'ethiopia',
-      'egypt',
-      'south africa',
-      'algeria',
-    ],
-    Americas: [
-      'united states',
-      'u.s.',
-      'us',
-      'canada',
-      'brazil',
-      'mexico',
-      'america',
-      'argentina',
-      'chile',
-      'colombia',
-    ],
-    Global: ['global', 'world', 'international'],
-  };
-
-  function detectTag(text: string): string | null {
-    const lc = text.toLowerCase();
-    for (const tagObj of menuData.tags) {
-      const tag = tagObj.title;
-      const kws = tagKeywords[tag as keyof typeof tagKeywords] || [];
-      for (const kw of kws) {
-        if (lc.includes(kw)) return tag;
-      }
-    }
-    return null;
-  }
-
-  function detectRegion(text: string): string | null {
-    const lc = text.toLowerCase();
-    for (const regionObj of menuData.regions) {
-      const region = regionObj.title;
-      const kws = regionKeywords[region as keyof typeof regionKeywords] || [];
-      for (const kw of kws) {
-        if (lc.includes(kw)) return region;
-      }
-    }
-    return null;
-  }
-
   try {
-    // Filter sources based on selection
     const sourcesToFetch = selectedSource
       ? NEWS_SOURCES.filter((s) => s.id === selectedSource)
       : NEWS_SOURCES;
 
+    const articlePromises: Promise<FetchedArticle | null>[] = [];
+
     for (const source of sourcesToFetch) {
-      const pageSize = 9;
-      const url = `https://newsapi.org/v2/top-headlines?sources=${source.id}&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?sources=${source.id}&pageSize=9`;
 
-      try {
-        const response = await fetch(url, {
-          headers: {
-            'X-Api-Key': process.env.NEWS_API_KEY!,
-          },
-        });
+      const response = await fetch(url, {
+        headers: { 'X-Api-Key': process.env.NEWS_API_KEY! },
+      });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            `News API error: ${errorData.message || response.statusText}`,
-          );
-        }
+      if (!response.ok) continue;
 
-        const data = await response.json();
+      const data = await response.json();
 
-        for (const apiArticle of data.articles) {
+      for (const apiArticle of data.articles) {
+        if (apiArticle.title === '[Removed]' || !apiArticle.description) continue;
+
+        const processPromise = async () => {
           try {
-            if (apiArticle.title === '[Removed]' || !apiArticle.description) {
-              continue;
-            }
-
-            const date = new Date(
-              apiArticle.publishedAt || Date.now(),
-            ).toISOString();
+            const date = new Date(apiArticle.publishedAt || Date.now()).toISOString();
             const title = apiArticle.title || 'Untitled Article';
-            const tag = apiArticle.tag;
-            const region = apiArticle.region;
-            const description = apiArticle.description
-              ? apiArticle.description.slice(0, 200) + '...'
-              : 'No description available';
+            const description = apiArticle.description || '';
+            
+            // DEFAULT content to description in case scrape fails
+            let fullContent = apiArticle.content || description; 
 
-            // Scrape full article content from the URL
-            let fullContent =
-              apiArticle.content || apiArticle.description || '';
+            // Attempt to scrape full content
             if (apiArticle.url) {
               try {
                 const scrapedData = await scrapeArticleContent(apiArticle.url);
-                if (scrapedData && scrapedData.content.length > 200) {
+                // Only use scraped content if it's substantial
+                if (scrapedData && scrapedData.content && scrapedData.content.length > 200) {
                   fullContent = scrapedData.content;
                 }
-              } catch (scrapeError) {
-                console.warn(
-                  `Failed to scrape ${apiArticle.url}:`,
-                  scrapeError,
-                );
+              } catch (e) {
+                console.warn(`Scrape failed for ${apiArticle.url}, using fallback.`);
               }
             }
-            // Determine tag/region from content and fallbacks
-            const combinedText = `${title} ${apiArticle.description || ''} ${fullContent}`;
-            const detectedTag =
-              detectTag(combinedText) ||
-              (tag && menuData.tags.some((t) => t.title === tag) ? tag : null);
-            if (!detectedTag) {
-              // skip articles that don't match allowed tags
-              continue;
-            }
 
-            const detectedRegion =
-              detectRegion(combinedText) ||
-              (region && menuData.regions.some((r) => r.title === region)
-                ? region
-                : 'Global');
+            // Run AI Classification
+            const classification = await classifyArticle(title, description);
 
-            articles.push({
-              id: `${source.id}-${apiArticle.title}`.replace(
-                /[^a-z0-9]/gi,
-                '_',
-              ),
+            return {
+              id: `${source.id}-${title}`.replace(/[^a-z0-9]/gi, '_'),
               title,
               description,
               author: apiArticle.author || source.name,
@@ -230,34 +104,27 @@ export async function GET(request: Request) {
               source: source.name,
               content: fullContent,
               url: apiArticle.url,
-              tag: detectedTag,
-              region: detectedRegion,
-            });
+              tag: classification.tag,
+              region: classification.region
+            } as FetchedArticle;
+
           } catch (error) {
-            console.error(
-              `Error processing article "${apiArticle.title}":`,
-              error,
-            );
+            console.error(`Error processing article: ${apiArticle.title}`, error);
+            return null;
           }
-        }
-      } catch (error) {
-        console.error(`Error fetching news from ${source.name}:`, error);
-        return NextResponse.json(
-          {
-            error: `Failed to fetch news from ${source.name}`,
-            details: error instanceof Error ? error.message : 'Unknown error',
-          },
-          { status: 500 },
-        );
+        };
+
+        articlePromises.push(processPromise());
       }
     }
 
+    const results = await Promise.all(articlePromises);
+    const articles = results.filter((a): a is FetchedArticle => a !== null);
+
     return NextResponse.json({ articles });
+
   } catch (error) {
     console.error('Error fetching articles:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

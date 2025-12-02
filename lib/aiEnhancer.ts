@@ -1,18 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { ContentBlock } from '@/types/contentBlocks';
 import { Article } from '@/types/article';
-import { preCleanContent } from '@/lib/contentCleaner';
-
-interface EnhancedArticleContent {
-  title: string;
-  description: string;
-  rewrittenContent: string;
-  blocks: ContentBlock[];
-  tag: string;
-  region: string;
-  location: string;
-  improvements: string[];
-}
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
