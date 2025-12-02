@@ -54,10 +54,11 @@ import {
 import { getArticleUrl } from '@/utils/articleLinks';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import { formatDate } from '@/utils/formatDate';
+import { withAuth } from '@/hoc/withAuth';
 
 type SortableKeys = 'title' | 'date';
 
-export default function ArticlesListPage() {
+function ArticlesListPage() {
   const {
     data: articles,
     loading,
@@ -467,3 +468,4 @@ export default function ArticlesListPage() {
     </div>
   );
 }
+export default withAuth(ArticlesListPage, ['admin']);

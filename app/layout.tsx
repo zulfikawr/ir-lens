@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import ArticleContextProvider from '@/context/ArticleContext';
+import { AuthProvider } from '@/context/AuthContext';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
@@ -43,14 +44,16 @@ export default function RootLayout({
     <html lang='en' className='scroll-smooth'>
       <body>
         <ArticleContextProvider>
-          <Header />
-          <main>
-            {children}
-            <Analytics />
-            <SpeedInsights />
-            <Toaster />
-          </main>
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              <Analytics />
+              <SpeedInsights />
+              <Toaster />
+            </main>
+            <Footer />
+          </AuthProvider>
         </ArticleContextProvider>
       </body>
     </html>

@@ -13,6 +13,8 @@ export interface ArticleData {
   slug: string;
   headline?: boolean;
   views?: number;
+  authorId?: string;
+  status?: 'published' | 'pending' | 'rejected';
   blocks: ContentBlock[];
 }
 

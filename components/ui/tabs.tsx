@@ -13,8 +13,9 @@ const TabsList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
+    // Removed 'rounded-lg'/'rounded-md'
     className={cn(
-      'inline-flex h-9 items-center justify-center bg-muted p-1 text-muted-foreground',
+      'inline-flex h-10 items-center justify-center bg-gray-100 p-1 text-muted-foreground', // Increased height and used a light gray background for contrast
       className,
     )}
     {...props}
@@ -29,7 +30,10 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex items-center justify-center whitespace-nowrap px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow',
+      'inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-black',
+      'data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-none',
+      'hover:text-foreground/80 transition-colors',
+
       className,
     )}
     {...props}

@@ -26,6 +26,7 @@ import {
 import { getArticleUrl } from '@/utils/articleLinks';
 import { withAdminAuth } from '@/hoc/withAdminAuth';
 import { useArticleContext } from '@/hooks/useArticleContext';
+import { formatDate } from '@/utils/formatDate';
 
 const ArticleStats = () => {
   const { sortedArticles, articlesByTag, articlesByRegion } =
@@ -237,7 +238,9 @@ const ArticleStats = () => {
               >
                 {article.title}
               </a>
-              <p className='text-sm text-gray-500'>{article.date}</p>
+              <p className='text-sm text-gray-500'>
+                {formatDate(article.date)}
+              </p>
             </li>
           ))}
         </ul>

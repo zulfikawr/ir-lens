@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useArticleContext } from '@/hooks/useArticleContext';
 import { Calendar, MapPin } from 'lucide-react';
 import { getArticleUrl } from '@/utils/articleLinks';
+import { formatDate } from '@/utils/formatDate';
 
 const LatestArticle = () => {
   const { sortedArticles } = useArticleContext();
@@ -89,7 +90,9 @@ const LatestArticle = () => {
                   <div className='flex flex-wrap items-center justify-between text-gray-500 text-xs md:text-sm mb-4'>
                     <div className='flex items-center gap-2'>
                       <Calendar className='w-4 h-4' />
-                      <time dateTime={article.date}>{article.date}</time>
+                      <time dateTime={formatDate(article.date)}>
+                        {formatDate(article.date)}
+                      </time>
                     </div>
                     <div className='flex items-center gap-2'>
                       <MapPin className='w-4 h-4' />

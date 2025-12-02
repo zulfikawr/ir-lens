@@ -5,9 +5,12 @@ import {
   update,
   remove,
   runTransaction,
+  push,
 } from 'firebase/database';
 import { database } from '@/lib/firebase';
 import { Article } from '@/types/article';
+import { UserProfile } from '@/types/user';
+import { ContributorApplication } from '@/types/application';
 
 const getDateParts = (dateString: string) => {
   // Handle both ISO format (2025-12-01T...) and formatted string (1 December 2025)
@@ -136,6 +139,8 @@ export async function addArticle(article: Article): Promise<void> {
     slug: article.slug,
     views: 0,
     date: new Date(article.date).toISOString(), // Store as ISO format
+    authorId: article.authorId,
+    status: article.status || 'pending',
   };
 
   try {
@@ -248,6 +253,141 @@ export async function deleteDraftArticle(slug: string): Promise<void> {
     console.log('Draft article deleted:', slug);
   } catch (error) {
     console.error('Error deleting draft article:', error);
+    throw error;
+  }
+}
+
+export async function getUsers(): Promise<UserProfile[]> {
+  const usersRef = ref(database, 'users');
+  try {
+    const snapshot = await get(usersRef);
+    if (!snapshot.exists()) return [];
+    const users: UserProfile[] = [];
+    snapshot.forEach((childSnapshot) => {
+      users.push(childSnapshot.val());
+    });
+    return users;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+}
+
+export async function updateUserRole(
+  uid: string,
+  role: 'admin' | 'contributor' | 'user',
+): Promise<void> {
+  const userRef = ref(database, `users/${uid}`);
+  try {
+    await update(userRef, { role });
+    console.log(`User ${uid} role updated to ${role}`);
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    throw error;
+  }
+}
+
+export async function toggleUserSuspension(
+  uid: string,
+  suspended: boolean,
+): Promise<void> {
+  const userRef = ref(database, `users/${uid}`);
+  try {
+    await update(userRef, { suspended });
+    console.log(`User ${uid} suspension status updated to ${suspended}`);
+  } catch (error) {
+    console.error('Error updating user suspension:', error);
+    throw error;
+  }
+}
+
+export async function updateUserProfile(
+  uid: string,
+  data: Partial<UserProfile>,
+): Promise<void> {
+  const userRef = ref(database, `users/${uid}`);
+  try {
+    await update(userRef, data);
+    console.log(`User ${uid} profile updated`, data);
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    throw error;
+  }
+}
+
+export async function deleteUser(uid: string): Promise<void> {
+  const userRef = ref(database, `users/${uid}`);
+  try {
+    await remove(userRef);
+    console.log(`User ${uid} deleted`);
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+}
+
+// Application Functions
+export async function submitApplication(
+  data: Omit<ContributorApplication, 'id' | 'status' | 'date'>,
+): Promise<void> {
+  const applicationsRef = ref(database, 'applications');
+  const newApplicationRef = push(applicationsRef);
+
+  const application: ContributorApplication = {
+    ...data,
+    id: newApplicationRef.key!,
+    status: 'pending',
+    date: new Date().toISOString(),
+  };
+
+  try {
+    await set(newApplicationRef, application);
+    console.log('Application submitted:', application.id);
+  } catch (error) {
+    console.error('Error submitting application:', error);
+    throw error;
+  }
+}
+
+export async function getApplications(): Promise<ContributorApplication[]> {
+  const applicationsRef = ref(database, 'applications');
+  try {
+    const snapshot = await get(applicationsRef);
+    if (!snapshot.exists()) return [];
+    const applications: ContributorApplication[] = [];
+    snapshot.forEach((childSnapshot) => {
+      applications.push(childSnapshot.val());
+    });
+    return applications.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  } catch (error) {
+    console.error('Error fetching applications:', error);
+    return [];
+  }
+}
+
+export async function deleteApplication(id: string): Promise<void> {
+  const applicationRef = ref(database, `applications/${id}`);
+  try {
+    await remove(applicationRef);
+    console.log(`Application ${id} deleted`);
+  } catch (error) {
+    console.error('Error deleting application:', error);
+    throw error;
+  }
+}
+
+export async function createUserProfile(user: UserProfile): Promise<void> {
+  const userRef = ref(database, `users/${user.uid}`);
+  try {
+    const snapshot = await get(userRef);
+    if (!snapshot.exists()) {
+      await set(userRef, user);
+      console.log('User profile created:', user.uid);
+    }
+  } catch (error) {
+    console.error('Error creating user profile:', error);
     throw error;
   }
 }

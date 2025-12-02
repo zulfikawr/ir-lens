@@ -1,56 +1,7 @@
 import { NextResponse } from 'next/server';
 import { scrapeArticleContent } from '@/lib/articleScraper';
 import menuData from '@/json/menu.json';
-
-interface NewsApiSource {
-  id: string;
-  name: string;
-  region: string;
-  tag: string;
-}
-
-interface NewsApiArticle {
-  source: {
-    id: string | null;
-    name: string;
-  };
-  author: string | null;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string;
-  content: string | null;
-}
-
-interface FetchedArticle {
-  id: string;
-  title: string;
-  description: string;
-  author: string;
-  publishedAt: string;
-  urlToImage: string;
-  source: string;
-  content: string;
-  url: string;
-  tag: string;
-  region: string;
-}
-
-const NEWS_API_SOURCES: NewsApiSource[] = [
-  {
-    id: 'al-jazeera-english',
-    name: 'Al Jazeera English',
-    region: 'Middle East',
-    tag: 'Conflicts',
-  },
-  {
-    id: 'associated-press',
-    name: 'Associated Press',
-    region: 'Global',
-    tag: 'Diplomacy',
-  },
-];
+import { FetchedArticle, NEWS_SOURCES } from '@/types/newsApi';
 
 export async function GET(request: Request) {
   const articles: FetchedArticle[] = [];
@@ -195,11 +146,11 @@ export async function GET(request: Request) {
   try {
     // Filter sources based on selection
     const sourcesToFetch = selectedSource
-      ? NEWS_API_SOURCES.filter((s) => s.id === selectedSource)
-      : NEWS_API_SOURCES;
+      ? NEWS_SOURCES.filter((s) => s.id === selectedSource)
+      : NEWS_SOURCES;
 
     for (const source of sourcesToFetch) {
-      const pageSize = 5;
+      const pageSize = 9;
       const url = `https://newsapi.org/v2/top-headlines?sources=${source.id}&pageSize=${pageSize}`;
 
       try {
@@ -228,7 +179,8 @@ export async function GET(request: Request) {
               apiArticle.publishedAt || Date.now(),
             ).toISOString();
             const title = apiArticle.title || 'Untitled Article';
-            const tag = source.tag; // keep source default; AI can refine later
+            const tag = apiArticle.tag;
+            const region = apiArticle.region;
             const description = apiArticle.description
               ? apiArticle.description.slice(0, 200) + '...'
               : 'No description available';
@@ -253,9 +205,7 @@ export async function GET(request: Request) {
             const combinedText = `${title} ${apiArticle.description || ''} ${fullContent}`;
             const detectedTag =
               detectTag(combinedText) ||
-              (source.tag && menuData.tags.some((t) => t.title === source.tag)
-                ? source.tag
-                : null);
+              (tag && menuData.tags.some((t) => t.title === tag) ? tag : null);
             if (!detectedTag) {
               // skip articles that don't match allowed tags
               continue;
@@ -263,9 +213,8 @@ export async function GET(request: Request) {
 
             const detectedRegion =
               detectRegion(combinedText) ||
-              (source.region &&
-              menuData.regions.some((r) => r.title === source.region)
-                ? source.region
+              (region && menuData.regions.some((r) => r.title === region)
+                ? region
                 : 'Global');
 
             articles.push({
