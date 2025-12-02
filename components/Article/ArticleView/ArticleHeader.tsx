@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '@/components/ui/popover';
+import { formatDate } from '@/utils/formatDate';
 
 export function ArticleHeader({ article }: { article: Article }) {
   const { user } = useAuth();
@@ -101,7 +102,9 @@ export function ArticleHeader({ article }: { article: Article }) {
         <div className='grid grid-cols-1 md:flex md:flex-row gap-4 md:gap-8 text-sm md:text-base'>
           <div className='flex items-center gap-2 text-gray-600'>
             <Calendar className='w-5 h-5' />
-            <time dateTime={article.date}>{article.date}</time>
+            <time dateTime={formatDate(article.date)}>
+              {formatDate(article.date)}
+            </time>
           </div>
           <div className='flex items-center gap-2 text-gray-600'>
             <MapPin className='w-5 h-5' />

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { deleteArticle } from '@/lib/database';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Table,
   TableBody,
@@ -52,11 +53,17 @@ import {
 } from 'lucide-react';
 import { getArticleUrl } from '@/utils/articleLinks';
 import PageTitle from '@/components/PageTitle/PageTitle';
+import { formatDate } from '@/utils/formatDate';
 
 type SortableKeys = 'title' | 'date';
 
 export default function ArticlesListPage() {
-  const { data: articles, loading, error } = useArticleContext();
+  const {
+    data: articles,
+    loading,
+    error,
+    refreshArticles,
+  } = useArticleContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [articleToDelete, setArticleToDelete] = useState<{
@@ -69,6 +76,10 @@ export default function ArticlesListPage() {
     direction: 'asc' | 'desc';
   }>({ key: 'date', direction: 'desc' });
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [selectedArticles, setSelectedArticles] = useState<Set<string>>(
+    new Set(),
+  );
+  const [showBulkDeleteDialog, setShowBulkDeleteDialog] = useState(false);
 
   if (loading) {
     return <div>Loading articles...</div>;
@@ -82,19 +93,89 @@ export default function ArticlesListPage() {
     if (!articleToDelete) return;
 
     try {
+      console.log('Attempting to delete:', {
+        date: articleToDelete.date,
+        slug: articleToDelete.slug,
+      });
       await deleteArticle(articleToDelete.date, articleToDelete.slug);
+      console.log('Delete successful');
       toast({
         description: 'Article deleted successfully!',
         duration: 2000,
       });
       setArticleToDelete(null);
+      console.log('Refreshing articles...');
+      await refreshArticles();
+      console.log('Articles refreshed');
     } catch (error) {
       console.error('Error deleting article:', error);
+      const errorMsg = error instanceof Error ? error.message : String(error);
       toast({
-        description: 'Error deleting article!',
-        duration: 2000,
+        title: 'Error',
+        description: `Failed to delete: ${errorMsg}`,
+        duration: 3000,
         variant: 'destructive',
       });
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    try {
+      const toDelete = Array.from(selectedArticles);
+      const articlesToDelete = filteredArticles.filter((a) =>
+        toDelete.includes(a.slug),
+      );
+
+      console.log(
+        'Bulk deleting articles:',
+        articlesToDelete.map((a) => ({ slug: a.slug, date: a.date })),
+      );
+
+      for (const article of articlesToDelete) {
+        try {
+          await deleteArticle(article.date, article.slug);
+          console.log('Deleted:', article.slug);
+        } catch (err) {
+          console.error('Failed to delete article:', article.slug, err);
+        }
+      }
+
+      setSelectedArticles(new Set());
+      setShowBulkDeleteDialog(false);
+      toast({
+        description: `${articlesToDelete.length} article(s) deleted successfully!`,
+        duration: 2000,
+      });
+      console.log('Refreshing articles after bulk delete...');
+      await refreshArticles();
+      console.log('Articles refreshed');
+    } catch (error) {
+      console.error('Error in bulk delete:', error);
+      toast({
+        title: 'Error',
+        description: 'Error deleting articles!',
+        duration: 3000,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const toggleArticleSelection = (slug: string) => {
+    const newSelected = new Set(selectedArticles);
+    if (newSelected.has(slug)) {
+      newSelected.delete(slug);
+    } else {
+      newSelected.add(slug);
+    }
+    setSelectedArticles(newSelected);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedArticles.size === paginatedArticles.length) {
+      setSelectedArticles(new Set());
+    } else {
+      const allSlugs = new Set(paginatedArticles.map((a) => a.slug));
+      setSelectedArticles(allSlugs);
     }
   };
 
@@ -139,15 +220,6 @@ export default function ArticlesListPage() {
     });
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
-
   return (
     <div className='min-h-screen md:max-w-6xl mx-auto px-0 md:px-8 my-12 md:my-16'>
       <PageTitle
@@ -164,12 +236,53 @@ export default function ArticlesListPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className='w-full sm:max-w-md border border-gray-300 px-4 py-2 h-10 text-black placeholder-gray-500'
           />
+          {selectedArticles.size > 0 && (
+            <AlertDialog
+              open={showBulkDeleteDialog}
+              onOpenChange={setShowBulkDeleteDialog}
+            >
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant='destructive'
+                  onClick={() => setShowBulkDeleteDialog(true)}
+                  className='ml-auto'
+                >
+                  Delete ({selectedArticles.size})
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Selected Articles</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete {selectedArticles.size}{' '}
+                    article(s)? This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleBulkDelete}>
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
         </div>
 
         <div className='overflow-x-auto shadow-lg'>
           <Table className='w-full border border-black'>
             <TableHeader>
               <TableRow className='bg-gray-50 border border-black'>
+                <TableHead className='font-bold bg-black text-lg py-2 w-12'>
+                  <Checkbox
+                    checked={
+                      selectedArticles.size === paginatedArticles.length &&
+                      paginatedArticles.length > 0
+                    }
+                    onCheckedChange={toggleSelectAll}
+                    className='h-4 w-4'
+                  />
+                </TableHead>
                 {['Title', 'Date', 'Actions'].map((header, index) => (
                   <TableHead
                     key={header}
@@ -203,6 +316,15 @@ export default function ArticlesListPage() {
                   key={article.slug}
                   className='hover:bg-gray-50 transition-colors border border-black'
                 >
+                  <TableCell className='py-1.5 w-12'>
+                    <Checkbox
+                      checked={selectedArticles.has(article.slug)}
+                      onCheckedChange={() =>
+                        toggleArticleSelection(article.slug)
+                      }
+                      className='h-4 w-4'
+                    />
+                  </TableCell>
                   <TableCell className='text-black py-1.5'>
                     {article.title}
                   </TableCell>
@@ -243,6 +365,11 @@ export default function ArticlesListPage() {
                               <DropdownMenuItem
                                 onSelect={(e) => {
                                   e.preventDefault();
+                                  console.log('Article to delete:', {
+                                    slug: article.slug,
+                                    date: article.date,
+                                    rawArticle: article,
+                                  });
                                   setArticleToDelete({
                                     slug: article.slug,
                                     date: article.date,

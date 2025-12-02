@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { getArticles } from '@/lib/database';
 import { Article } from '@/types/article';
 import { ArticleContext } from '@/hooks/useArticleContext';
+import menuData from '@/json/menu.json';
 
 type ArticleContextProviderType = {
   children: React.ReactNode;
@@ -16,18 +17,18 @@ export default function ArticleContextProvider({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responseData = await getArticles();
-        setData(responseData);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const responseData = await getArticles();
+      setData(responseData);
+    } catch (err) {
+      setError(err as Error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -38,7 +39,7 @@ export default function ArticleContextProvider({
   }, [data]);
 
   const articlesByTag = useMemo(() => {
-    const tags = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
+    const tags = menuData.tags.map((t) => t.title);
     return tags.reduce(
       (acc, tag) => {
         acc[tag] = sortedArticles.filter((article) => article.tag === tag);
@@ -49,14 +50,7 @@ export default function ArticleContextProvider({
   }, [sortedArticles]);
 
   const articlesByRegion = useMemo(() => {
-    const regions = [
-      'Global',
-      'Asia',
-      'Europe',
-      'Middle East',
-      'Africa',
-      'Americas',
-    ];
+    const regions = menuData.regions.map((r) => r.title);
     return regions.reduce(
       (acc, region) => {
         acc[region] = sortedArticles.filter(
@@ -77,6 +71,7 @@ export default function ArticleContextProvider({
         articlesByRegion,
         loading,
         error,
+        refreshArticles: fetchData,
       }}
     >
       {children}

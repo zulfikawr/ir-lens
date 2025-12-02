@@ -1,8 +1,10 @@
 import { addArticle } from './database';
 import { Article } from '@/types/article';
-import { ContentBlock } from '@/types/contentBlocks';
+import { processArticleWithAI } from './aiEnhancer';
+import { scrapeArticleContent } from './articleScraper';
+import menuData from '@/json/menu.json';
 
-// --- Type definitions for clarity (no changes here) ---
+// --- Type definitions for API response ---
 interface NewsApiSource {
   id: string;
   name: string;
@@ -10,21 +12,7 @@ interface NewsApiSource {
   tag: string;
 }
 
-interface NewsApiArticle {
-  source: {
-    id: string | null;
-    name: string;
-  };
-  author: string | null;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string;
-  content: string | null;
-}
-
-// --- Define News API sources (no changes here) ---
+// --- Define News API sources ---
 const NEWS_API_SOURCES: NewsApiSource[] = [
   {
     id: 'al-jazeera-english',
@@ -32,85 +20,150 @@ const NEWS_API_SOURCES: NewsApiSource[] = [
     region: 'Middle East',
     tag: 'Conflicts',
   },
+  {
+    id: 'associated-press',
+    name: 'Associated Press',
+    region: 'Global',
+    tag: 'Diplomacy',
+  },
 ];
 
-// --- Helper Functions (no changes here) ---
-const generateSlug = (title: string): string => {
-  const baseSlug = title
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-  const timestamp = Date.now().toString().slice(-6);
-  return `${baseSlug}-${timestamp}`;
+// Simple keyword maps for tag/region detection (same logic as the API route)
+const tagKeywords: Record<string, string[]> = {
+  Diplomacy: [
+    'diplomacy',
+    'summit',
+    'talks',
+    'foreign minister',
+    'treaty',
+    'diplomatic',
+    'sanctions',
+  ],
+  Economy: [
+    'economy',
+    'economy',
+    'market',
+    'inflation',
+    'gdp',
+    'stock',
+    'stocks',
+    'trade',
+    'black friday',
+    'shopping',
+    'consumers',
+    'spending',
+  ],
+  Conflicts: [
+    'war',
+    'conflict',
+    'attack',
+    'strike',
+    'troops',
+    'missile',
+    'casualty',
+    'fighting',
+    'battle',
+    'invasion',
+  ],
+  Climate: [
+    'climate',
+    'warming',
+    'emissions',
+    'environment',
+    'cop',
+    'temperature',
+    'sea level',
+    'carbon',
+    'sustainability',
+  ],
 };
 
-const determineTag = (item: NewsApiArticle, defaultTag: string): string => {
-  const content = (item.content || item.description || '').toLowerCase();
-  const tagKeywords: Record<string, string[]> = {
-    Diplomacy: ['diplomacy', 'negotiations', 'treaty', 'summit', 'ambassador'],
-    Conflicts: ['conflict', 'war', 'battle', 'clash', 'militia', 'airstrike'],
-    Economy: ['economy', 'trade', 'market', 'finance', 'investment', 'stocks'],
-    Climate: [
-      'climate',
-      'environment',
-      'sustainability',
-      'emissions',
-      'warming',
-    ],
-  };
-  for (const [tag, keywords] of Object.entries(tagKeywords)) {
-    if (keywords.some((keyword) => content.includes(keyword))) {
-      return tag;
+const regionKeywords: Record<string, string[]> = {
+  Asia: [
+    'asia',
+    'china',
+    'india',
+    'japan',
+    'korea',
+    'south korea',
+    'north korea',
+    'taiwan',
+    'asean',
+    'southeast asia',
+  ],
+  Europe: [
+    'europe',
+    'eu',
+    'germany',
+    'france',
+    'uk',
+    'united kingdom',
+    'russia',
+    'poland',
+    'italy',
+    'spain',
+  ],
+  'Middle East': [
+    'middle east',
+    'israel',
+    'palestine',
+    'iran',
+    'iraq',
+    'syria',
+    'saudi',
+    'saudi arabia',
+    'uae',
+    'qatar',
+  ],
+  Africa: [
+    'africa',
+    'nigeria',
+    'kenya',
+    'ethiopia',
+    'egypt',
+    'south africa',
+    'algeria',
+  ],
+  Americas: [
+    'united states',
+    'u.s.',
+    'us',
+    'canada',
+    'brazil',
+    'mexico',
+    'america',
+    'argentina',
+    'chile',
+    'colombia',
+  ],
+  Global: ['global', 'world', 'international'],
+};
+
+function detectTag(text: string): string | null {
+  const lc = text.toLowerCase();
+  for (const tagObj of menuData.tags) {
+    const tag = tagObj.title;
+    const kws = tagKeywords[tag as keyof typeof tagKeywords] || [];
+    for (const kw of kws) {
+      if (lc.includes(kw)) return tag;
     }
   }
-  return defaultTag;
-};
+  return null;
+}
 
-const createArticleFromNews = (
-  item: NewsApiArticle,
-  source: NewsApiSource,
-): Article => {
-  const date = new Date(item.publishedAt || Date.now()).toISOString();
-  const title = item.title || 'Untitled Article';
-  const slug = generateSlug(title);
-  const tag = determineTag(item, source.tag);
-  const description = item.description
-    ? item.description.slice(0, 200) + '...'
-    : 'No description available';
-  const contentText =
-    item.content || item.description || 'Content not available.';
-  const blocks: ContentBlock[] = [
-    { type: 'heading', heading: title },
-    { type: 'text', text: contentText },
-    {
-      type: 'quote',
-      quote: description,
-      spokesperson: item.author || 'News Source',
-      role: source.name,
-    },
-  ];
-  const coverImg = item.urlToImage || '/default-cover.jpg';
-  const coverImgAlt = item.urlToImage
-    ? `Image from ${source.name} article: ${title}`
-    : 'Default news cover image';
-  return {
-    title,
-    description,
-    date,
-    location: source.region,
-    tag,
-    region: source.region,
-    coverImg,
-    coverImgAlt,
-    slug,
-    headline: false,
-    views: 0,
-    blocks,
-  };
-};
+function detectRegion(text: string): string | null {
+  const lc = text.toLowerCase();
+  for (const regionObj of menuData.regions) {
+    const region = regionObj.title;
+    const kws = regionKeywords[region as keyof typeof regionKeywords] || [];
+    for (const kw of kws) {
+      if (lc.includes(kw)) return region;
+    }
+  }
+  return null;
+}
 
-// --- Main Fetching Function (REWRITTEN) ---
+// --- Main Fetching Function (AI-powered) ---
 export async function fetchAndProcessNews(): Promise<
   Array<
     | { source: string; articlesAdded: number }
@@ -123,12 +176,10 @@ export async function fetchAndProcessNews(): Promise<
   > = [];
 
   for (const source of NEWS_API_SOURCES) {
-    // 1. Construct the API URL
     const pageSize = 5;
     const url = `https://newsapi.org/v2/top-headlines?sources=${source.id}&pageSize=${pageSize}`;
 
     try {
-      // 2. Make a direct fetch request with the API key in the header
       const response = await fetch(url, {
         headers: {
           'X-Api-Key': process.env.NEWS_API_KEY!,
@@ -136,29 +187,78 @@ export async function fetchAndProcessNews(): Promise<
       });
 
       if (!response.ok) {
-        // If the response status is not 200-299, throw an error
         const errorData = await response.json();
         throw new Error(
           `News API error: ${errorData.message || response.statusText}`,
         );
       }
 
-      // 3. Parse the JSON data
       const data = await response.json();
 
-      // 4. Process the articles (same logic as before)
       const newArticles: Article[] = [];
       for (const apiArticle of data.articles) {
         try {
           if (apiArticle.title === '[Removed]' || !apiArticle.description) {
             continue;
           }
-          const article = createArticleFromNews(
-            apiArticle as NewsApiArticle,
-            source,
+
+          // Scrape full content from URL
+          let fullContent = apiArticle.content || apiArticle.description || '';
+          if (apiArticle.url) {
+            try {
+              const scrapedData = await scrapeArticleContent(apiArticle.url);
+              if (scrapedData && scrapedData.content.length > 200) {
+                fullContent = scrapedData.content;
+              }
+            } catch (scrapeError) {
+              console.warn(`Failed to scrape ${apiArticle.url}:`, scrapeError);
+            }
+          }
+
+          // Determine tag/region from content and fallbacks
+          const title = apiArticle.title || 'Untitled Article';
+          const combinedText = `${title} ${apiArticle.description || ''} ${fullContent}`;
+          const detectedTag =
+            detectTag(combinedText) ||
+            (source.tag && menuData.tags.some((t) => t.title === source.tag)
+              ? source.tag
+              : null);
+          if (!detectedTag) {
+            // skip articles that don't match allowed tags
+            continue;
+          }
+
+          const detectedRegion =
+            detectRegion(combinedText) ||
+            (source.region &&
+            menuData.regions.some((r) => r.title === source.region)
+              ? source.region
+              : 'Global');
+
+          // Process article with AI (all cleaning, rewriting, structuring)
+          const article = await processArticleWithAI(
+            apiArticle.title || 'Untitled Article',
+            fullContent,
+            source.name,
+            detectedRegion,
           );
-          await addArticle(article);
-          newArticles.push(article);
+
+          // ensure the AI-assigned tag is within allowed tags; if not, use detectedTag
+          if (article) {
+            if (
+              article.tag &&
+              !menuData.tags.some((t) => t.title === article.tag)
+            ) {
+              article.tag = detectedTag;
+            } else if (!article.tag) {
+              article.tag = detectedTag;
+            }
+
+            if (!article.region) article.region = detectedRegion;
+
+            await addArticle(article);
+            newArticles.push(article);
+          }
         } catch (error) {
           console.error(
             `Error processing article "${apiArticle.title}":`,

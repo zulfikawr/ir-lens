@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { handleImageUpload } from '@/utils/blockUtils';
+import menuData from '@/json/menu.json';
 
 interface ArticleHeaderProps {
   article: Article;
@@ -55,15 +56,8 @@ export function ArticleHeader({ article, onUpdate }: ArticleHeaderProps) {
   const coverImgAltRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
 
-  const tags = ['Diplomacy', 'Conflicts', 'Economy', 'Climate'];
-  const regions = [
-    'Global',
-    'Asia',
-    'Europe',
-    'Middle East',
-    'Africa',
-    'Americas',
-  ];
+  const tags = menuData.tags.map((t) => t.title);
+  const regions = menuData.regions.map((r) => r.title);
 
   const handleimgUrlSubmit = () => {
     onUpdate({ coverImg: imgUrlInput });

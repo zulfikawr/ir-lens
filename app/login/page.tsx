@@ -40,7 +40,7 @@ export default function LoginPage() {
 
       markUserAsAdmin(user.uid);
 
-      window.location.href = '/';
+      window.location.href = '/dashboard';
     } catch (err) {
       setError('Invalid email or password');
     }

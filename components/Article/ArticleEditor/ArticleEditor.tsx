@@ -6,6 +6,7 @@ import { FileText, Eye, Save, Trash } from 'lucide-react';
 import { useArticleState } from '@/hooks/useArticleState';
 import { ArticleHeader } from './ArticleHeader';
 import { ContentBlocks } from './ContentBlocks';
+import { NewsArticleModal } from './NewsArticleModal';
 import { useToast } from '@/hooks/useToast';
 import {
   AlertDialog,
@@ -292,7 +293,17 @@ export default function ArticleEditor({
         {/* Button Container */}
         <div className='w-full md:w-auto flex flex-col md:flex-row justify-center md:justify-end gap-2'>
           {/* Mobile: Buttons Centered Below | Desktop: Buttons on the Right */}
-          <div className='w-full flex flex-row justify-center gap-2'>
+          <div className='w-full flex flex-row justify-center gap-2 flex-wrap'>
+            <NewsArticleModal
+              onSelectArticle={(selectedArticle) => {
+                updateArticle(selectedArticle);
+                toast({
+                  description: 'Article populated from news!',
+                  duration: 2000,
+                });
+              }}
+            />
+
             <Button
               onClick={handlePreview}
               className='flex items-center gap-2 justify-center'

@@ -6,6 +6,7 @@ import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getArticleUrl } from '@/utils/articleLinks';
 import { Article } from '@/types/article';
+import { formatDate } from '@/utils/formatDate';
 
 interface ArticleCardProps {
   article: Article;
@@ -43,7 +44,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <div className='flex flex-row md:flex-col gap-4 md:gap-0'>
             <MetadataItem
               icon={<Calendar className='w-3 h-3' />}
-              text={article.date}
+              text={formatDate(article.date)}
             />
             <MetadataItem
               icon={<MapPin className='w-3 h-3' />}

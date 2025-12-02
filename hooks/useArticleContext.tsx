@@ -8,6 +8,7 @@ type ArticleContextType = {
   articlesByRegion: Record<string, Article[]>;
   loading: boolean;
   error: Error | null;
+  refreshArticles: () => Promise<void>;
 };
 
 export const ArticleContext = createContext<ArticleContextType | null>(null);
